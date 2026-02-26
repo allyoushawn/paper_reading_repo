@@ -159,14 +159,14 @@ ESCM²-IPS is exactly **importance sampling with an estimated propensity**. The 
 
 The IPS CVR term is (conceptually):
 
-\[
+$$
 \mathbb{E}\left[ \frac{o \cdot \delta(r, \hat{r})}{\hat{o}} \right]
-\]
+$$
 
-For a clicked example \(o = 1\), the per-sample weight is \(w = 1/\hat{o}\).
+For a clicked example $o = 1$, the per-sample weight is $w = 1/\hat{o}$.
 
-- If \(\hat{o} = 10^{-2}\), weight is **100**
-- If \(\hat{o} = 10^{-4}\), weight is **10,000**
+- If $\hat{o} = 10^{-2}$, weight is **100**
+- If $\hat{o} = 10^{-4}$, weight is **10,000**
 
 So a small subset of examples with tiny predicted CTR can **dominate the gradient**. This causes:
 
@@ -174,28 +174,28 @@ So a small subset of examples with tiny predicted CTR can **dominate the gradien
 - **Training instability** (loss spikes, oscillation)
 - **Overfitting** to rare, high-weight samples
 
-If \(\hat{o}\) is itself noisy early in training, instability gets worse. This is not unique to ESCM²; it’s the **standard IPS pathology**.
+If $\hat{o}$ is itself noisy early in training, instability gets worse. This is not unique to ESCM²; it’s the **standard IPS pathology**.
 
 ### “Division explode” vs “variance explode”
 
-Even if the loss doesn’t go to infinity (because \(\hat{o}\) rarely hits exactly 0), you still get **heavy-tailed weights → variance explosion**. In practice the effect feels like “exploding” updates.
+Even if the loss doesn’t go to infinity (because $\hat{o}$ rarely hits exactly 0), you still get **heavy-tailed weights → variance explosion**. In practice the effect feels like “exploding” updates.
 
 ### What ESCM² (and basically everyone) does to make IPS usable
 
 Standard stabilizers:
 
 1. **Propensity clipping (weight clipping)**  
-   Use \(w = 1 / \max(\hat{o}, \epsilon)\) or clip weights: \(w = \min(1/\hat{o}, w_{\max})\).  
+   Use $w = 1 / \max(\hat{o}, \epsilon)$ or clip weights: $w = \min(1/\hat{o}, w_{\max})$.  
    This bounds gradient magnitude. Bias increases slightly, but variance drops massively (usually worth it).
 
-2. **Stop-gradient through \(\hat{o}\) in the IPS term**  
-   If gradients flow into the CTR tower via \(1/\hat{o}\), the CTR tower may “cheat” by inflating \(\hat{o}\) just to reduce the IPS penalty, harming CTR calibration and breaking the intended meaning of propensity. So \(\hat{o}\) is treated as a **constant** in that term.
+2. **Stop-gradient through $\hat{o}$ in the IPS term**  
+   If gradients flow into the CTR tower via $1/\hat{o}$, the CTR tower may “cheat” by inflating $\hat{o}$ just to reduce the IPS penalty, harming CTR calibration and breaking the intended meaning of propensity. So $\hat{o}$ is treated as a **constant** in that term.
 
 3. **Warm-start / delayed IPS**  
-   Train ESMM (or CTR+CTCVR) first until \(\hat{o}\) is reasonable, then turn on IPS regularization. Otherwise early noisy \(\hat{o}\) gives garbage weights.
+   Train ESMM (or CTR+CTCVR) first until $\hat{o}$ is reasonable, then turn on IPS regularization. Otherwise early noisy $\hat{o}$ gives garbage weights.
 
 4. **Self-normalized IPS (sometimes)**  
-   Normalize weights within batch: \(\sum w_i \delta_i / \sum w_i\). More stable but introduces bias.
+   Normalize weights within batch: $\sum w_i \delta_i / \sum w_i$. More stable but introduces bias.
 
 ### Why ESCM²-DR exists
 
@@ -203,7 +203,7 @@ IPS is unbiased but high variance; **DR** trades some modeling complexity for mu
 
 ### Practical rule of thumb
 
-- If your CTR range includes many examples with \(\hat{o} < 10^{-4}\) (common in ads / large candidate sets), IPS will be nasty unless **clipped** and **warmed-up**.
-- If you already heavily gate candidates (so \(\hat{o}\) is not extremely small), IPS is much more manageable.
-- For a given CTR distribution (median / p10 / p1), tune \(\epsilon\), \(w_{\max}\), and warmup schedule accordingly.
+- If your CTR range includes many examples with $\hat{o} < 10^{-4}$ (common in ads / large candidate sets), IPS will be nasty unless **clipped** and **warmed-up**.
+- If you already heavily gate candidates (so $\hat{o}$ is not extremely small), IPS is much more manageable.
+- For a given CTR distribution (median / p10 / p1), tune $\epsilon$, $w_{\max}$, and warmup schedule accordingly.
 
