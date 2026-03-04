@@ -77,6 +77,20 @@ Highly deployable. The architecture is a straightforward modification of the sta
 
 ## 4. Novelty vs. Prior Work
 
+### DIN activation unit vs. Transformer-style cross-attention
+
+A useful modern lens: DIN’s “local activation unit” is essentially a **single cross-attention pooling layer** where the **candidate item/ad acts like the query** and the **user history items act like keys/values**. It computes a relevance weight for each history item given the candidate, then forms a candidate-aware user vector via a weighted sum.
+
+Key differences vs. a vanilla Transformer attention block:
+- **Scoring function:** DIN uses an MLP over interaction features (commonly **[q, k, q−k, q⊙k]**) rather than a dot-product score. This is closer to additive/learned matching and can be more expressive for sparse-ID embeddings.
+- **Normalization:** The paper emphasizes **no softmax normalization** to preserve “interest intensity” (though the author repo applies softmax). Standard Transformer attention uses softmax by default unless modified.
+- **Simplicity/serving:** DIN is a minimal, plug-in module for Embedding+MLP CTR stacks (single cross-attention-like pooling + small MLP), avoiding multi-head projections, residual stacks, etc., which mattered for 2018 industrial serving.
+- **Order modeling:** Plain DIN mostly treats history as a set (order-light) unless augmented with recency/position features. Transformers (especially with self-attention encoders) naturally model **sequence dynamics** and history-to-history interactions.
+
+Practical takeaway: DIN’s activation unit is **not strictly necessary** if you can deploy a cross-attention block; it is best viewed as an early, production-friendly instantiation of candidate-aware attention. Use Transformer-style models when you need stronger temporal dynamics or richer sequence modeling; use DIN-style cross-attention pooling when you mainly need efficient candidate-aware history aggregation.
+
+## 4. Novelty vs. Prior Work
+
 **Paper's claimed novelty:**
 1. First to apply ad-aware attention over user behavior sequences for CTR prediction, producing a **varying** user representation per candidate ad.
 2. Relaxation of the softmax normalization constraint to preserve interest intensity.
