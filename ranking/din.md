@@ -20,7 +20,16 @@
 
 **Methodology:** DIN modifies the standard Embedding&MLP pipeline by replacing the sum/average pooling over user behavior embeddings with an attention-weighted sum. The attention unit takes the outer product of the behavior embedding and the candidate ad embedding, feeding it through a small feed-forward network to produce scalar attention weights. Crucially, softmax normalization is **not** applied — raw weights preserve the intensity of interest.
 
-**Implementation note (author repo):** The authors’ GitHub reference implementation does **not** compute a full d×d outer product matrix. Instead it builds interaction features as a concatenation of **[candidate, history, candidate−history, candidate⊙history]** (⊙ = element-wise product) before the attention MLP, which is much cheaper than a true outer product. For training, MBA regularization only penalizes embeddings of features appearing in the current mini-batch, and Dice uses batch statistics to shift the activation function's rectification point.
+**Implementation note (author repo):** The authors’ GitHub reference implementation does **not** compute a full d×d outer product matrix. Instead it builds interaction features as a concatenation of **[candidate, history, candidate−history, candidate⊙history]** (⊙ = element-wise product) before the attention MLP, which is much cheaper than a true outer product.
+
+**Concept note — what “same space” means (numeric features vs embeddings):**
+- Categorical IDs are represented as dense vectors via embedding lookup (e.g., item_id → **e_item ∈ R^d**).
+- If age is a raw scalar (**a ∈ R**), then the model sees:
+  - a single number with a totally different scale/shape than the embeddings.
+  - you *can* concatenate it with embeddings, but then:
+    - interactions like “this age range matters for this category/item” must be learned via MLP weights that mix one scalar with many embedding dimensions.
+    - the model first needs to learn good scalings and nonlinear transforms of that scalar.
+- If you bucket age and embed it (age_bucket → **e_age ∈ R^d**), it becomes the same *kind* of representation as other sparse features, making feature interactions easier to learn.
 
 **Main results:**
 - On Amazon Electronics: AUC 0.8871 (DIN+Dice), 6.82% RelaImpr over BaseModel.
