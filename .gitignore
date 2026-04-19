@@ -1,2 +1,8 @@
 # PDF downloads — stored locally for reading, not tracked in git
 literature-survey/**/*.pdf
+
+# Key-free zone (see SECRETS.md). Defensive gitignore for credential-shaped filenames.
+gemini_api_key
+openai_api_key
+*_api_key
+*_key
