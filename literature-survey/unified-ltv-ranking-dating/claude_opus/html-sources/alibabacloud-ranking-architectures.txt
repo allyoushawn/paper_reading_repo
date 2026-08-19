@@ -1,0 +1,104 @@
+SOURCE URL: https://www.alibabacloud.com/blog/recommender-system-ranking-algorithms-and-training-architectures_596643
+
+Recommender System: Ranking Algorithms and Training Architectures - Alibaba Cloud Community
+Community
+Blog
+Events
+Webinars
+Tutorials
+Forum
+Blog
+Events
+Webinars
+Tutorials
+Forum
+Create Account
+Log In
+Community
+Blog
+Recommender System: Ranking Algorithms and Training Architectures
+Recommender System: Ranking Algorithms and Training Architectures
+Alibaba Clouder
+September 17, 2020
+24,007
+In this article, Alibaba technical expert Aohai introduces the ranking algorithms and training architectures of a recommender system, specifically.
+Are you an AI enthusiast with a keen eye on innovation? Sign up for the
+Alibaba Cloud Global AI Innovation Challenge
+and win big!
+Sign Up Here >>
+GarvinLi
+In this article, Alibaba technical expert Aohai introduces the ranking algorithms and training architectures of a recommender system, specifically, the introduction of the ranking module in a recommender system, ranking algorithms, and online and offline training architectures for a ranking model.
+1) The Ranking Module in a Recommender System
+In the series of articles for building an enterprise-level recommender system, we have introduced how to design the overall architecture of an enterprise-level recommender system in the first article, and the matching algorithms and their meanings in the second article. In this article, we will introduce the ranking algorithms of a recommender system and the features of the online and offline training architectures for a ranking model. First, let's review the following figure to learn about the ranking module in a recommender system. When a user visits a platform, the user will find a large number of items. Therefore, we need to filter out items that the user may like. The matching module provides a preliminary filtering to narrow down the item list delivered to the ranking module.
+Specifically, the matching module first selects a small proportion of items that the user may like from a huge number of items. For example, the platform has 100,000 items, and the matching module filters out 500 items that the user may like. Then, the ranking module ranks these items based on the user's preferences. To rank the 500 items from the user's favorite to the least favorite, we need a ranking algorithm, which can provide a rank of the items based on user and item properties.
+2) An Introduction to Ranking Algorithms
+This section describes the types of ranking algorithms, the training process of a ranking model, and training architectures. With the development of deep learning, ranking algorithms have been gradually integrated with deep learning. The following figure shows the typical ranking algorithms. The first is logistic regression (LR), which is a widely used algorithm. It is the most classic linear binary algorithm in the industry. It is easy to use, has low requirements for the computation power, and has good model interpretability. The second is Factorization Machine (FM), which has been applied to a large number of customer scenarios over the past one or two years and achieved a good performance. It uses the inner product method to enhance feature representation. The third is LR that uses gradient boosted decision trees (GBDTs) and feature encoding to enhance interpretability of data features. The fourth is the DeepFM algorithm, which is also a deep learning algorithm that is widely used. It combines deep learning and classic machine learning algorithms. If you attempt to build a recommender system for the first time, we recommend that you first try simple algorithms and then use complex algorithms. The preceding algorithms have been embedded to
+Machine Learning Platform for AI
+(PAI) and can be used as plug-ins.
+3) Offline Training Architecture of a Ranking Model
+This section describes how you can train a ranking model. A ranking model can be trained online or offline, and we will first introduce offline training.
+Offline training uses T – 1 data. Specifically, the models used for businesses today are trained based on data from before today. Offline training allows you to integrate a large amount of historical data to one data warehouse, train a model based on features and data of all samples, and verify the trained model offline. You can then use the verified model online the next day, which ensures security and good performance. The following figure provides an offline model training architecture. Currently, almost all customers train ranking models offline. If you want to perform real-time training, you will face great challenges in the architecture.
+4) Online Training Architecture of a Ranking Model
+We will focus on the online model training. What are the benefits and features of online model training when compared with offline model training? Offline training uses T – 1 or T – 2 data and does not make use of online real-time behavior data. For example, our platform launches an activity targeting only girls under 14 years old. However, the platform has a large number of customers in other ages, and the interactive behavior of the whole platform is changed. If you still use T – 1 data to train a model, you cannot perceive online businesses in a timely manner. Online training can solve this problem. The following figure shows the online model training process. Online model training allows you to use real-time online data to train a model based on the real-time machine learning model training framework. Even though real-time data is used for online training, your model training does not start from scratch. The model is first trained offline and then optimized based on real-time data. This is an online training architecture for a ranking model, which must have the following three features: First, it is streaming model training based on the Flink framework. Second, it uses the model generated in real time to evaluate the model performance. Third, it has the online model rollback and version management capabilities. You can have a complete online model training architecture only when the architecture you build has the preceding features.
+Learn more about Alibaba Cloud Machine Learning Platform for AI (PAI) at
+https://www.alibabacloud.com/product/machine-learning
+The views expressed herein are for reference only and don't necessarily represent the official views of Alibaba Cloud.
+Algorithm
+Deep Learning
+Machine Learning
+Stream Computing
+Search Recommendation
+Share on
+Read previous post:
+Basic Concepts and Architecture of a Recommender System
+Read next post:
+Recommender System: Online Service Orchestration and Architecture
+Alibaba Clouder
+2,593 posts | 795 followers
+Follow
+You may also like
+Getting Started with Recommendation System
+Alibaba Clouder - May 11, 2021
+What is Recommender System Based on Machine Learning? How to Build One?
+Alibaba Clouder - September 25, 2020
+Basic Concepts and Architecture of a Recommender System
+Alibaba Clouder - September 17, 2020
+Recommender System: Online Service Orchestration and Architecture
+Alibaba Clouder - September 17, 2020
+Building a PAI-based Recommender System within 10 Minutes
+Alibaba Clouder - September 17, 2020
+M2GRL: A Multi-Task Multi-View Graph Representation Learning Framework for Web-Scale Recommender Systems
+Alibaba Clouder - October 15, 2020
+Comments
+Post
+Alibaba Clouder
+2,593 posts |
+795
+followers
+Follow
+Related Products
+Platform For AI
+A platform that provides enterprise-level data modeling services based on machine learning algorithms to quickly meet your needs for data-driven operations.
+Learn More
+Epidemic Prediction Solution
+This technology can be used to predict the spread of COVID-19 and help decision makers evaluate the impact of various prevention and control measures on the development of the epidemic.
+Learn More
+Online Education Solution
+This solution enables you to rapidly build cost-effective platforms to bring the best education to the world anytime and anywhere.
+Learn More
+Accelerated Global Networking Solution for Distance Learning
+Alibaba Cloud offers an accelerated global networking solution that makes distance learning just the same as in-class teaching.
+Learn More
+More Posts
+by Alibaba Clouder
+See All
+MyBatis with a More Fluent Experience
+Alibaba Cloud Sustainability Report 2021
+Comparing CNI Models in Container Service for Kubernetes — Alibaba Cloud Series Part 1
+[Infographic] 5 Steps to Accelerate Your Digitalization in Asia
+Attackers Use the Vulnerability of ShowDoc to Spread Botnets
+Powerful: MyBatis and Three Streaming Query Methods
+What is the Difference between Spring Boot and Spring?
+What are the Differences and Functions of the Redo Log, Undo Log, and Binlog in MySQL?
+On the In-Depth Cluster Scheduling and Management
+Alibaba Technological Practices: Experiences in Cloud Resource Scheduling

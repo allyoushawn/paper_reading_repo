@@ -1,0 +1,129 @@
+# Notebook source inventory (2026-08-16)
+
+Notebook: `two-sided-market-balancing-dating` (`d3071ac8-16ef-4460-8991-7701679974c8`)
+Source count at start of cursor-grok run: **119**
+Duplicates observed: Thumbtack instant-matching blog (2), Mehrotra CIKM PDF (2), arXiv 2306.14712 (2)
+
+This file is a working index for the cursor-grok workplace. Shared `README.md` / `requirements.md` are not rewritten.
+
+## Sources (id — title)
+
+- aad314c0-211d-46c7-b208-cf3fc48928ba — 2018 (Airbnb) (KDD) *[Airbnb Embedding] Real-time Personalization using Embeddings for Search Ranking at Airbnb.pdf
+- bd467e2e-7916-4df1-8cfe-ed50b6d7188e — 3_powerful_features_of_ziprecruiter_s_search.txt
+- b0bf71c0-91b5-4806-aa47-ae062de27e76 — A Better Match for Drivers and Riders: Reinforcement Learning at Lyft - arXiv
+- f066725b-f69b-4d77-84b4-595cbda7c9b5 — A Pigouvian Approach to Congestion in Matching Markets | IZA@LISER Network
+- 406bf239-83ed-4d9c-851f-bbefc3144492 — A closer look at how LinkedIn integrates fairness into its AI products
+- c60a97fd-d38e-4c59-a1f3-3cf84e8abaf1 — Automated Decision Making at Grindr | Grindr
+- 1dccf951-fbf2-453e-845b-277d30f7c9f9 — Balanced Neighborhoods for Multi-sided Fairness in Recommendation - PMLR
+- 6a44f3f3-e515-418d-abe7-3734c067e731 — Balancing Fairness and High Match Rates in Reciprocal Recommender Systems: A Nash Social Welfare Approach - arXiv
+- a029e228-8668-426e-84fe-249d0fa9d407 — Building Representative Talent Search at LinkedIn
+- 72b12e20-b22c-44df-8084-499d857af2dc — Building a Large-Scale Recommendation System: People You May Know
+- 3c046693-7a3e-41c4-a3bc-b45bcfd66487 — Choosing an algorithmic fairness metric for an online marketplace - YinYin Yu - arXiv
+- 4c32184b-55e9-40eb-a974-bfa62b146c1e — Congestion and Information Design in Matching Markets
+- 665bad41-0c99-4bf2-a309-0402df4ca828 — Counterfactual Reciprocal Recommender Systems for User-to-User Matching - arXiv
+- e2743fe8-7433-4eac-87f4-6f54d2c8e1b9 — Creator-Side Recommender System: Challenges, Designs, and Applications - arXiv
+- 16e0e255-7244-493f-a3fe-2bb5c8f4ba13 — Data Science of Love | PDF
+- 733a9204-805a-4e36-9be7-120f1a3531dd — Designing Recommendation Exposure and Favorite Lists: A Field Experiment in a Spot-Work Platform - arXiv
+- 2ff277b6-5d4a-4a88-bb0d-abf7c2e12c03 — Dr. Steve Liu, Chief Scientist, Tinder at MLconf SF 2017 | PDF
+- 1c575967-a9b1-455b-b600-55b4e8c63b9a — Explainable Reciprocal Recommender System for Affiliate–Seller Matching - MDPI
+- 8c1b6d85-d596-43e5-b100-59d35db770a2 — Fairness in Job Recommendation under Quantity Constraints
+- 8c15aeab-44c5-42cb-9db5-5f3a11792991 — Hinge employs new algorithm to find your 'most compatible' match | TechCrunch
+- dc9b9201-8782-4615-8aaa-61a69421d536 — Integrating Predictive Models into Two-Sided Recommendations: A Matching-Theoretic Approach - arXiv
+- 7769d47d-4384-40f0-a420-f908267d6771 — Interview choice reveals your preference on the market (job-resume matching)
+- 7ee84a11-660e-4b2b-bbf1-571830ea4937 — Introducing Smart Photos - Tinder Newsroom
+- 09c242a3-9dbf-4ff9-bd55-9c33515a981a — It takes two to tango: desirability on a mobile dating app - PMC
+- eeb5deb6-cf7d-4b0b-a452-2f18e4e060d1 — Joint Multisided Exposure Fairness for Recommendation - Microsoft
+- 8c7171c0-8609-4e5c-879b-b5e6473767b1 — KDD 2022 Workshop on Decision Intelligence and Analytics for Online Marketplaces
+- 706fe50d-ca71-4ce7-b13c-2b09dbdcc978 — MODE: Mutual Optimality in Direct Effects of Reciprocal Recommendations - arXiv
+- a58bf722-6ff1-450c-815e-0fd370d50c89 — Managing Congestion in a Matching Market via Demand Information Disclosure
+- b3f30d97-a9ba-4226-a79a-44ee4192910a — Marketplace Analytics: Balancing Supply, Demand, and Liquidity Metrics - KISSmetrics
+- 8c073ae4-0c30-498e-86a1-5144bbccd4d8 — Matching Market Design with Constraints
+- c5479a0f-7b8c-40be-a830-212326305de6 — Mr. Right or Mr. Best: The Role of Information Under Preference Mismatch in Online Dating
+- e340a22d-a272-41eb-8ac6-c9c6eca9b599 — Parallel and Mini-Batch Stable Matching for Large-Scale Reciprocal Recommender Systems - arXiv
+- e0ef0297-acaa-4d43-80e5-1f8fdb9da14e — Policy Design for Two-sided Platforms with Participation Dynamics
+- 9bdcac0f-65a3-44e8-aaa2-24f0c1bcb3a4 — Powering Tinder® — The Method Behind Our Matching- 2019-03-15
+- 934ebdb0-fe31-4828-b42e-9a2bceb2e104 — Powering recommendation models using Amazon ElastiCache for Redis at Coffee Meets Bagel
+- 1c0f9a09-5e17-4a74-ba49-ad3db5c05989 — Prediction and Congestion in Two-Sided Markets: Economist versus Machine Matchmakers
+- bf49347b-e728-459a-8b9f-85ee20db9f6c — RecSys 2025 - Accepted Contributions
+- 4ea2fce9-31fa-4249-bd4f-a2cb6b5dbce8 — Recommendations in a Marketplace | Spotify Research
+- 3b294ea0-7a61-494a-ab51-b6aff71c3e48 — Reinforcement Learning for Modeling Marketplace Balance
+- dc89f2b8-f718-42a0-8180-c50eeea57d25 — SED468 - Thumbtack Marketplace Evolution - Software Engineering Daily
+- 49771075-24a9-454e-b43e-dc50a8a0dc8a — Salience and Market-aware Skill Extraction for Job Targeting - arXiv
+- fa328baa-5106-4403-933d-d7f9de52c61a — Strategic Behavior in Two-sided Matching Markets with Recommendation-enhanced Preference-formation - NIPS
+- 5676baa4-9255-40ab-aa6f-f92806721dcc — TSMO 2025 - Google Sites
+- ef5834f7-2122-4ddd-93cb-914c2b4d5edf — Tinder's migration to Elasticsearch 8
+- bf792841-3d1c-4d77-881b-acea7346127d — Towards a Fair Marketplace | Spotify Research
+- 1d391169-5c4c-4583-b61e-6451aa0199f2 — Two-Sided Time-Independent Regret for Matching Markets with Limited Interviews - arXiv
+- 254165eb-d1bc-4762-bde2-c94b7ae4a468 — Understanding Guest Preferences and Optimizing Two-sided Marketplaces: Airbnb as an Example - arXiv
+- 722d4cc7-0e2f-491b-9202-f06fe18ce014 — User Fairness, Item Fairness, and Diversity for Rankings in Two-Sided Markets
+- 4ade17eb-c333-43ff-8244-79b8a3bcbe91 — Using Bayesian optimization for balancing metrics in recommendation systems
+- a979c5f5-1b56-4ab1-a30b-3f03a06a2d31 — Using Recommendations To Balance Demand and Supply in Two-Sided Marketplaces - OpenReview
+- 0873a0e7-21ef-4ae0-985a-b00cd3a5f676 — What AI Principles Teach Us About Finding Love
+- 7254c174-e1fa-44e9-9026-b1cab56a1e9b — Your Looks and Your Inbox « OkTrends
+- e44c714b-90b3-4200-b04f-b080de14abd1 — [2409.10992] A Best-of-Both Approach to Improve Match Predictions and Reciprocal Recommendations for Job Search
+- ac33368a-b91f-4d5d-bb04-416786e45ee0 — [2602.15752] Beyond Match Maximization and Fairness: Retention-Optimized Two-Sided Matching
+- 6f04017d-4dbc-4a84-8c27-9535ec633f58 — Designing labor market recommender systems: the importance of job seeker preferences and competition
+- 4cb86d35-a0bb-4736-b96f-c761660910a7 — beyond_a_b_testing_using_surrogacy_and_region_splits_to.txt
+- b1a14644-792a-4f6a-b8e8-d0db6e825fc6 — building_a_transformer_based_category_recommender_at_th.txt
+- 1bdd8568-9257-42f0-9305-512d3a4560f5 — engineering_the_right_opportunities_for_thumbtack_pros.txt
+- 5ce3021f-6ce9-4580-9128-8a4cfabb80c2 — how_on_device_ai_models_find_your_best_tinder_profile_p.txt
+- 41ae2a64-26bd-4645-bdd2-75487b254338 — http://archive.gersteinlab.org/.../p1837.pdf (LinkedIn impression discounting, likely)
+- 11b0d239-3d33-4e8a-a366-5c87b64a3d42 — LiJAR KDD 2017 PDF (Stanford)
+- be32771a-cc6b-45b2-a988-f65302a37b9d — columbia.edu congestion.pdf (Arnosti et al.)
+- 433bf032-d30d-4b31-98f0-1a7006022991 — rec-capacity-cikm17.pdf (Christakopoulou)
+- fa4b77b4-a8ff-46e1-bcd6-087b7e38c344 — arxiv.org/pdf/1401.8042
+- f3e7044f-0935-451f-840f-1b0baaa35cd4 — arxiv.org/pdf/1501.06247
+- 51ed95ae-2945-409c-bb05-5761a57d9357 — arxiv.org/pdf/1802.07281.pdf
+- 6fd7c401-d934-4316-b13d-0fc1fbc39b2c — arxiv.org/pdf/1808.04840
+- c2aa9d85-74ed-4a98-8c41-55a7c5642d1b — arxiv.org/pdf/2002.05670.pdf
+- 6d5ea1eb-d81c-4350-98e9-a942e67aecfc — arxiv.org/pdf/2110.15781.pdf
+- ecffd79a-f987-4db0-9423-29db4fc71baf — arxiv.org/pdf/2112.13495.pdf
+- 36a35563-0075-4a98-8155-3636a7a99757 — arxiv.org/pdf/2208.08612.pdf
+- 801196e0-1114-4d23-a4f5-e23d6f622f06 — arxiv.org/pdf/2209.05112.pdf
+- 711cc5a5-fa03-4b06-b668-247bd8c34f21 — arxiv.org/pdf/2306.09060.pdf
+- 2dcb2ac0-82d2-4696-819e-1f8fdb9da14c — arxiv.org/pdf/2306.14712.pdf
+- 62c16054-74a2-4417-8c06-feaf957ca164 — arxiv.org/pdf/2306.14712.pdf (duplicate)
+- c48aa0c3-be96-4d7e-9d69-f80a146256cc — arxiv.org/pdf/2408.09748.pdf
+- ad4c549e-01e1-403d-aea1-e152f66747a4 — arxiv.org/pdf/2409.00720.pdf
+- 6a17afaa-1e78-46c9-8dde-9a35c52b1b82 — Holtz et al. interference bias Airbnb PDF
+- 01bf67ef-cf19-496a-9513-0343b8e47184 — DoorDash switchback experiment analysis
+- 59f9a058-d837-4863-b4d0-b78a74d2f3d7 — DoorDash managing supply and demand balance
+- 329dbd48-3f99-43a0-aa23-b007ed008ca1 — DoorDash next-generation optimization for Dasher dispatch
+- 9780021b-fc76-43b5-8ddc-19187b293062 — DoorDash switchback tests under network effects
+- dcabaad9-917c-4eca-a0cb-3a17c2d5749b — DoorDash ML and optimization dispatch
+- 28429a27-6687-4a62-bb67-8d48ed79dc70 — ACM PDF 10.1145/3580305.3599783 (BOSS KDD 2023)
+- 19f9dc5a-95f3-4905-b164-c4882a2c5b61 — Lyft dynamic pricing marketplace balance
+- d4264272-609b-44e2-a27f-d2d466644f33 — Lyft simulating a ridesharing marketplace
+- a6a998c4-bea0-4b28-baf0-16e6e669b0a3 — Lyft quantifying efficiency in ridesharing
+- b07d22b4-cec8-4b44-9d66-85b69b17dcfb — Lyft recommendation system
+- 9fe83587-cd97-4016-9ada-368a68677ee9 — Lyft marketplace marginal values interference bias
+- c17bdd53-6317-429b-83df-72b3bc0cec43 — Rios dating assortment PDF (iriosu.github.io)
+- b28307d8-29b6-4c16-af89-b2864441ac42 — Airbnb host preferences
+- 0854967a-f550-462a-8a80-e49b558f29ed — Airbnb marketplace search vs traditional search
+- 271f0f1e-a0b9-4b3e-8f71-e592c33c74c0 — Eureka ethical considerations of AI for online dating
+- 73d0acbe-071c-4a8f-9f21-627c2df9a739 — Thumbtack instant matching marketplace
+- fbd3ff19-ec39-486a-8a35-e1a5fda47c4b — Thumbtack instant matching (duplicate)
+- 27c3f644-7c38-4e99-9ed1-39d6923e4d2a — Thumbtack improving efficiency of marketplace
+- 7a2669a2-8b85-41f7-ac11-9e97e5a87c1e — Tinder Elasticsearch 8 (duplicate of ef5834f7?)
+- ce8d9ae6-4d46-4ec1-b1a4-31b56d687f53 — ZipRecruiter multimodal learning employment marketplace
+- 6e6af0b2-58cc-440e-a241-0af64786aa07 — Mehrotra fair marketplace PDF
+- a5bc983b-8397-4d8b-860a-42097656fd04 — Mehrotra fair marketplace PDF (duplicate)
+- b22c1eb9-5c82-469e-8c26-bc2c84f62c1b — Hitsch Matching and Sorting Dating PDF
+- b3251909-7bd7-40b8-ba1e-664702bc8203 — Halaburda Competing by Restricting Choice PDF
+- baa6000e-a2b1-41e4-8b2a-767e22a793ae — Quartz Hinge Gini
+- 199f4755-e45b-4d9b-b46c-03c7e011160e — OkCupid large-scale collaborative filtering JAX
+- 215b5f2a-d2e5-4295-9c19-bcdfae960833 — OkCupid What AI Principles Teach Us About Finding Love
+- 8166a680-4ba6-4ab6-ab2b-abde364efb23 — Kanoria Saban facilitating-search.pdf
+- 8608cddc-7ce5-4442-a73b-4f882753f031 — Ashlagi assortment.pdf
+- 180f76b2-5656-4253-bf5a-175014e2052a — Lee Niederle Rose PDF
+- c02339ea-e8c6-4cd3-864c-a4b1ecf133df — Fong Search Selectivity Market Thickness PDF
+- fc3355e4-578d-4934-b9c5-949934c7d6d3 — Pizzato UMUAI 2012/2013 Dropbox PDF
+- c8e280b1-2044-4410-9c65-deb7c42b76b1 — No Stakeholder Left Behind regret-aware re-ranking
+- 53e7040e-1e6a-46e1-8576-6113e3748507 — Palomares Reciprocal Recommender Systems survey PDF
+- 0be921ab-7e87-4467-ba39-55b2fb05c29d — Upwork Part 1 user-level growth
+- 5c561806-1ae3-49d0-b9bf-8d45201ab43e — Upwork Part 2 market-level growth
+- 6ce79407-e86c-4bcd-95d8-93ca91106366 — 知乎 zhuanlan p/654446985
+- 069d754f-0604-4a8c-abc4-0407ceba2423 — mehrotra_fair_marketplace_cikm2018.pdf
+- ec6d0d08-99e6-40c4-8ff4-5a548e7796c5 — personalizing_airbnb_search_by_learning_from_the_guest.txt
+- ed9a750d-10ab-4384-a4ef-6241dceadde0 — マッチングアプリにおける出会いを分析する | CyberAgent Developers Blog
+- 3b880c82-a704-47b6-8166-51c0791c11df — 皆が幸せになるマッチングプラットフォームを目指して。相互推薦システム | CyberAgent Developers Blog

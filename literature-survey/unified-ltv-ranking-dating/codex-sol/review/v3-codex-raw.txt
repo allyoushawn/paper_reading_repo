@@ -1,0 +1,15 @@
+VERDICT PASS
+
+Mandatory proof of reading:
+
+- `review/v2-codex-raw.txt`, ~line 27: “The substantive prior findings are resolved.”
+- `executive-summary.md`, ~line 26: “URL validation resolved all 120 references: 94 direct HTTP successes, 24 public sources verified despite automated-request ambiguity, and 2 dead URLs replaced with canonical primary URLs.”
+- `coverage-evaluation.md`, ~line 18: “The package is a strategic proposal, not implementation-ready.”
+- `url-validation.md`, ~line 10: “Replacement URLs are canonical primary pages.”
+
+Both exact remaining fixes are applied:
+
+1. The executive-summary bullet now says only: “Two metadata-only cards limit substantive evidence completeness.”
+2. The obsolete coverage-evaluation task to run URL validation has been deleted.
+
+No contradictory pending/unvalidated URL language remains. The `Ambiguous` and `Unreachable` entries in `url-validation.md` are historical automated-attempt results whose resolutions are explicitly recorded above them; they are not pending statuses.

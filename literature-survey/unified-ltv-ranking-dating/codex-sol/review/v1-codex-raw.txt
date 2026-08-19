@@ -1,0 +1,118 @@
+## PROOF OF READING
+
+- `review/README.md` — approximately line 15: “The excerpt file is the review surface because the source inputs exceed 30KB.”
+- `review/context/synthesis-review-surface.md` — approximately line 3: “Blocks below are faithful verbatim excerpts.”
+- `executive-summary.md` — approximately line 15: “The first production candidate should share representations across like, match, conversation, retention, and revenue while preserving explicit calibrated heads.”
+- `coverage-evaluation.md` — approximately line 14: “This is a deliverable-coverage score, not a claim that every source contains every detail: 118 cards contain indexed-source evidence and two cards are explicit metadata-only extraction failures.”
+
+## VERDICT
+
+**NEEDS_FIXES**
+
+The artifacts answer the dating-recommender brief at a strategic level and appropriately disclose that the proposed architecture is survey inference. They are not yet a defensible final review package because evidence quality is overstated, parts of the displayed evidence matrix are malformed, the initial production objective is internally inconsistent, and the causal/interference evaluation plan is insufficiently specified for its release gates.
+
+## CRITICAL
+
+None.
+
+## HIGH
+
+1. **The “source-backed” designation is not reliably auditable from the declared review surface.**
+
+   `executive-summary.md`, “Key findings answering Q1–Q8,” labels broad compound claims as “NotebookLM/source-backed” without claim-level references. For example, Q1 says industry practice “most often” follows certain patterns and that direct policy optimization is “less common” (approximately line 23), but neither the summary nor the excerpt supplies prevalence counts that establish those comparative claims.
+
+   More seriously, representative evidence rows in `synthesis-review-surface.md`, “Comparison table,” show extraction defects:
+
+   - PinnerFormer’s architecture is recorded as “Model identifier: codex-sol” (approximately line 205).
+   - DFM has the same invalid architecture value (approximately line 207).
+   - Several rows contain only “See §1”/“See §2” placeholders (approximately lines 204, 210–211).
+   - The dating-specific recommendation in the ECDA row appears under the source objective/label field rather than being cleanly separated as survey inference (approximately line 209).
+
+   These examples undermine the assertion that card presence is sufficient corroboration for the synthesis.
+
+2. **The 100% coverage result overclaims evidence verification.**
+
+   `coverage-evaluation.md`, “Corpus gates,” treats “URL column populated” as evidence that every URL is working (approximately line 32) and “credible URLs” as evidence for 120 verified references (approximately line 21). Those are different tests. The reviewed files provide no link-check result, source-identity validation, or evidence-quality threshold.
+
+   Likewise, “Per-source evidence — 3/3” passes all 120 sources even though two have no substantive extraction and the review surface exposes malformed and placeholder-filled rows. The qualification that this is “deliverable coverage” helps, but `coverage_score: 100%`, `project_context: pass`, and repeated unqualified “Pass” values still communicate substantive validation that has not been demonstrated.
+
+3. **The first production objective contradicts the horizon policy.**
+
+   In `executive-summary.md`, “Three ranked candidate architectures,” Rank 1 places both 30- and 90-day net revenue inside the constrained serving utility (approximately line 50). In “Recommended labels and horizons,” the 90-day revenue head is supposed to remain shadowed, while only the 30-day retention and revenue heads drive the first production utility (approximately line 66).
+
+   This changes the actual architecture and release sequence. The document must select one definition of the first production candidate.
+
+4. **The incrementality migration lacks a defined causal intervention and estimand.**
+
+   `executive-summary.md`, migration stage 5, recommends “IPS/SNIPS/DR treatment-effect heads” given overlap and effective sample size (approximately line 74), but it never defines:
+
+   - The treatment: exposure, rank change, slate assignment, or reciprocal allocation.
+   - The counterfactual unit: viewer, pair, request, receiver, or market.
+   - The estimand: viewer effect, bilateral effect, total market value, or constrained policy value.
+   - How propensities are produced and validated.
+   - How direct and spillover effects are separated.
+
+   The document correctly acknowledges that pair correction does not solve market interference, yet its promotion gate still relies on an unspecified “interference-aware online experiment.” This is not operational enough to support the causal-LTV stage.
+
+5. **The release evaluation is not complete enough for the architecture’s stated risks.**
+
+   `executive-summary.md`, “Evaluation under interference,” lists useful metrics, but omits confidence intervals, uncertainty for OPE, temporal validation, experiment power, ramp/stop rules, and explicit decision thresholds. “Counterfactual/interleaved or prioritized-ranking design” (approximately line 83) groups materially different experimental designs without explaining when any of them identifies the desired long-term effect. Interleaving alone does not resolve market spillovers.
+
+## MEDIUM
+
+1. **The unified utility is not mathematically or operationally defined.**
+
+   Rank 1 names retention, revenue, reciprocal quality, and receiver load, but does not state normalization, weights, learned-fusion loss, or which quantities are hard constraints rather than tradable utility terms. This is especially important because safety, quality, congestion, and the success paradox should not necessarily be exchangeable for revenue.
+
+2. **Several labels are not reproducible.**
+
+   `executive-summary.md`, “Recommended labels and horizons,” combines “any qualified return” with active-day/session count in one retention entry (approximately line 60), despite these being binary and count targets that require different definitions and losses. “Qualified conversation,” “durable reciprocal-quality proxy,” and “success-exit proxy” are undefined. The summary acknowledges two of these gaps, but later migration gates depend on them.
+
+3. **The uplift-teacher transition is underspecified.**
+
+   The current uplift model is proposed as a frozen teacher/feature (approximately lines 27 and 50), but the artifacts do not define its treatment, label, calibration, cross-fitting, or how a causal score can safely enter a conditional outcome model. This creates a risk of treating a policy-conditional prediction as incremental value—the exact failure the summary warns about.
+
+4. **Adopter and frequency language is stronger than the displayed evidence.**
+
+   Phrases such as “Industry practice most often” and “Broad industry use” (`executive-summary.md`, approximately lines 23 and 38) should either be tied to explicit corpus counts or softened to “represented in the selected corpus.” A curated survey cannot establish ecosystem-wide prevalence merely from its composition.
+
+## COVERAGE_AUDIT
+
+- **Brief coverage:** Substantively broad. The artifacts address long-term objectives, credit assignment, labels, fusion, incrementality, evaluation, reciprocity, congestion, mixed revenue, and migration from CTR/CVR plus uplift.
+- **Dating specificity:** Strong at the problem-framing level. Reciprocity, receiver congestion, safety/quality, successful-exit dynamics, bilateral outcomes, and market interference are explicitly recognized.
+- **Architecture coverage:** Three candidates are ranked and connected to migration stages, but Rank 1’s production horizon is contradictory and its utility is not fully specified.
+- **Migration coverage:** The six-stage sequence is sensible, but instrumentation does not explicitly introduce the randomized logging policy later required for causal estimation.
+- **Evaluation coverage:** Metric categories are present; identification, uncertainty, experimental unit, power, and promotion thresholds are incomplete.
+- **Evidence coverage:** Nominally 120 rows/cards, but the displayed representative rows prove that existence is not equivalent to usable corroboration.
+- **Coverage score:** “31/31 structural requirements represented” is supportable. “100% evidence-validated coverage” is not.
+- **Overall answer to the brief:** Yes as a research-backed strategic proposal; no as a final, implementation-ready and independently auditable recommendation.
+
+## EXACT_FIXES
+
+1. Replace `coverage_score: 100%` with separate fields such as:
+
+   - `deliverable_presence: 31/31`
+   - `substantive_evidence_validation: pending`
+   - `source_extraction: 118/120`
+   - `url_validation: <actual checked result>`
+
+2. Change the URL gates so “working” requires an actual recorded link check. Do not use a populated URL cell as proof of reachability or credibility.
+
+3. Repair or re-extract the malformed comparison rows, especially PinnerFormer and DFM architecture fields, all “See §1/§2” placeholder rows, and any source fields containing unlabeled dating recommendations. Recompute the per-source evidence result afterward.
+
+4. Add a compact claim-evidence table for Q1–Q8 with: exact claim, linked source cards, supported scope, evidence type, and inference caveat. Remove “most often” and “less common” unless corpus counts support them.
+
+5. Reconcile Rank 1 everywhere as either:
+
+   - Initial serving utility uses 30-day retention plus 30-day net revenue, with 90-day revenue shadow-only; or
+   - 90-day revenue enters serving only after a stated surrogate/calibration gate.
+
+6. Define the serving utility explicitly: calibrated inputs, normalization, fusion method, learned parameters, hard constraints, soft penalties, and safety/quality non-regression thresholds.
+
+7. Define every label, including qualified return, qualified conversation, success exit, receiver load, and net recognized revenue. Separate binary-return, count-engagement, and revenue targets and state their respective losses and maturity rules.
+
+8. Expand the causal stage with the intervention, unit, estimand, eligibility set, propensity source, overlap criteria, effective-sample-size minimum, variance/CI procedure, and spillover strategy.
+
+9. Specify the online design by stage: randomization unit, cluster construction where needed, direct and receiver-side outcomes, power calculation, mature holdout duration, ramp criteria, and stopping rules. State explicitly that interleaving is not a substitute for interference control.
+
+10. Clarify the uplift model’s role. Prefer a frozen audit/benchmark initially; if used as a feature or teacher, require treatment alignment, out-of-fold predictions, calibration, leakage checks, and an ablation proving incremental value over ordinary outcome heads.

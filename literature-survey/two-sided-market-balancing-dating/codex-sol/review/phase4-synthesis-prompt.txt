@@ -1,0 +1,77 @@
+You are the independent evidence-structuring reviewer for Phase 4 of a literature survey on two-sided market balancing in dating-app recommendation.
+
+SCOPE IS PINNED. Read ONLY the 57 files listed below. Do not explore the repository, do not list directories, do not read any other model workplace, and do not modify any file. Read files ONE AT A TIME, one file per tool call. Structure evidence; do not draft or edit the final literature-review.md.
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file below, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not review a file you could not read; do not infer its contents from the filename.
+
+After proof, return:
+1. DESIGN PATTERNS: 5–8 concise patterns; each with full source names, mechanism, strongest quantitative evidence, and evidence limitation.
+2. SIX-ROW MATRIX EVIDENCE: sections named exactly reciprocal scoring; capacity-aware scoring; constrained re-ranking; market-design lever; ecosystem metrics; evaluation method. Under each, list the strongest source columns and a one-line cell grounded in that source.
+3. FOUNDATIONAL/BASELINE AUDIT: distinguish explicit direct baselines/extensions from mere citations; flag conflicts with method-tracker or NLM Q4/Q5.
+4. BIBLIOGRAPHY AUDIT: confirm whether all 45 card files contain the required Annotated Bibliography Fields; list any missing/uncertain field without inventing.
+5. TOP 10 READ-FIRST: ranked by expected design value for this dating-market problem, each with one-line rationale.
+6. GAPS AND SEARCHES: source-grounded gaps and exactly five next searches.
+7. QUANTITATIVE CONFLICT FLAGS: every numeric or foundational cross-paper claim that should be spot-checked against a named card; identify any inconsistency between NLM outputs and cards.
+8. COVERAGE CHECK: D1–D8 counts, Tier 1/2/3 mix, named discovery nulls, limitations/confidence.
+
+Use full paper/source names. Do not infer beyond the sources; write 'Not specified' for absent facts. Be concise after the proof block.
+
+Files to read:
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/review/phase4-nlm-q1.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/review/phase4-nlm-q2.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/review/phase4-nlm-q3.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/review/phase4-nlm-q4.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/review/phase4-nlm-q5.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/review/phase4-nlm-q6.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/review/phase4-nlm-q7.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/README.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/requirements.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/queue-codex-sol.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/method-tracker.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/discovery-notes.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2009_OkTrends_NA_Your-Looks-and-Your-Inbox.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2010_AER_GaleShapley_Matching-and-Sorting-Online-Dating.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2013_UMUAI_RECON_Recommending-People-To-People.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2014_KDD_ImpressionDiscounting_Modeling-Impression-Discounting.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2015_ASONAM_RRS_Reciprocal-Recommendation-Online-Dating.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2015_ExpEcon_VirtualRose_Propose-With-A-Rose.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2017_CIKM_CapMF_Recommendation-Capacity-Constraints.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2017_KDD_LiJAR_Job-Application-Redistribution.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2017_MLconf_TinVec_Personalized-User-Recommendations-Tinder.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2018_CIKM_Adaptive-Fairness_Fair-Marketplace-Counterfactual-Evaluation.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2018_KDD_NA_Fairness-of-Exposure-Rankings.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2018_MgmtSci_ChoiceRestriction_Competing-By-Restricting-Choice.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2018_SciAdv_PageRank_Aspirational-Pursuit-of-Mates.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2019_KDD_DetGreedy_Fairness-Aware-Ranking-Talent-Search.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2019_Tinder_NA_Powering-Tinder-Matching.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2020_KDD_Query-Context-Embedding_Managing-Diversity-Airbnb-Search.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2021_DataFunTalk_BilateralSwitchback_Kuaishou-Causal-Experiment-Design.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2021_InfoFusion_NA_Reciprocal-Recommender-Systems-Survey.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2021_MSOM_ApplicationLimits_Managing-Congestion-Matching-Markets.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2021_MS_NA_Facilitating-Search-for-Partners.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2021_NeurIPS_LorenzWelfare_Two-Sided-Fairness-Lorenz-Dominance.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2021_NeurIPS_UniCoRn_AB-Testing-Two-Sided-Marketplace.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2021_arXiv_SMRD_Multiple-Randomization-Designs.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_CyberAgent_DoubleSelection_Analyzing-Encounters-Matching-Apps.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_CyberAgent_MTRS_Matching-Theory-Reciprocal-Recommendation.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_LinkedIn_LiFT-Platform_LinkedIn-Integrates-Fairness-AI.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_MgmtSci_TSRI_Experimental-Design-Two-Sided-Platforms.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_OR_NA_Assortment-Two-Sided-Sequential-Matching.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_RecSys_DPGNN_Two-Way-Selection-Person-Job.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_SIGIR_JME_Joint-Multisided-Exposure-Fairness.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_arXiv_MTRS_Matching-Theory-Online-Dating.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2022_arXiv_SP_Marketplace-Interference-Shadow-Prices.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2023_KDD_BOSS_Bilateral-Occupational-Suitability.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2023_RecSys_ReSeq_Reciprocal-Sequential-Recommendation.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2023_RecSys_TU_Fast-Examination-Agnostic-Reciprocal.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2024_KDD_CRRS_Revisiting-Reciprocal-Recommender-Systems.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2024_MarketingScience_SequentialSearch_Effects-Market-Size-Competition.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2024_RecSys_NSW_Fair-Reciprocal-Recommendation.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2025_Hinge_DeepRecSys_How-We-Connect-Daters.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2025_MgmtSci_GCR_Reducing-Interference-Bias-Airbnb.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2025_RecSys_DiPS-DPR_Off-Policy-Evaluation-Matching-Markets.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2026_ICLR_MRet_Retention-Optimized-Two-Sided-Matching.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2026_Wantedly_PersonalizedAggregation_Personalizing-Preference-Aggregation.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2026_arXiv_ECDA_Predictive-Models-Two-Sided-Recommendations.md
+- /Users/fox/Projects/paper_reading_repo/literature-survey/two-sided-market-balancing-dating/codex-sol/read-papers/2026_arXiv_TEC_Recommendation-Exposure-Favorite-Lists.md
+

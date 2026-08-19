@@ -1,0 +1,73 @@
+## PROOF OF READING
+
+1. `review/README.md` — approximately line 18:
+
+> “The excerpt file is the review surface because the source inputs exceed 30KB.”
+
+2. `review/context/synthesis-review-surface.md` — approximately line 3:
+
+> “Blocks are faithful verbatim excerpts.”
+
+3. `executive-summary.md` — approximately line 22:
+
+> “This is a research-backed strategic proposal, **not an implementation-ready specification**.”
+
+4. `coverage-evaluation.md` — approximately line 18:
+
+> “The eight dating-project constraints are represented in the synthesis, but their proposed definitions, thresholds, causal design, and operating behavior require project-data validation.”
+
+5. `url-validation.md` — approximately line 10:
+
+> “Replacement URLs are canonical primary pages.”
+
+## VERDICT
+
+**NEEDS_FIXES**
+
+The substantive prior findings are resolved. The remaining defect is contradictory stale URL-validation language in two synthesis sections.
+
+## PRIOR_FINDINGS
+
+- **Comparison placeholders/leakage — RESOLVED within the declared review surface.** The repaired PinnerFormer and DFM rows use explicit “Not specified in source” boundaries and label dating transfer as survey inference. No placeholder leakage is visible in the supplied excerpt.
+- **Structural-vs-evidence coverage — RESOLVED.** The package distinguishes 31/31 structural coverage from 118/120 substantive extraction and explicitly rejects a claim of complete evidence validation.
+- **Rank-1 30d/90d consistency — RESOLVED.** Rank 1 consistently serves on R30 and V30; V90 remains shadow-only behind maturity, calibration, surrogate-validity, and experimental gates.
+- **Claim-level evidence scope — RESOLVED.** Q1–Q8 claims identify linked cards, supported scope, limitations, and survey-inference boundaries without claiming ecosystem-wide prevalence.
+- **Serving utility and labels — RESOLVED.** Utility terms, normalization, weights, penalties, hard constraints, label definitions, losses, maturity, exclusions, and accounting treatment are operationally specified and correctly labeled as project proposals.
+- **Causal design — RESOLVED.** Pair and market interventions, units, eligibility, outcomes, estimands, logged propensities, overlap, ESS thresholds, cross-fitting, confidence intervals, sensitivity analyses, and spillover limitations are explicit.
+- **Online evaluation — RESOLVED.** Cluster randomization, power requirements, staged ramp, stop rules, sequential adjustment, temporal maturity, and interleaving’s inability to identify market-wide effects are covered.
+- **Uplift role — RESOLVED.** The current uplift model is frozen and audit-only by default; teacher/feature promotion has explicit treatment-alignment, cross-fitting, leakage, calibration, propensity, ablation, and estimand-preservation gates.
+- **URL validation — UNRESOLVED as a consistency finding.** The validation artifact records 120/120 resolved, but two remaining statements incorrectly say URLs are unvalidated or that validation still needs to be run.
+
+## CRITICAL
+
+None.
+
+## HIGH
+
+None.
+
+## MEDIUM
+
+1. `executive-summary.md`, approximately line 164, says:
+
+   > “Two metadata-only cards and unvalidated URLs limit evidence completeness.”
+
+   This contradicts lines 9, 26, and 186, plus `url-validation.md`, which report 120/120 URLs resolved. The metadata-only limitation is valid; the “unvalidated URLs” clause is stale.
+
+2. `coverage-evaluation.md`, approximately line 90, lists:
+
+   > “Run and record URL reachability plus title/source-identity validation.”
+
+   This contradicts lines 7, 16, and 36 of the same file and the completed resolution evidence. It is no longer an outstanding task.
+
+## EXACT_REMAINING_FIXES
+
+1. In `executive-summary.md` around line 164, replace the bullet with:
+
+   > `- Two metadata-only cards limit substantive evidence completeness.`
+
+2. In `coverage-evaluation.md` around line 90, delete:
+
+   > `- Run and record URL reachability plus title/source-identity validation.`
+
+After those two consistency edits, the reviewed prior high/medium findings support a **PASS**.

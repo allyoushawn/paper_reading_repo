@@ -1,0 +1,166 @@
+# Paper Analysis: Reinforcement Learning for Slate-based Recommender Systems: A Tractable Decomposition and Practical Methodology
+
+**Source:** https://arxiv.org/abs/1810.02019  
+**Date analyzed:** 2026-08-18  
+**Source ID:** a9cf9b68-dceb-4cf2-9738-10f4cb991af0  
+**Model identifier:** codex-sol  
+**Extraction mode:** NotebookLM indexed source content fallback (generative query throttling)  
+**Query status:** notebook_query intentionally not called; source_get_content success
+
+---
+
+## Required Survey Card Fields
+
+- **Title:** Reinforcement Learning for Slate-based Recommender Systems: A Tractable Decomposition and Practical Methodology
+- **Authors or company:** Google
+- **Venue:** arXiv
+- **Year:** 2019
+- **URL:** https://arxiv.org/abs/1810.02019
+- **Source type:** industry-lab arXiv
+- **Direction:** D2
+- **Problem setting:** See §1, “Core problem and contribution.”
+- **Objective and label definition, with horizon and delay handling:** See §1, “Objective” and “Labels.”
+- **Prediction or incrementality:** Not specified in source. Indexed evidence does not establish exposure-effect identification; treat the method as prediction or optimization unless validated experimentally.
+- **Model architecture:** See §1, “Architecture.”
+- **Credit assignment:** See §1, “Credit assignment.”
+- **Training data and counterfactual handling:** See §1, “Training evidence,” and prediction/incrementality above.
+- **Offline and online evaluation:** See §2.
+- **Reported gains:** See §2; no metric is added beyond indexed-source evidence.
+- **Applicability to a two-sided dating recommender:** See § Project Relevance.
+- **Unverified claims:** Dating transfer statements are explicitly labeled as survey inference.
+
+---
+
+## 1. Summary
+
+### Core problem and contribution — indexed-source evidence
+
+- Most practical recommender systems focus on estimating immediate user engagement without considering the long-term effects of recommendations on user behavior.
+- Reinforcement learning (RL) methods offer the potential to optimize recommendations for long-term user engagement.
+- However, since users are often presented with slates of multiple items—which may have interacting effects on user choice—methods are required to deal with the combinatorics of the…
+- In this work, we address the challenge of making slate-based recommendations to optimize long-term value using RL.
+
+### Objective — indexed-source evidence
+
+- Most practical recommender systems focus on estimating immediate user engagement without considering the long-term effects of recommendations on user behavior.
+- Such models form the basis of optimization procedures in revenue management [Talluri and van Ryzin, 2004, Rusmevichientong and Topaloglu, 2012], product line design [Chen and Hausman, 2000,…
+- For example, the conditional logit model assumes a set of user-item characteristics (e.g., feature vector) xij for user i and item j, and determines the (random) utility…
+
+### Labels, horizon, delay, sparsity, and censoring — indexed-source evidence
+
+- We focus on session optimization to make the discussion concrete, but our decomposition applies equally well to any long-term horizon.1 Session optimization with slates can be modeled…
+- Furthermore, by using the same state features (see above), it is straightforward to build a multi-task model [Zhang and Yang, 2017] that incorporates our long-term engagement 26…
+- Reinforcement Learning for Slate-based Recommender Systems: A Tractable Decomposition and Practical Methodology* Eugene Ie†,‡,1, Vihan Jain‡,1, Jing Wang‡,1, Sanmit Narvekar§,2, Ritesh Agarwal1, Rui Wu1, Heng-Tze Cheng1, Morgane…
+- Fusing similarity models with Markov chains for sparse sequential recommendation.
+
+### Architecture — indexed-source evidence
+
+- We use a standard two-tower architecture with stacked fully connected layers to represent user state and document.
+- Furthermore, by using the same state features (see above), it is straightforward to build a multi-task model [Zhang and Yang, 2017] that incorporates our long-term engagement 26…
+- Reinforcement learning (RL) methods offer the potential to optimize recommendations for long-term user engagement.
+- [2018] explicitly consider RL in slate-based recommendation systems, developing an actor-critic approach for recommending a page of items and tested using simulator trained on user logs.
+
+### Credit assignment — indexed-source evidence
+
+- This includes relatively static user features such as demographics, declared interests, and other user attributes, as well as more dynamic user features, such as user context (e.g.,…
+- Reinforcement Learning for Slate-based Recommender Systems: A Tractable Decomposition and Practical Methodology* Eugene Ie†,‡,1, Vihan Jain‡,1, Jing Wang‡,1, Sanmit Narvekar§,2, Ritesh Agarwal1, Rui Wu1, Heng-Tze Cheng1, Morgane…
+
+### Training data, baselines, and counterfactual evidence
+
+- Assume training data of the form (s,A, r, s′, A′) representing observed transitions and rewards generated by some policy π.
+- Despite the recent successes of RL afforded by deep Q-networks (DQNs) [Mnih et al., 2015, Silver et al., 2016], the deployment of RL in practical recommenders is…
+- The model is trained using TensorFlow in a distributed training setup [Abadi et al., 2015] using stochastic gradient descent.
+- [2018] also explored a novel off-policy policy-gradient approach that is very scalable, and was shown to be effective in a large-scale commercial recommender system.
+
+---
+
+## 2. Experiment Critique
+
+### Offline and online evaluation — indexed-source evidence
+
+- (iii) We demonstrate our methods in simulation, and validate the scalability of decomposed TD-learning using SLATEQ in live experiments on YouTube.
+- 17 Serving Top-k Greedy LP (Opt) Training Top-k QL-TT-TS QL-TT-GS QL-TT-OS Greedy QL-GT-TS QL-GT-GS QL-GT-OS LP (Opt) QL-OT-TS QL-OT-GS QL-OT-OS For SARSA and Myopic recommenders, we have:…
+- As a result, research has increasingly turned to the sequential nature of user behavior using temporal models, such as hidden Markov models and recurrent neural networks [Rendle…
+
+### Reported gains — indexed-source evidence
+
+- However, it is not hard to show that the cascade model exhibits a form of “ordered submodularity” if we assume that the LTV or conditional Q-value of…
+- We show that our techniques are scalable and offer significant improvements in user engagement over myopic recommendations.
+- We then turn to the optimization problem required to build slates that maximize LTV, a necessary component of policy improvement (e.g., in Q-learning) at training time and…
+
+### Limitations, failure modes, and negative results — indexed-source evidence
+
+- However, since users are often presented with slates of multiple items—which may have interacting effects on user choice—methods are required to deal with the combinatorics of the…
+
+**Statistical validity:** Not specified in source beyond the indexed evidence above.  
+**Reproducibility:** Not specified in source.
+
+---
+
+## 3. Industry Contribution
+
+**Deployability:** - We address two key challenges facing the deployment of RL in practical recommender systems, the first algorithmic and the second methodological.
+- We then turn to the optimization problem required to build slates that maximize LTV, a necessary component of policy improvement (e.g., in Q-learning) at training time and…
+- However, the application of RL has largely been confined to restricted domains due to the complexities of putting such models into practice at scale.  
+**Problems solved:** See the source-grounded problem and objective evidence in §1.  
+**Engineering cost:** - However, the application of RL has largely been confined to restricted domains due to the complexities of putting such models into practice at scale.
+
+---
+
+## 4. Novelty vs. Prior Work
+
+**Paper's claimed novelty:** See §1 source evidence.  
+**Prior work comparison:** Not specified in source. Indexed content does not provide a defensible top-5–7 ranking by citation frequency.  
+**Verification:** No independent novelty verification was performed in this fallback batch.
+
+---
+
+## 5. Dataset Availability
+
+| Dataset | Link | Accessible | Notes |
+|---------|------|------------|-------|
+| Dataset or production logs described by the source | Not specified in source. | Not specified in source. | Indexed evidence is summarized in §1 where available. |
+
+**Offline experiment reproducibility:** Not specified in source.
+
+---
+
+## 6. Community Reaction
+
+Not specified in source.
+
+---
+
+## Project Relevance
+
+**Source-grounded facts:** The evidence snippets above summarize only material present in the indexed source.
+
+**Survey inference:** This source can inform long-horizon reward design, request/slate credit assignment, or safe policy optimization beyond myopic CTR/CVR. For dating, any transfer must be tested with 7–30 day retention and weeks-long subscription/à-la-carte revenue labels while keeping like, match, and conversation heads as migration auxiliaries.
+
+**Prediction vs. incrementality:** Not specified in source. Indexed evidence does not establish exposure-effect identification; treat the method as prediction or optimization unless validated experimentally.
+
+**Reciprocity and congestion:** Not specified in source unless explicitly shown above. Add candidate-capacity and bilateral-acceptance constraints.
+
+**Cascade and low base rates:** Map the method to impression → like → match → conversation → retention/revenue only as a survey hypothesis; validate calibration and rare-event behavior.
+
+**Success paradox:** Not specified in source. Protect match quality and successful off-platform outcomes so retention/revenue optimization does not penalize successful matching.
+
+**Evaluation implication:** Add bilateral outcome metrics, candidate exposure concentration, delayed-label backtests, and randomized incrementality checks to any source protocol.
+
+---
+
+## Papers That Mention This Paper (Reverse Citation Map)
+
+No explicit in-corpus mention found.
+
+---
+
+## Meta Information
+
+**Authors:** Google (individual authors not taken from selected-source metadata)  
+**Affiliations:** Google  
+**Venue:** arXiv  
+**Year:** 2019  
+**PDF:** NotebookLM indexed source available  
+**Relevance:** Related  
+**Priority:** 2

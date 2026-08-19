@@ -1,0 +1,38 @@
+# Run State — codex-sol
+
+- model_identifier: codex-sol
+- runtime_model_family: gpt-5.6-sol
+- topic_slug: unified-ltv-ranking-dating
+- workplace: codex-sol/
+- notebook_id: 67046a44-7490-4fe5-b54a-3f39ef37fdd3
+- notebook_title: unified-ltv-ranking-dating
+- notebook_source_count: 146
+- date_completed: 2026-08-18
+- overall_status: literature survey complete; independent review PASS
+- recommendation_status: strategic proposal; not implementation-ready
+- selection_status: complete
+- selected_source_count: 120 unique sources
+- source_extraction_status: 118/120 substantive; 2 metadata-only failures
+- url_validation_status: 120/120 resolved (94 direct HTTP, 24 browser-public, 2 canonical replacements)
+- comparison_status: 120 linked rows; zero section placeholders; zero model-metadata leakage; substantive extraction 118/120
+- claim_audit_status: Q1–Q8 claim-evidence table complete
+- structural_coverage_status: 31/31
+- project_context_representation: 8/8; implementation validation pending
+- academic_source_count: 23
+- industry_source_count: 97 (80.8% of selected corpus; not an ecosystem prevalence estimate)
+- D1_count: 17 including 2 dual-tagged D1/D5
+- D2_count: 22
+- D3_count: 10
+- D4_count: 11
+- D5_count: 9 including 2 dual-tagged D1/D5
+- D6_count: 10
+- D7_count: 14
+- D8_count: 22
+- D9_count: 7 (optional)
+- D1_D4_source_count: 60 (50.0%; structural floor represented)
+- priority_counts: P1=65, P2=32, P3=23
+- time_window: 2018–2026; older exceptions only for D3, D5, D7
+- exclusions_from_notebook: 26
+- review_resolution: high 5/5; medium 4/4
+- final_deliverables: comparison-table.md, claim-evidence-table.md, literature-review.md, executive-summary.md, coverage-evaluation.md, run-state.md
+- next_product_validation: label-owner approval; propensity/overlap audit; cluster power analysis; shadow model and experiment

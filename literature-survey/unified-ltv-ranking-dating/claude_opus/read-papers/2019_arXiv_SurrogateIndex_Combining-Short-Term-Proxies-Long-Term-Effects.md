@@ -1,0 +1,102 @@
+# Paper Analysis: The Surrogate Index: Combining Short-Term Proxies to Estimate Long-Term Treatment Effects More Rapidly and Precisely
+
+**Source:** /Users/fox/Projects/paper_reading_repo/literature-survey/unified-ltv-ranking-dating/claude_opus/pdfs/w26463.pdf
+**Date analyzed:** 2026-08-16
+
+## 1. Summary
+
+**Title:** The Surrogate Index: Combining Short-Term Proxies to Estimate Long-Term Treatment Effects More Rapidly and Precisely
+**Authors:** Susan Athey, Raj Chetty, Guido W. Imbens, Hyunseung Kang
+**Venue:** NBER Working Paper No. 26463 (November 2019, revised August 2024); subsequently published as Athey, Chetty, Imbens, Kang, *The Review of Economic Studies* (2025), rdaf087.
+
+**Abstract (paraphrased from source):** Estimating intervention impacts is often hard because the outcome of real interest (e.g., lifetime earnings) is observed only with a long delay. Biomedical trials address this with a single short-term "surrogate" (e.g., tumor size for mortality). This paper extends that idea by combining multiple, possibly qualitatively distinct, short-term outcomes into a single "surrogate index." Under the Prentice surrogacy assumption — that the primary outcome is independent of treatment conditional on the surrogates — the average treatment effect on the surrogate index equals the treatment effect on the long-term outcome. The paper relates surrogacy to a set of structural causal assumptions, characterizes the bias from violations of each, and gives methods to validate the assumptions with additional observed outcomes. Applied to a multi-site job-training RCT in California, short-run (six-quarter) outcomes as surrogates recover the program's long-term (nine-year) employment impact with a 35% reduction in standard errors relative to waiting for the full nine years.
+
+**Key contributions:**
+1. Three formal identifying assumptions — Unconfoundedness (standard ignorability in the experimental sample), Surrogacy (Prentice criterion: treatment independent of the primary outcome given the surrogates), and Comparability (the surrogate-outcome relationship is identical across the experimental and observational samples) — that jointly let the ATE on the long-run primary outcome be recovered from the ATE on a "surrogate index," a data-driven predicted value of the primary outcome given the surrogates, replacing ad hoc subjective weighting of multiple short-term metrics with an objective, predictive-power-based criterion.
+2. Semiparametric efficiency bounds and four asymptotically efficient estimators (surrogate index, surrogate score, an efficient influence-function/doubly-robust estimator, and a double-matching estimator), quantifying the information content of the Surrogacy assumption.
+3. Sharp bounds on the bias that arises when Surrogacy or Comparability (or both) are violated but Unconfoundedness holds, so the estimators still identify a well-defined, bounded causal quantity even without full surrogacy.
+4. An empirical validation using a real four-site job-training RCT (GAIN) with 36 quarters (9 years) of observed long-term outcomes, following a LaLonde (1986)-style holdout design.
+
+**Methodology.** The setup pools an Experimental sample (E), where treatment W is randomized and surrogates S and covariates X are observed but the primary outcome Y is not, with an Observational sample (O), where Y, S, and X are observed but W is not. Under Unconfoundedness (Assumption 2), Surrogacy/Prentice criterion (Assumption 3: W ⊥ Y | S, X, P=E), and Comparability (Assumption 4: the conditional distribution of Y given S,X is the same in both samples), the surrogate index μ(s,x,O) ≡ E[Y|S=s,X=x,P=O] identifies E[Y(w)|X,P=E] for each treatment arm w, so τ = E[Y(1)−Y(0)|P=E] can be estimated by averaging μ over the experimental sample's treatment and control groups. The paper derives four estimators sharing this logic (regression-based surrogate index; propensity/surrogate-score reweighting; an efficient influence-function/doubly-robust combination; and nearest-neighbor double matching), and separately derives sharp bounds on τ when Surrogacy or Comparability fail but the outcome (or the direct effect of treatment on the outcome) is bounded.
+
+**Main results.** Applied to the GAIN (Greater Avenues to Independence) welfare-to-work RCT: the Riverside site (N=5,445; 4,405 treated, 1,040 control) is held out as the "experimental" sample with its 36-quarter (9-year) long-term outcomes hidden, while the other three sites (Alameda, Los Angeles, San Diego; N=13,725 combined) serve as the "observational" sample with treatment status hidden. The true (Riverside) experimental benchmarks were a 6.4-percentage-point (SE 1.2) increase in average quarterly employment and a $249 (SE $84) increase in average quarterly earnings, both averaged over the full 36 quarters. All three surrogate-based estimators fall within two standard errors of these benchmarks once as few as five quarters (~15 months) of surrogate data are used, while a naive estimator that simply treats the first t quarters of the outcome itself as the answer needs more than 25 quarters (over 6 years) to converge to within two standard errors. The abstract's headline: using only the first six quarters of surrogate employment data, rather than waiting nine years, would have produced the same estimate with a 35% reduction in standard errors.
+
+## 2. Experiment Critique
+
+**Design.** A two-sample data-fusion validation using real multi-site RCT data, following the LaLonde (1986) holdout-comparison tradition: one real experimental site's long-term outcome is masked and re-estimated using only short-term surrogates plus an auxiliary "observational" sample built from the other sites (which never had a randomized treatment assigned within the exercise). Four estimators are compared against the known true benchmark across a range of surrogate windows t = 1 to 36 quarters.
+
+**Statistical validity.** The paper derives closed-form semiparametric efficiency bounds and proves the four estimators are asymptotically first-order equivalent under standard regularity conditions (citing Newey 1994; Chernozhukov et al. 2016 for double-robust properties). Crucially, it also builds in direct empirical tests for its own key assumptions: to test Surrogacy, it regresses the primary outcome on pre-treatment covariates, t quarters of surrogates, and the treatment indicator in the experimental sample — a statistically significant coefficient on treatment indicates a Surrogacy violation; to test Comparability, it pools both samples and regresses the outcome on surrogates, covariates, and a sample indicator. Results (Tables 6-7) show Surrogacy violations are large and significant for t ≤ 3 quarters but shrink and mostly lose significance beyond t ≈ 6 for both outcomes; Comparability violations, however, remain statistically significant (t-statistics around -3 to -5) for the earnings outcome even at t = 12-24 quarters, a violation the authors report plainly rather than paper over.
+
+**Online experiments.** None — this is an offline econometric identification and estimation paper. It does not describe or evaluate any live A/B testing or online deployment; the empirical application reuses historical, already-completed RCT data (GAIN, 1980s California) rather than running a new experiment.
+
+**Reproducibility.** Replication code is publicly available at opportunityinsights.org/data. The underlying GAIN data source (Hotz, Imbens, Klerman 2006) is a well-documented dataset used repeatedly in the labor-economics literature, though not casually downloadable without following that chain of citations.
+
+**Overall.** This is a methodologically rigorous paper that is unusually transparent about its own assumption failures — the Comparability violation for earnings is reported with its statistical significance rather than hidden, which strengthens rather than weakens the paper's credibility. The empirical demonstration is a single job-training program at one point in time; the authors themselves frame it as one entry in a hoped-for future "library" of validated surrogate indices, not proof that a six-quarter window generalizes to other interventions or metrics.
+
+## 3. Industry Contribution
+
+**Deployability.** The framework is directly usable by any organization with (a) a recent randomized experiment where only short-term outcomes are available so far, and (b) a separate, larger observational panel where the long-run outcome is observed but treatment assignment is not — precisely the shape of a platform that has abundant historical retention/revenue data but only short-horizon randomized tests. No new instrumentation is required beyond what already exists in each sample.
+
+**Problems solved.** Replaces subjective, ad hoc weighting of several short-term proxy metrics (e.g., "which of these three short-run signals should we trust more?") with an objective, data-driven combination rule: the surrogate index is simply the predicted value of the long-run outcome given the short-run surrogates, estimated by regression on the observational sample. In the empirical application it turns a 9-year wait for a causal effect estimate into an 18-month (or shorter) wait.
+
+**Engineering cost.** This is an offline statistical/econometric workflow, not a change to a ranking or serving pipeline: (1) assemble a comparable observational panel containing the long-run outcome; (2) fit a regression (linear in the paper's application, though the framework does not require linearity) of the long-run outcome on surrogates and covariates; (3) estimate propensity, surrogate, and sampling scores for the doubly-robust/efficient estimators; (4) run the Surrogacy and Comparability diagnostic regressions whenever a new surrogate window or new domain is proposed, since neither assumption is guaranteed to transfer.
+
+## 4. Novelty vs. Prior Work
+
+**Claimed novelty.** Extends the pre-existing surrogacy literature by (i) formally introducing a second, observational sample and articulating the Comparability assumption needed to combine it with the experimental sample — prior surrogacy work implicitly assumed the surrogate-outcome relationship was already known rather than estimated from an auxiliary sample; (ii) deriving semiparametric efficiency bounds and four asymptotically equivalent efficient estimators, which quantifies exactly how much information the Surrogacy assumption buys; (iii) providing sharp, informative bias bounds when Surrogacy or Comparability fail, rather than only a binary "holds or doesn't" characterization; (iv) using directed acyclic graphs to show that surrogacy, mediation, and instrumental-variables analyses are formally distinct estimands requiring different data and assumptions, clarifying when each is (in)applicable.
+
+**Prior work named in the source:**
+- Prentice, "Surrogate endpoints in clinical trials: definition and operational criteria," *Statistics in Medicine* 1989 — the foundational Prentice criterion this paper's Surrogacy assumption is built on.
+- Freedman, Graubard, Schatzkin, 1992 — cited for the critique that a candidate surrogate may not mediate the full effect of treatment, motivating the paper's emphasis on combining *multiple* surrogates.
+- Frangakis and Rubin, "Principal stratification in causal inference," *Biometrics* 2002 — cited for surrogate-paradox concerns this paper's multi-surrogate approach partially addresses.
+- Baron and Kenny, 1986 — foundational mediation-analysis reference the paper connects and contrasts with the surrogacy setup.
+- Rubin, 1976/2004; Little and Rubin, 2014 — the missing-data/Missing-At-Random literature the paper's identifying assumptions are shown to be a special case of.
+- Hotz, Imbens, Klerman, "Evaluating the differential effects of alternative welfare-to-work training components," 2006 — the source of the GAIN dataset used in the empirical application.
+- LaLonde, "Evaluating the econometric evaluations of training programs with experimental data," *American Economic Review* 1986 — the holdout-validation methodology this paper's empirical design follows.
+
+## 5. Dataset Availability
+
+| Dataset | Type | Public? | Notes |
+|---|---|---|---|
+| GAIN (Greater Avenues to Independence) welfare-to-work RCT, California (4 sites) | Government multi-site randomized trial, administrative employment/earnings/aid records | Available via research request (source: Hotz, Imbens, Klerman 2006) | Riverside site (N_E,T=4,405 treated, N_E,C=1,040 control) used as "experimental"; Alameda, Los Angeles, San Diego combined (N_O=13,725) used as "observational"; 36 quarters (9 years) of employment, earnings, and aid-receipt outcomes per individual. |
+| Replication code | Code | Public | https://opportunityinsights.org/data/ |
+
+## 6. Community Reaction
+
+Not assessed in direct-PDF mode.
+
+## 7. Reference Card
+
+| # | Field | Content |
+|---|---|---|
+| 1 | Title, authors/company, venue, year, URL | The Surrogate Index: Combining Short-Term Proxies to Estimate Long-Term Treatment Effects More Rapidly and Precisely; Susan Athey, Raj Chetty, Guido W. Imbens, Hyunseung Kang; NBER Working Paper No. 26463 (Nov 2019, revised Aug 2024), subsequently *The Review of Economic Studies* (2025), rdaf087; http://www.nber.org/papers/w26463 |
+| 2 | Source type | Academic (NBER working paper, later published in an economics journal; grounded in an applied labor-economics program evaluation) |
+| 3 | Direction | D3 |
+| 4 | Problem setting | Estimating the long-run causal effect (ATE) of a binary treatment on a slow-to-observe primary outcome, given (a) an experimental sample with the treatment randomized and short-term surrogate outcomes observed but the long-run outcome not yet observed, and (b) a separate observational sample where the long-run outcome and the same surrogates are observed but treatment assignment is not. |
+| 5 | Objective and label definition | Identify and estimate τ = E[Y(1) − Y(0) \| P=E], the ATE on a scalar long-run "primary outcome" Y (e.g., mean employment rate or earnings over 36 quarters / 9 years). The label is the surrogate index μ(s,x,O) = E[Y \| S=s, X=x, P=O], estimated on the observational sample and applied to the experimental sample. Horizon: surrogates use the first T quarters (T varied from 1 to 36 in the application); ground truth uses all 36 quarters. Delay is handled by simple truncation of the surrogate window, not a survival/hazard/censoring model — the empirical panel is fully observed for 9 years. |
+| 6 | **Prediction or incrementality** | Incrementality. The entire paper targets τ, an unbiased average treatment effect, not merely a conditional prediction of the outcome. The surrogate index μ(s,x,O) is a predictive nuisance component; the estimand every one of the four estimators targets is the causal ATE. |
+| 7 | Model architecture | Not a ranking/ML architecture. Four semiparametric statistical estimators sharing the same surrogate-index nuisance function: (a) surrogate index — regression of Y on (S,X) in the observational sample, predicted values averaged with inverse-propensity weights in the experimental sample; (b) surrogate score — logistic regression of treatment on (S,X) in the experimental sample, used to reweight observational-sample outcomes; (c) an efficient influence-function/doubly-robust estimator combining both; (d) a double-matching estimator (nearest-neighbor matching across both samples on X and S). |
+| 8 | **Credit assignment** | Does not apply in the item/impression sense the survey tracks. The paper assigns one scalar causal effect to one binary treatment for the whole population (an experiment-level ATE), not a per-impression or per-slate decision. This experiment-level operation, not item-level, is a structural feature of the whole D3 direction, not a gap specific to this paper. |
+| 9 | Training data and counterfactual handling | Two disjoint real samples: an experimental (randomized) sample missing Y, and an observational sample missing W. Identification rests on Unconfoundedness (satisfied by design under randomization), Surrogacy/Prentice (W ⊥ Y \| S,X in the experimental sample), and Comparability (the S→Y relationship transports unchanged from the observational to the experimental sample). No propensity-score adjustment is used for confounding *within* the observational sample — treatment there is simply unobserved, not assumed confounded. |
+| 10 | Offline and online evaluation | Offline only — no online experiment. A LaLonde-style holdout design: mask the long-run outcome for one real RCT site (Riverside) and the treatment assignment for the other three (Alameda, LA, San Diego), then check whether the surrogate-index estimate recovers the known experimental benchmark. The paper also derives direct regression-based statistical tests for Surrogacy and Comparability, computable whenever validation data with the long-run outcome exists. |
+| 11 | Reported gains | GAIN job-training RCT, Riverside benchmark: employment effect 6.4 percentage points (SE 1.2), earnings effect $249/quarter (SE $84), both averaged over 36 quarters. All three surrogate-based estimators land within two standard errors of the benchmark once ≥5 quarters (~15 months) of surrogates are used, versus a naive short-run estimator needing >25 quarters (over 6 years). Abstract headline: using only the first six quarters of surrogates versus the full nine years reduces standard errors on the employment-rate effect by 35%. |
+| 12 | Applicability to a two-sided dating recommender | Directly reusable as the label-construction and label-validation methodology for deciding how many days/weeks of retention or revenue signal are needed before training or evaluating a model against 7-30-day or multi-week ground truth; the Surrogacy/Comparability regression tests are a ready-made offline check. It says nothing about item-level ranking, reciprocity, or congestion — the ATE is for one treatment applied to a whole population, not a per-candidate exposure decision. |
+| 13 | Unverified claims | The paper's own diagnostics show Comparability is empirically violated to a modest but statistically persistent degree for the earnings outcome even at large t (t-statistics around -3.6 to -4.2 at t=12-24 quarters, Table 7) — stated plainly by the authors, but a reader relying only on the abstract's "35% reduction" headline could miss it. The claim that a "library of surrogate indices" built from six-quarter windows would generalize across "many different job training programs" is explicitly framed by the authors as a hope for future work, not something demonstrated beyond this single GAIN cross-site comparison. |
+
+## Project Relevance
+
+The foundational reference for the whole D3 direction. Speaks to **Q1** (indirectly — this is about validating a short-horizon label as a stand-in for a long-horizon one, a prerequisite for making retention/revenue the direct training objective), **Q3** (centrally — the empirical question of how many weeks of surrogate signal suffice is exactly the label/horizon question the survey must answer for a dating app's 7-30-day retention window), and **Q6** (the regression-based Surrogacy/Comparability tests are a directly reusable offline surrogate-validation protocol for the executive summary's evaluation-plan deliverable). It is **not** relevant to **Q2** (item-level credit assignment), **Q4** (fusing short/long-term heads inside a ranking model), **Q5** (where uplift sits inside a ranker), or **Q7** (two-sided market mechanics) — Reference Card field 8 states this mismatch plainly: the paper operates entirely at the whole-population, single-treatment ATE level, never at the item or impression level. It is moderately relevant to **Q8** in that the "library of validated surrogate indices" framing is itself a staged-adoption pattern: validate a short-horizon label once, then reuse it with confidence.
+
+## Papers That Mention This Paper (Reverse Citation Map)
+
+_No other card in this corpus names the method token `SurrogateIndex`._
+
+## Meta Information
+
+- **Authors:** Susan Athey, Raj Chetty, Guido W. Imbens, Hyunseung Kang
+- **Affiliations:** Stanford Graduate School of Business & NBER (Athey, Imbens); Harvard Department of Economics & NBER (Chetty); University of Wisconsin-Madison Department of Statistics (Kang)
+- **Venue:** NBER Working Paper (subsequently *The Review of Economic Studies*, 2025)
+- **Year:** 2019 (revised 2024)
+- **Relevance:** Core
+- **Priority:** 2
+- **nlm:f19c6829**

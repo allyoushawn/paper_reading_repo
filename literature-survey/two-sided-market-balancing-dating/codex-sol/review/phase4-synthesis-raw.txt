@@ -1,0 +1,259 @@
+All 57 listed files were read one at a time. Below is the required proof, then the eight evidence sections.
+
+## PROOF OF READING
+
+1. `phase4-nlm-q1.md` ~L7: "The following are the dominant methodological approaches utilized across the sources in this notebook to model, optimize, and evaluate reciprocal recommendations and two-sided matching markets:"
+2. `phase4-nlm-q2.md` ~L3: "What are the most common evaluation datasets and benchmarks used across these papers?"
+3. `phase4-nlm-q3.md` ~L7: "The following open problems and research gaps are identified most frequently across the provided papers in this notebook:"
+4. `phase4-nlm-q4.md` ~L7: "Based on the bibliographies, citations, and baseline evaluations listed across the sources in this notebook, several papers emerge as highly foundational."
+5. `phase4-nlm-q5.md` ~L7: "Yes, the method from one of the papers in this notebook is utilized as a direct, head-to-head experimental baseline by other papers present in the notebook."
+6. `phase4-nlm-q6.md` ~L9: "ECDA maps predicted login, like, and relike probabilities into recommendations under proposer cognitive capacity constraints while capping receiver-side exposure in terms of expected likes or expected dates, rather than headcount [2, 3]."
+7. `phase4-nlm-q7.md` ~L3: "Across all notebook sources, identify source-backed market-health metrics and interference-aware experimental designs for two-sided dating markets."
+8. `README.md` ~L11: "The product is a two-sided dating market where a match requires a like from both sides."
+9. `requirements.md` ~L10: "This is Survey 4 of the Attribution-Based Retention project."
+10. `queue-codex-sol.md` ~L5: "Selection: **45 verified references**."
+11. `method-tracker.md` ~L58: "Baseline mention count includes only a method explicitly named as an experimental comparator in another card."
+12. `discovery-notes.md` ~L9: "The local Awesome Deep Learning Papers repository was resolved through the repo registry, was already on `master`, and `git pull origin master` reported `Already up to date.`"
+13. `2009_OkTrends_NA_Your-Looks-and-Your-Inbox.md` ~L13: "This OkTrends analysis compares OkCupid photo ratings, message distributions, and reply behavior."
+14. `2010_AER_GaleShapley_Matching-and-Sorting-Online-Dating.md` ~L13: "The paper estimates mate preferences from profile browsing and first-contact behavior on a decentralized dating site, then uses Gale-Shapley matching as an equilibrium benchmark."
+15. `2013_UMUAI_RECON_Recommending-People-To-People.md` ~L12: "The paper characterizes people-to-people recommendation as a reciprocal problem with subject/object and proactive/reactive roles."
+16. `2014_KDD_ImpressionDiscounting_Modeling-Impression-Discounting.md` ~L12: "Repeatedly showing an ignored item wastes recommendation slots and crowds out fresh alternatives."
+17. `2015_ASONAM_RRS_Reciprocal-Recommendation-Online-Dating.md` ~L12: "The paper learns reciprocal dating compatibility from directed communication rather than stated profile preferences."
+18. `2015_ExpEcon_VirtualRose_Propose-With-A-Rose.md` ~L12: "A scarce, nonbinding preference signal can help recipients distinguish serious proposals in a congested dating market."
+19. `2017_CIKM_CapMF_Recommendation-Capacity-Constraints.md` ~L10: "Christakopoulou, Kawale, and Banerjee add item-specific capacity penalties to PMF, BPR, GeoMF, and GeoBPR."
+20. `2017_KDD_LiJAR_Job-Application-Redistribution.md` ~L12: "LinkedIn's relevance-only job recommendation concentrated applications on already oversubscribed jobs while leaving other jobs underserved."
+21. `2017_MLconf_TinVec_Personalized-User-Recommendations-Tinder.md` ~L12: "This MLconf talk presents TinVec, a Tinder user-embedding method adapted from Skip-gram Word2Vec."
+22. `2018_CIKM_Adaptive-Fairness_Fair-Marketplace-Counterfactual-Evaluation.md` ~L12: "The paper studies how a marketplace recommender can balance consumer relevance, consumer satisfaction, and supplier exposure fairness."
+23. `2018_KDD_NA_Fairness-of-Exposure-Rankings.md` ~L12: "Relevance-only ranking can turn small score differences into winner-take-all exposure."
+24. `2018_MgmtSci_ChoiceRestriction_Competing-By-Restricting-Choice.md` ~L12: "A matching platform can benefit users by showing more candidates, but every extra option also gives those candidates more alternatives and raises rejection risk."
+25. `2018_SciAdv_PageRank_Aspirational-Pursuit-of-Mates.md` ~L13: "The paper builds directed message networks for four US dating markets and uses PageRank to estimate a global desirability hierarchy."
+26. `2019_KDD_DetGreedy_Fairness-Aware-Ranking-Talent-Search.md` ~L12: "Standard relevance ranking can amplify historical underrepresentation in high-stakes search."
+27. `2019_Tinder_NA_Powering-Tinder-Matching.md` ~L12: "This company newsroom post explains at a high level how Tinder orders profiles after retiring its former Elo-based system."
+28. `2020_KDD_Query-Context-Embedding_Managing-Diversity-Airbnb-Search.md` ~L12: "Airbnb studies how to diversify a ranked result set without sacrificing relevance."
+29. `2021_DataFunTalk_BilateralSwitchback_Kuaishou-Causal-Experiment-Design.md` ~L12: "This technical-talk recap surveys Kuaishou's causal methods for product, recommendation, and live-streaming questions."
+30. `2021_InfoFusion_NA_Reciprocal-Recommender-Systems-Survey.md` ~L10: "Palomares et al. survey reciprocal recommender systems (RRS), in which both people must accept a recommendation for it to succeed."
+31. `2021_MSOM_ApplicationLimits_Managing-Congestion-Matching-Markets.md` ~L12: "Cheap applications in asynchronous matching markets create stale queues and costly screening without increasing matches."
+32. `2021_MS_NA_Facilitating-Search-for-Partners.md` ~L12: "In dynamic matching markets, agents incur screening costs to learn pair-specific value, and unrestricted proposal behavior creates rejection externalities and congestion."
+33. `2021_NeurIPS_LorenzWelfare_Two-Sided-Fairness-Lorenz-Dominance.md` ~L10: "Do et al. define fair rankings through non-dominated generalized Lorenz curves and optimize a concave welfare function over user and item utilities."
+34. `2021_NeurIPS_UniCoRn_AB-Testing-Two-Sided-Marketplace.md` ~L12: "Producer-side experiments are biased when every producer's exposure depends on many consumers receiving conflicting rankings."
+35. `2021_arXiv_SMRD_Multiple-Randomization-Designs.md` ~L12: "Single-sided experiments can miss strategic spillovers in markets with interacting populations."
+36. `2022_CyberAgent_DoubleSelection_Analyzing-Encounters-Matching-Apps.md` ~L12: "This industry post diagnoses three problems on Tapple: causal measurement of trust features, a large gender gap in recommendation recall, and exposure concentration on popular users."
+37. `2022_CyberAgent_MTRS_Matching-Theory-Reciprocal-Recommendation.md` ~L12: "The post argues that averaging two directional preference scores ignores the finite number of simultaneous interactions a dating user can manage and concentrates likes on popular “superstars.”"
+38. `2022_LinkedIn_LiFT-Platform_LinkedIn-Integrates-Fairness-AI.md` ~L12: "LinkedIn describes an internal, model-agnostic fairness workflow integrated with its ProML platform."
+39. `2022_MgmtSci_TSRI_Experimental-Design-Two-Sided-Platforms.md` ~L12: "Standard customer- or listing-side A/B tests can be badly biased when marketplace participants compete for finite inventory."
+40. `2022_OR_NA_Assortment-Two-Sided-Sequential-Matching.md` ~L12: "A platform choosing personalized partner menus must trade off giving users enough attractive options against collisions when many users choose the same capacity-limited partner."
+41. `2022_RecSys_DPGNN_Two-Way-Selection-Person-Job.md` ~L12: "Person-job fit is bilateral: candidate interest and employer interest are distinct, and unilateral actions are failed matches."
+42. `2022_SIGIR_JME_Joint-Multisided-Exposure-Fairness.md` ~L12: "The paper formalizes exposure fairness when both consumers and producers have group attributes."
+43. `2022_arXiv_MTRS_Matching-Theory-Online-Dating.md` ~L12: "Reciprocal score fusion can concentrate likes and matches on popular users without accounting for their limited screening capacity."
+44. `2022_arXiv_SP_Marketplace-Interference-Shadow-Prices.md` ~L12: "Standard randomized experiments in matching marketplaces are biased because treated demand competes with control demand for shared capacity."
+45. `2023_KDD_BOSS_Bilateral-Occupational-Suitability.md` ~L12: "Online recruitment combines different participant roles, reciprocal acceptance, and a multi-stage action funnel."
+46. `2023_RecSys_ReSeq_Reciprocal-Sequential-Recommendation.md` ~L12: "Static reciprocal recommenders miss preference drift and the dual role of every market participant."
+47. `2023_RecSys_TU_Fast-Examination-Agnostic-Reciprocal.md` ~L12: "The paper formulates reciprocal ranking as stochastic transferable-utility (TU) matching."
+48. `2024_KDD_CRRS_Revisiting-Reciprocal-Recommender-Systems.md` ~L12: "The paper argues that separately scored top-K metrics double-count redundant bilateral recommendations and miss population imbalance."
+49. `2024_MarketingScience_SequentialSearch_Effects-Market-Size-Competition.md` ~L12: "Larger dating markets do not mechanically produce more matches because users strategically change selectivity when they believe more candidates or more competitors are present."
+50. `2024_RecSys_NSW_Fair-Reciprocal-Recommendation.md` ~L12: "The paper treats recommendation opportunity as a divisible resource and defines double envy-freeness for reciprocal markets."
+51. `2025_Hinge_DeepRecSys_How-We-Connect-Daters.md` ~L13: "Hinge explains its production recommendation system in consumer-facing terms."
+52. `2025_MgmtSci_GCR_Reducing-Interference-Bias-Airbnb.md` ~L12: "Individual listing randomization is biased when substitutable marketplace listings compete for demand."
+53. `2025_RecSys_DiPS-DPR_Off-Policy-Evaluation-Matching-Markets.md` ~L12: "Reciprocal matching produces extremely sparse final rewards because both sides must act positively."
+54. `2026_ICLR_MRet_Retention-Optimized-Two-Sided-Matching.md` ~L13: "The paper argues that maximizing matches concentrates outcomes on a few users, while exposure fairness is only a proxy for the platform's retention goal."
+55. `2026_Wantedly_PersonalizedAggregation_Personalizing-Preference-Aggregation.md` ~L12: "Wantedly reproduces and adapts Kleinerman et al.'s personalized reciprocal-score aggregation."
+56. `2026_arXiv_ECDA_Predictive-Models-Two-Sided-Recommendations.md` ~L12: "Ranking by predicted bilateral dating probability can still overload responsive receivers, producing many formal matches that do not progress."
+57. `2026_arXiv_TEC_Recommendation-Exposure-Favorite-Lists.md` ~L12: "Myopically maximizing favorite probability on a spot-work platform concentrates exposure on popular job templates with little current capacity, while underexposing templates with unfilled jobs."
+
+---
+
+## 1. DESIGN PATTERNS
+
+**1. Harmonic / personalized reciprocal fusion.** Sources: *Recommending People to People* (Pizzato et al., 2013); *Reciprocal Recommendation System for Online Dating* (Xia et al., 2015); *An Attempt to Personalize Preference Aggregation in Reciprocal Recommendation* (Ichimura, 2026). Mechanism: estimate both directional affinities and fuse with a (possibly user-specific) harmonic mean so a weak like-back suppresses the pair. Strongest numbers: RECON S@10 42.20% vs 23.00% unilateral; Wantedly unique recommendations@10 **+16.8%** vs fixed weights, with apply/match nDCG@10 **−2.4%/−3.3%**. Limitation: Xia reports no exact lift over RECON; Wantedly is offline and exposure-biased; no hard capacity.
+
+**2. Dual-perspective / funnel reciprocal scoring.** Sources: *Modeling Two-Way Selection Preference for Person-Job Fit* (DPGNN); *Reciprocal Sequential Recommendation* (ReSeq); *BOSS*. Mechanism: separate outgoing taste from incoming appeal (graph nodes, sequential encoders, or MoE groups) and score the mutual outcome. Strongest numbers: ReSeq Technology HR@5 **0.7597/0.7809** vs DPGNN/FMLP-Rec **0.4521/0.5206**; BOSS live acceptance **+6.15%**. Limitation: recruitment, not dating; no capacity or match-spread objective.
+
+**3. Transferable-utility market-clearing scores.** Sources: *Matching Theory-Based Recommender Systems in Online Dating* (Tomita, Togashi, Moriwaki 2022); CyberAgent blog *A Reciprocal Recommendation System Based on Matching Theory*; *Fast and Examination-agnostic Reciprocal Recommendation in Matching Markets* (Tomita et al. 2023). Mechanism: multiply reciprocal preference by equilibrium unmatched-probability / outside-option factors so superstars lose rank. Strongest numbers (2023 TU): synthetic n=100 expected matches **152.39** vs reciprocal product **129.82**; dating 1,000×1,000 **538.97/386.64** vs reciprocal **491.12/360.05**. Limitation: 2022 MTRS/blog report **no own quantitative outcomes**; 2023 is offline k-core, no live A/B.
+
+**4. Exposure-budgeted / forecast-driven capacity allocation.** Sources: *Integrating Predictive Models into Two-Sided Recommendations* (ECDA); *LiJAR*; *Designing Recommendation Exposure and Favorite Lists* (TEC); *Recommendation with Capacity Constraints* (CapMF). Mechanism: cap expected inbound likes/dates, forecast oversubscription, or update stateful eligibility from remaining capacity. Strongest numbers: ECDA simulation effective dates **+7.6%**, receiver dating probability **+8.7%**, raw dates **−24.6%**; field (ex-top 0.1%) effective dates **+0.003** (p<0.05). LiJAR live: underserved apps **+6.5%**, overserved **−8.7%**, entropy **+12%**. TEC field: **+9.045** matches/prefecture-day. Limitation: LiJAR/TEC/CapMF are not double-opt-in dating; ECDA DID uses only two regions and messaging is unchanged.
+
+**5. Constrained probabilistic / welfare reranking.** Sources: *Fairness of Exposure in Rankings*; *Joint Multisided Exposure Fairness*; *Fair Reciprocal Recommendation in Matching Markets* (NSW); *Two-Sided Fairness in Rankings via Lorenz Dominance*; *Fairness-Aware Ranking… LinkedIn Talent Search* (DetGreedy). Mechanism: LP / Frank–Wolfe / DetGreedy reallocates position exposure under fairness, envy, or Lorenz welfare. Strongest numbers: NSW dating 200×200 log-examination: matches **90.39** vs SW **111.37**, envy **31/14** vs **434/331**; DetGreedy representative queries **33%→95%**, InMails unchanged. Limitation: Singh–Joachims/JME/DetGreedy are passive-item or group-representation; NSW does not scale to full markets and has no live test.
+
+**6. Market-design levers (caps, signals, menus, who searches).** Sources: *Propose with a Rose?*; *Effects of Market Size and Competition… Online Dating* (Fong); *Managing Congestion in Matching Markets* (Arnosti et al.); *Facilitating the Search for Partners*; *Competing by Restricting Choice*; *Assortment Planning for Two-Sided Sequential Matching Markets*. Mechanism: scarce roses, like limits, application caps, directional initiation, menu-size restriction, collision-aware assortments. Strongest numbers: roses, acceptance **+3.3 pp** (~20%; IV **+4.1 pp**), eight vs two roses initiated dates **+48%** verified Seoul men / **+86%** women; Fong small-market 25% growth **−12.2%/−17.7%** matches, doubled like limits **+136.3%/+121.6%**. Limitation: Arnosti/Kanoria–Saban/Halaburda/Ashlagi are theory/simulation; roses waste ~30% of signals on non-responding top-tier recipients.
+
+**7. Interference-aware evaluation of two-sided policies.** Sources: *A/B Testing for Recommender Systems in a Two-Sided Marketplace* (UniCoRn); *Experimental Design in Two-Sided Platforms* (TSRI); *Multiple Randomization Designs*; *Reducing Interference Bias… Airbnb* (GCR); *Reducing Marketplace Interference Bias Via Shadow Prices*; *Off-Policy Evaluation and Learning for Matching Markets* (DiPS/DPR); Kuaishou causal-design recap. Mechanism: producer-side rank blending, two-sided cells, cluster randomization, shadow prices, two-stage OPE. Strongest numbers: UniCoRn LinkedIn WAU **+0.51%**/sessions **+0.57%**; GCR **19.76%** of naive booking effect is interference; DPR lowest MSE on Wantedly 1.2% matches. Limitation: SP requires centralized LP matching (dating fit **Low**); Kuaishou reports **no numbers**.
+
+**8. Ecosystem diagnostics without an allocator.** Sources: *Your Looks and Your Inbox*; *Aspirational Pursuit of Mates*; *Matching and Sorting in Online Dating*; Tapple *Analyzing Encounters on Matching Apps*. Mechanism: attractiveness-stratum message shares, PageRank desirability gaps, unrequited-contact rates, side-specific recall. Strongest numbers: OkCupid two-thirds of male messages to top third of women; Bruch–Newman men/women message **26%/23%** upward, men’s upward reply **≤21%**; Hitsch 71%/56% first contacts unrequited; Tapple recall **0.9/0.2**. Limitation: observational; no tested reallocation.
+
+---
+
+## 2. SIX-ROW MATRIX EVIDENCE
+
+### reciprocal scoring
+- **RECON (Pizzato et al. 2013):** harmonic bilateral compatibility; S@10 42.20% vs 23.00% unilateral.
+- **DPGNN (Yang et al. 2022):** dual active/passive nodes; Tech Recall@5 0.2941/0.3430 vs LGCNBERT 0.2685/0.3187.
+- **ReSeq (Zheng et al. 2023):** sequential dual encoders; Technology HR@5 0.7597/0.7809.
+- **CRRS (Yang et al. 2024):** causal one-sided vs bilateral treatments; Libimseti CRecall@50 0.3387 and 1,743 pairs vs DPGNN 0.3007 / 1,548.
+- **Ichimura 2026:** personalized harmonic β; unique@10 +16.8%, nDCG down.
+- **TinVec / Tinder 2019 / Hinge 2025:** unilateral or qualitative reciprocal production scoring; TinVec AUROC 90% / F1 85%; Tinder and Hinge effects **Not specified**.
+
+### capacity-aware scoring
+- **TU 2023:** IPFP outside-option factors in a MIPS-compatible score; dating 1,000×1,000 538.97/386.64 expected matches vs reciprocal 491.12/360.05.
+- **MTRS 2022:** `sqrt(μ_x0)·sqrt(μ_y0)` capacity discount; **no quantitative effect specified**.
+- **ECDA 2026:** date-rate greedy allocation under expected-like/date caps; sim effective dates +7.6%, raw dates −24.6%.
+- **LiJAR 2017:** forecast min/max apps then boost/penalize; +6.5%/−8.7% applications, entropy +12%.
+- **CapMF 2017:** expected-usage penalty; MovieLens Cap-BPR capacity loss 4.51→0.08.
+- **TEC 2026:** capacity/vacancy score updates; field +9.045 matches/prefecture-day.
+
+### constrained re-ranking
+- **Singh & Joachims 2018:** LP + Birkhoff–von Neumann; job DTR 1.7483→1.0000, DCG 3.8193→3.8044.
+- **JME 2022:** GG-F + stochastic ranking; MovieLens100K NDCG@50 0.3703→0.3692, GG-F improved p<0.01.
+- **NSW 2024:** alternating Nash welfare; 90.39 matches and 31/14 envies vs SW 111.37 and 434/331.
+- **LorenzWelfare 2021:** concave reciprocal welfare; Twitter-13k bottom-10% utility 120→280, total 17,000→6,400.
+- **DetGreedy 2019:** prefix representation; queries 33%→95%, InMails unchanged.
+- **CRRS vacant-slot rerank:** redirects redundant bilateral slots; unique-pair lift as above.
+- **Airbnb Query-Context Embedding 2020:** listwise diversification; bookings +0.44%.
+
+### market-design lever
+- **Lee & Niederle 2015:** scarce roses; +3.3 pp acceptance; 8 vs 2 roses +48%/+86% initiated dates.
+- **Fong 2024:** like-limit × thickness; doubled caps reverse growth losses to +136.3%/+121.6% matches.
+- **Arnosti, Johari, Kanoria 2021:** application caps; welfare ~2× at r=1.4, 3× at r=1.9; ≥75% of constrained-efficient maxima.
+- **Kanoria & Saban 2021:** who may propose; up to +14.6% average welfare; 2:1 imbalance long side +31%.
+- **Halaburda et al. 2018:** restrict N; rejection N/(N+1); utility peaks near N=2–3 in simulations.
+- **Hinge 2025:** gate unlimited dealbreakers to protect pool thickness; effect **Not specified**.
+- **Ashlagi et al. 2022:** collision-aware menus; ALG/UB 0.37–0.47.
+
+### ecosystem metrics
+- **OkCupid 2009:** message concentration; 66% of male messages to top 33% of women; top women ~5×/28×.
+- **Bruch & Newman 2018:** PageRank gap; 26%/23% upward targeting; men’s upward reply ≤21%.
+- **Hitsch et al. 2010:** 71%/56% unrequited first contacts; 4.3%/6.4% convert to matches.
+- **NSW 2024:** expected matches and envy counts (card); Gini **Not specified on the NSW card**.
+- **ECDA 2026:** average dates, effective dates, dating probability, likes; messaging unchanged in field.
+- **Tapple 2022 (Kazumi):** recall 0.9/0.2; verification message-approval +2% / ~+36%.
+- **MRet 2026:** two-sided retention as objective; **no numeric retention effect specified**.
+- **CRRS 2024:** CRecall/CPrecision, SRecall, RNDCG, unique true-positive pairs.
+
+### evaluation method
+- **UniCoRn 2021:** producer-side counterfactual rank blending; LinkedIn WAU +0.51%, p<0.001.
+- **Johari et al. 2022 (TSRI-2):** two-sided randomization + cannibalization correction; balanced-demand |bias| ~0.08 vs 0.20–0.22.
+- **Masoero et al. 2021 (SMRD):** four pair-cells; single-sided profit sign wrong; spillover test 99.5%.
+- **Holtz et al. 2025 (GCR):** cluster vs individual meta-experiment; 19.76% interference bias.
+- **Bright et al. 2022 (SP):** dual-price estimator; RCT overstates undersupply effects >2×; dating transfer **Low**.
+- **Hayashi et al. 2025 (DiPS/DPR):** two-stage reciprocal OPE; DPR lowest MSE; DiPS/IPS better policy selection.
+- **ECDA / TEC:** geographic/prefecture DID because user-split violates SUTVA.
+- **Kuaishou 2021:** bilateral + switchback designs; effects **Not specified**.
+
+---
+
+## 3. FOUNDATIONAL / BASELINE AUDIT
+
+**Explicit direct experimental comparators inside the 45 cards (method-tracker rule, confirmed on cards):**
+- **DPGNN** used by *Reciprocal Sequential Recommendation* and *Revisiting Reciprocal Recommender Systems* (head-to-head tables). Matches NLM Q5.
+- **TU (Tomita et al. 2023)** used by *Fair Reciprocal Recommendation in Matching Markets*. NLM Q5 **misses this**.
+- **RECON** used by Xia et al. 2015 as a named baseline; Xia card: exact lift **Not specified**. NLM Q5 **misses this**.
+
+**Explicit extensions / reproductions, not proposal-paper baselines:**
+- JME **extends** Singh & Joachims exposure fairness (related-work/extension, not a head-to-head baseline of the 2018 method on dating data).
+- Ichimura 2026 **reproduces** Kleinerman et al. 2018; Kleinerman’s own paper is **not** one of the 45 cards.
+
+**NLM Q4 “foundational” vs this corpus:**
+- Gale–Shapley: **citation + simulation benchmark** in Hitsch et al.; conceptual prior in several cards. **Not** a trained experimental baseline of a method proposed in the 45.
+- Choo–Siow 2006: **theoretical backbone** of MTRS/TU; paper itself **not** a card.
+- Koren MF: **first-stage engine / related-work**, not a card.
+- RECON and Singh–Joachims: in-corpus; RECON is a real comparator (Xia); Singh–Joachims is cited/extended, **baseline mention count 0** in the tracker.
+- NLM Q4 also names MODE, Nakada mini-batch stable matching, Akehurst CCR, Chen et al. TU field tests — **none of those are among the 45 cards**. Treat Q4 as notebook-wide, not as this selection’s baseline graph.
+
+**Conflict with NLM Q5:** Q5’s claim that DPGNN is the **only** in-notebook experimental baseline is **false relative to the cards and method-tracker** (TU, RECON also qualify).
+
+---
+
+## 4. BIBLIOGRAPHY AUDIT
+
+README required fields: title; authors/organization; year; venue/type; link; tier; what they did (≤80 words); two-sided mechanism (≤50 words); metrics and reported effect; dating-app fit (high/medium/low + reason); confidence.
+
+**All 45 cards contain an `## Annotated Bibliography Fields` block covering those contents.**
+
+Labeling variants (information present, not missing):
+- Five cards pack citation metadata into a single **Citation** line rather than discrete labels: OkCupid 2009; Hitsch et al. 2010; Bruch & Newman 2018; Hinge 2025; MRet 2026.
+- Mechanism label varies (`Two-sided mechanism` / `Mechanism` / `Mechanism relevant to two-sided balancing`).
+- Fit label varies (`Dating-app fit` / `Dating fit + reason`).
+
+**Uncertain / incomplete field values (not invented):**
+- Tinder 2019, Hinge 2025, LiFT 2022, Kuaishou 2021, MTRS 2022, MRet 2026: metrics/effect **Not specified** or non-numeric.
+- ECDA and MRet: affiliations **Not specified in source** (meta).
+- Fong 2024: author surname Yu vs Fong; working title vs published title (card flags this).
+- Halaburda, Kanoria–Saban, Arnosti, Ashlagi, Fong: queried PDF is a working version; venue/year from queue.
+- BOSS: queue URL is KDD TOC, not a paper PDF.
+- Xia 2015: exact I/R-precision lifts **Not specified**.
+- MRet: empirical magnitude **low confidence** because indexed source is abstract-level.
+
+No card is missing the bibliography section itself.
+
+---
+
+## 5. TOP 10 READ-FIRST
+
+Ranked by expected design value for wasted likes / overloaded-receiver congestion in a dating feed:
+
+1. **Integrating Predictive Models into Two-Sided Recommendations (ECDA, 2026)** — only in-corpus dating method with predicted-funnel scoring, exposure budgets, effective-date metric, and a regional field test.
+2. **Fast and Examination-agnostic Reciprocal Recommendation in Matching Markets (TU, 2023)** — dating-log TU scores that remain MIPS-servable; explicit match-volume and Gini vs reciprocal product.
+3. **Effects of Market Size and Competition in Two-Sided Markets (Fong, 2024)** — causal like-limit × thickness evidence on a live swipe app.
+4. **Propose with a Rose? (Lee & Niederle, 2015)** — randomized scarce-signal lever with acceptance and initiated-date lifts under proposal caps.
+5. **Fair Reciprocal Recommendation in Matching Markets (NSW, 2024)** — dating-data efficiency–envy frontier any fairness reranker must report.
+6. **LiJAR (Borisyuk, Zhang, Kenthapadi, 2017)** — deployed forecast-and-penalize pattern closest to “don’t dump likes on already-full inboxes.”
+7. **Revisiting Reciprocal Recommender Systems (CRRS, 2024)** — unique-match metrics and vacant-slot logic against double-counted top-K.
+8. **Recommending People to People / RECON (Pizzato et al., 2013)** — still the simplest dating-tested reciprocal scorer plus reply-overload curves.
+9. **Designing Recommendation Exposure and Favorite Lists (TEC, 2026)** — production capacity-state exposure controller and interference-aware geo rollout (adapt FCFS→double opt-in).
+10. **A/B Testing for Recommender Systems in a Two-Sided Marketplace (UniCoRn, 2021)** — how to test receiver-side capacity/retention rankers without mixed producer models in one feed.
+
+---
+
+## 6. GAPS AND SEARCHES
+
+**Source-grounded gaps**
+- Public reciprocal dating benchmarks remain scarce (Palomares survey; proprietary Tapple/CoupLink/Baihe/Libimseti-proxy). Discovery logged **no post-2021 general RRS survey**.
+- Hard per-user reply/conversation capacity is rarely the constraint: TU/NSW use soft equilibrium/envy; CapMF uses synthetic item capacity; LiJAR uses job applications.
+- TU 2022/2023 and NSW 2024 have **no live A/B** in these cards; MTRS 2022 effects **Not specified**.
+- ECDA **does not move post-match messaging**; MRet claims retention gains with **no numbers**.
+- Dating-app ranking blogs remain a discovery **null** (Bumble, Badoo, Grindr, Match, Tantan, Momo, Soul, Baihe, Jiayuan).
+- User-split A/B is known-invalid (ECDA, TEC, Johari, UniCoRn); almost no dating recsys paper in this set uses UniCoRn/TSRI/GCR on likes/matches.
+- Kleinerman 2018, Tu et al. 2014 Baihe LP, Hinge Gini/Most Compatible, and several Must-Include seeds are **outside these 45**.
+
+**Exactly five next searches**
+1. Primary pages for Hinge Most Compatible / Gini (TechCrunch/Quartz seeds) and any 2025–2026 Hinge quantitative match claim, to reconcile the Hinge card’s “Not specified” with other workplaces’ “double-digit” summary.
+2. Chen / Hsieh / Lin transferable-utility dating field experiment (cited secondhand in CyberAgent 2022 blog) for numeric Gini/coverage/total-match trade-off.
+3. Tu et al., *Online Dating Recommendations: Matching Markets and Learning Preferences* (Baihe LP; Must Include; NLM Q6’s 45–48% reply lift) — not in the 45.
+4. RecSys/KDD 2025–2026 industry tracks plus Tapple/Pairs production A/B of TU or NSW (cards leave this to future work; RecSys 2026 list was a venue null).
+5. Dating-native interference designs: regional/cluster/two-sided tests of like caps or exposure budgets, plus conversation and two-sided retention — not swipe AUC.
+
+---
+
+## 7. QUANTITATIVE CONFLICT FLAGS
+
+Spot-check these against the **named card**, not NLM:
+
+| Claim | Where it appears | Conflict |
+|---|---|---|
+| Rose raises acceptance **7.8 pp** | NLM Q6, Q7 | Card: **+3.3 pp** (~20%; IV **+4.1 pp**). Do not use 7.8. |
+| Eight vs two roses, men dates **0.556→0.833 (48%)** vs **0.556→0.800 (44%)** | Q6 vs Q7 | Card: **+48%** for **fully verified Seoul men**, **+86%** women; **does not state 0.556/0.800/0.833**. Q6 and Q7 disagree with each other. |
+| ECDA field receiver likes **+0.334**; average dates **+0.003** | NLM Q6/Q7 | ECDA card: effective dates **+0.003**, proposer/receiver probability **+0.002/+0.005**; **does not report +0.334 likes or +0.003 raw dates**. |
+| ECDA synthetic 4.182 likes / 0.1859 effective dates, etc. | NLM Q6/Q7 | Card reports **+7.6% / +8.7% / −24.6%** only. Spot-check the PDF table before using NLM’s raw cells. |
+| Q7 names **0.3372** dates as “ECDA (date-sort, cap=40)” | NLM Q7 | Q6 names the same cell **DA (date-sort, cap=40)**. Naming inconsistency. |
+| NSW Table 3 Gini 0.381/0.477 | NLM Q6/Q7 | NSW card Project Relevance: Gini **Not specified in source**; card reports matches and envy only. |
+| Only DPGNN is an in-notebook experimental baseline | NLM Q5 | Cards + tracker: **DPGNN, TU, RECON**. |
+| MODE expected matches **>10%** vs deterministic baselines | NLM Q7 | MODE **is not a card**; cannot be used as this-selection evidence. |
+| Baihe LP **+45–48%** replies | NLM Q6/Q7 | Tu et al. 2014 **not in the 45**. |
+| Equilibrium matchmaker **~35% hit rate**, **200%** faster clearing | NLM Q6/Q7 | “Economist versus Machine” **not in the 45**. |
+| GCR **12.05% / 28.65%** bias by market tightness | NLM Q7 | GCR card: **19.76%** overall; subgroup differences **suggestive, not significant**; those percents **absent from the card**. |
+| TEC favorites DID **−40.458** | NLM Q7 | TEC card: aggregate favorites **statistically unchanged**; coefficient **not on the card**. |
+| Hinge **double-digit match increase** | `requirements.md` Summary of Actual Search Results (cursor-grok workplace) | Hinge card: metrics **Not specified**. Do not import that number into this corpus. |
+| Tapple cited TU Gini **0.75→0.60** | Kazumi 2022 card | Secondhand Taiwanese case, **not** CyberAgent’s own result. |
+
+NLM Q1–Q3 also mix **notebook sources that are not cards** (CCR, LightGCN, BERT4Rec, Lyft RL, etc.). Use them only as discovery hints.
+
+---
+
+## 8. COVERAGE CHECK
+
+**D1–D8 tagged counts** (queue + discovery-notes; items may be multi-tagged): D1 **19**, D2 **7**, D3 **8**, D4 **14**, D5 **10**, D6 **8**, D7 **8**, D8 **7**. Primary-group counts: 11 / 5 / 4 / 4 / 6 / 5 / 6 / 4. Thinnest: **D2 and D8**.
+
+**Tier mix:** Tier 1 **24 (53.3%)**, Tier 2 **15 (33.3%)**, Tier 3 **6 (13.3%)**, Tier 1+2 **39/45 = 86.7%** (above the 60% floor).
+
+**Named discovery nulls:** Bumble Tech ranking posts; post-2021 free RRS survey; RecSys 2026 accepted matching/industry list; dating-app primary ranking posts for Badoo, Match-outside-Tinder/Hinge, Grindr (distance filter only), eHarmony, Zoosk, Tantan, Momo, Soul, Baihe, Jiayuan; Chinese official dating engineering sources; Awesome-repo new core hits after de-dup; Upwork/Hired/Etsy/Meta-PYMK new capacity/interference hits.
+
+**Limitations / confidence:** 45 industry-first items with strong T1+T2 mix, but several highest-leverage NLM numbers are **not on the cards** or **contradict the cards**. Live dating allocation evidence is concentrated in **ECDA, Fong, roses, Tapple diagnostics**; TU/NSW/MTRS are mechanism-rich and outcome-thin online. Reciprocal ML (DPGNN/ReSeq/BOSS) is recruitment. Interference methods are mostly jobs/Airbnb/taxi. **Do not treat NLM Q4–Q7 as a substitute for card tables.** Confidence in the **pattern map and in-card numbers** is high; confidence in **NLM-only cells** is low until PDF spot-check.

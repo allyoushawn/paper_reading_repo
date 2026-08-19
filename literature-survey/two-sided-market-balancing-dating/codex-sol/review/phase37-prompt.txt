@@ -1,0 +1,66 @@
+You are performing a read-only literature-corpus synthesis for Phase 3.7. Work from the current directory only. Do not modify any file.
+
+SCOPE IS PINNED: Read exactly the 45 markdown files listed below, and no other repository files. Do not explore the repository. Read files ONE AT A TIME, one file per tool call. Count a file as read only after reading its full contents.
+
+Task: Exhaustively map explicit references or mentions from each card to other cards in this same 45-file corpus. Inspect each card's cited-prior-work, novelty/prior-work comparison, Related Work, Introduction, baselines, limitations, and comparison material. A relation is valid only when the mentioning card explicitly identifies the target paper by title, author, unique method name clearly tied to the paper, or unmistakable bibliographic description. Do not infer a relation merely because two cards study similar topics or because one predates the other.
+
+Classify every valid relation as exactly one of: Direct baseline; Extension; Limitation; Comparison; Background. Use the narrowest supported class:
+- Direct baseline: explicitly used as an experimental or quantitative comparator.
+- Extension: the mentioning card says it builds on, adapts, reproduces, or extends the target.
+- Limitation: the mentioning card explicitly identifies a shortcoming or boundary of the target.
+- Comparison: explicit contrast or comparison that is not a direct experimental baseline.
+- Background: explicit prior-work citation/attribution without one of the stronger roles.
+
+MANDATORY PROOF-OF-READING GATE: Before any mapping or commentary, output a `PROOF OF READING` section with, for EACH of the 45 files below, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say `UNREADABLE: <path>` explicitly. Do not map relations from a file you could not read; do not infer its contents from the filename. End this section with `COUNT READ: N/45`.
+
+After the proof section, output `VERIFIED RELATIONS` with exactly one pipe-delimited record per relation in this schema:
+RELATION | <target card filename> | <mentioning card filename> | <classification> | <section/context> | <concise summary faithful to original wording> | <verbatim supporting fragment from mentioning card>
+
+The target is the paper being mentioned; the mentioning card is the source of the inbound relation. Use bare filenames exactly as listed. Deduplicate repeated mentions by the same mentioning card to the same target when they express the same role; preserve separate records only if the explicit roles materially differ. Include no inferred relations. After the records, output `TOTAL RELATIONS: N`.
+
+Files, exactly 45:
+1. read-papers/2009_OkTrends_NA_Your-Looks-and-Your-Inbox.md
+2. read-papers/2010_AER_GaleShapley_Matching-and-Sorting-Online-Dating.md
+3. read-papers/2013_UMUAI_RECON_Recommending-People-To-People.md
+4. read-papers/2014_KDD_ImpressionDiscounting_Modeling-Impression-Discounting.md
+5. read-papers/2015_ASONAM_RRS_Reciprocal-Recommendation-Online-Dating.md
+6. read-papers/2015_ExpEcon_VirtualRose_Propose-With-A-Rose.md
+7. read-papers/2017_CIKM_CapMF_Recommendation-Capacity-Constraints.md
+8. read-papers/2017_KDD_LiJAR_Job-Application-Redistribution.md
+9. read-papers/2017_MLconf_TinVec_Personalized-User-Recommendations-Tinder.md
+10. read-papers/2018_CIKM_Adaptive-Fairness_Fair-Marketplace-Counterfactual-Evaluation.md
+11. read-papers/2018_KDD_NA_Fairness-of-Exposure-Rankings.md
+12. read-papers/2018_MgmtSci_ChoiceRestriction_Competing-By-Restricting-Choice.md
+13. read-papers/2018_SciAdv_PageRank_Aspirational-Pursuit-of-Mates.md
+14. read-papers/2019_KDD_DetGreedy_Fairness-Aware-Ranking-Talent-Search.md
+15. read-papers/2019_Tinder_NA_Powering-Tinder-Matching.md
+16. read-papers/2020_KDD_Query-Context-Embedding_Managing-Diversity-Airbnb-Search.md
+17. read-papers/2021_DataFunTalk_BilateralSwitchback_Kuaishou-Causal-Experiment-Design.md
+18. read-papers/2021_InfoFusion_NA_Reciprocal-Recommender-Systems-Survey.md
+19. read-papers/2021_MSOM_ApplicationLimits_Managing-Congestion-Matching-Markets.md
+20. read-papers/2021_MS_NA_Facilitating-Search-for-Partners.md
+21. read-papers/2021_NeurIPS_LorenzWelfare_Two-Sided-Fairness-Lorenz-Dominance.md
+22. read-papers/2021_NeurIPS_UniCoRn_AB-Testing-Two-Sided-Marketplace.md
+23. read-papers/2021_arXiv_SMRD_Multiple-Randomization-Designs.md
+24. read-papers/2022_CyberAgent_DoubleSelection_Analyzing-Encounters-Matching-Apps.md
+25. read-papers/2022_CyberAgent_MTRS_Matching-Theory-Reciprocal-Recommendation.md
+26. read-papers/2022_LinkedIn_LiFT-Platform_LinkedIn-Integrates-Fairness-AI.md
+27. read-papers/2022_MgmtSci_TSRI_Experimental-Design-Two-Sided-Platforms.md
+28. read-papers/2022_OR_NA_Assortment-Two-Sided-Sequential-Matching.md
+29. read-papers/2022_RecSys_DPGNN_Two-Way-Selection-Person-Job.md
+30. read-papers/2022_SIGIR_JME_Joint-Multisided-Exposure-Fairness.md
+31. read-papers/2022_arXiv_MTRS_Matching-Theory-Online-Dating.md
+32. read-papers/2022_arXiv_SP_Marketplace-Interference-Shadow-Prices.md
+33. read-papers/2023_KDD_BOSS_Bilateral-Occupational-Suitability.md
+34. read-papers/2023_RecSys_ReSeq_Reciprocal-Sequential-Recommendation.md
+35. read-papers/2023_RecSys_TU_Fast-Examination-Agnostic-Reciprocal.md
+36. read-papers/2024_KDD_CRRS_Revisiting-Reciprocal-Recommender-Systems.md
+37. read-papers/2024_MarketingScience_SequentialSearch_Effects-Market-Size-Competition.md
+38. read-papers/2024_RecSys_NSW_Fair-Reciprocal-Recommendation.md
+39. read-papers/2025_Hinge_DeepRecSys_How-We-Connect-Daters.md
+40. read-papers/2025_MgmtSci_GCR_Reducing-Interference-Bias-Airbnb.md
+41. read-papers/2025_RecSys_DiPS-DPR_Off-Policy-Evaluation-Matching-Markets.md
+42. read-papers/2026_ICLR_MRet_Retention-Optimized-Two-Sided-Matching.md
+43. read-papers/2026_Wantedly_PersonalizedAggregation_Personalizing-Preference-Aggregation.md
+44. read-papers/2026_arXiv_ECDA_Predictive-Models-Two-Sided-Recommendations.md
+45. read-papers/2026_arXiv_TEC_Recommendation-Exposure-Favorite-Lists.md
