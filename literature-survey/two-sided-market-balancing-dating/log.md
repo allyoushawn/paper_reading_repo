@@ -23,3 +23,11 @@
 - Outputs touched: codex-sol/executive-summary.md, codex-sol/coverage-evaluation.md, codex-sol/review/, requirements.md, log.md
 - NLM notebook source count: 142; codex-sol added 2 sources, but live net notebook change is +1 from the observed 141 because one source disappeared externally for an unexplained reason
 - Notable: Reciprocal scoring needs an explicit capacity/allocation layer plus market-health metrics and interference-aware evaluation; exact workplace `./codex-sol/`.
+
+## 2026-08-20 — literature-survey-nlm run (final verification correction)
+- Phase reached: Phase 5 complete; independent final artifact verification passed
+- Papers in queue: Done(45) / To Process(0) / Skipped(0) for codex-sol private queue
+- Coverage: 100% covered (project context fitness: pass)
+- Outputs touched: codex-sol/executive-summary.md, log.md
+- NLM notebook source count: 133 at fresh verification; all 45 selected source IDs and both codex-sol additions remain present, so the lower total reflects unrelated external notebook drift
+- Notable: The executive summary was tightened from 751 to 624 words to satisfy the brief's strict one-page maximum; the final gate confirmed 45 complete bibliography entries, 86.7% Tier 1+2, six matrix rows, ten read-first items, five next searches, and 33 reverse-citation relations.
