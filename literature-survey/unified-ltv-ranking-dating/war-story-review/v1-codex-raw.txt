@@ -1,0 +1,814 @@
+Reading additional input from stdin...
+OpenAI Codex v0.148.0
+--------
+workdir: /Users/fox/Projects/paper_reading_repo/literature-survey/unified-ltv-ranking-dating
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a01fe5-a9c7-70a0-87a2-f521e6ef3fc6
+--------
+user
+You are reviewing a NARRATIVE 'war story' document — a conceptual/literature history of how a line of work evolved. This is a design/synthesis review, NOT a code review.
+
+READ EXACTLY THESE TWO FILES, ONE AT A TIME, ONE FILE PER TOOL CALL. Do NOT explore the repository. Do not read any other file.
+1. war-story.md   (the artifact under review, ~27KB)
+2. README.md      (project context: the survey brief, ~7KB)
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file above, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not review a file you could not read; do not infer its contents from the filename.
+
+Then review war-story.md on exactly three axes, in this order:
+
+(a) CHRONOLOGICAL AND INSPIRATION CONTRADICTIONS. This is the highest priority. The document makes many claims of the form '<work> builds on / extends / modifies / replaces <earlier work>'. Every such arrow MUST point backward in time. Flag ANY sentence where an earlier work is said to draw on a later one, or where two stated years are mutually inconsistent. Also flag any era heading whose year range conflicts with the works listed inside it. Quote the offending sentence.
+
+(b) UNSUPPORTED FACTUAL CLAIMS. The document deliberately flags contested claims with a star and a 'Contested claims' section at the end. Your job is to find claims that are asserted flatly in the body but are NOT flagged, and that a reader could not verify — specifically: named percentages and metric lifts, claims about what a specific company or paper does, and claims of the form 'no paper does X' / 'zero of N cards show X'. For each, say whether the document gives the reader enough provenance to check it. Do not penalise a claim that IS already flagged as contested.
+
+(c) IS THE REASONING ARC COHERENT, AND ARE THE TURNING POINTS THE REAL ONES? The document's central claim is that the project's founding premise — 'replace the CTR/CVR + uplift blend with one model trained directly on retention and revenue' — survived only in half: unify the serving score YES, put incrementality inside the training objective NOT YET. Judge whether the evidence presented in the document actually supports that conclusion, whether the eight or so 'beliefs that broke' in Act 5 are genuinely the load-bearing turning points, and whether any obvious turning point is missing given the project context in README.md. Say plainly if you think the arc is overstated or understated anywhere.
+
+Return format:
+- PROOF OF READING
+- VERDICT: PASS or NEEDS_FIXES
+- Findings, each labelled CRITICAL / HIGH / MEDIUM / LOW, with the quoted sentence and a concrete suggested fix.
+- A short closing paragraph on whether the arc is the right arc.
+
+Do not modify any files.
+warning: Skill descriptions were shortened to fit the skills context budget. Codex can still see every skill, but some descriptions are shorter. Disable unused skills or plugins to leave more room for the rest.
+exec
+/bin/zsh -lc 'nl -ba war-story.md' in /Users/fox/Projects/paper_reading_repo/literature-survey/unified-ltv-ranking-dating
+ succeeded in 0ms:
+     1	# War Story — How the Unified Retention/Revenue Ranking Survey Got Here
+     2	
+     3	**Date:** 2026-08-20
+     4	**Scope:** Survey 3, `unified-ltv-ranking-dating`, read across all three model workplaces — `claude_opus/`, `codex-sol/`, `cursor-grok/` — plus the shared root and the project knowledge base.
+     5	**Purpose:** A narrative history of this line of work. It records what we believed, what we did, what the evidence showed, and what we changed. Read it to build a mental model. Do not read it to look up a result.
+     6	
+     7	> **Sourcing note.** The field chronology and every "builds on" arrow were checked against the NotebookLM notebook `unified-ltv-ranking-dating` (ID `67046a44-…`), queried 2026-08-20. Project dates come from the `log.md` files in this folder and in `knowledge_base/projects/attribution_based_retention/`. The check corrected three claims and resolved one apparent contradiction. Each carries a ★. Three internal inconsistencies reported by the reading pass were re-verified by direct `grep` before publication. Claims the sources could not settle are marked contested, not asserted.
+     8	
+     9	---
+    10	
+    11	## Act 0 — The question the previous story left open
+    12	
+    13	The earlier war story in this project ended with a plan for **attribution**. We would score each in-app event — a like, a match, a conversation — for the retention it caused. Phase 1 produced per-event credit labels. Phase 2 learned to predict those labels at serving time.
+    14	
+    15	That plan answered "which event matters." A second question sat right behind it, unanswered.
+    16	
+    17	The ranker still optimized clicks. Our production design has two parts. A CTR/CVR-style model predicts short-term events. A separate uplift model estimates the extra retention and revenue those events cause. We then **blend the two scores after the fact**.
+    18	
+    19	The blend is the problem. It is a hand-tuned weight between a probability and an effect. No single objective justifies it. So we asked the question that started this survey: **can one model take retention and revenue as its training objective, and make the blend disappear?**
+    20	
+    21	Hold on to that question. The survey's answer is not the one we expected.
+    22	
+    23	---
+    24	
+    25	## Act 1 — Two surveys, and the hole they left
+    26	
+    27	We did not start here. Two surveys came first. Both closed on 2026-04-12.
+    28	
+    29	**Survey 1** (`attribution-based-retention`) went after multi-touch attribution and causal inference for retention. It targeted 100–150 papers and delivered 23. We recorded that run as disappointing. The post-mortem named the reasons: the CATE cluster did not fit the attribution framing, ad-industry depth was shallow, and continuous targets went unaddressed.
+    30	
+    31	**Survey 2** (`proxy-label-learning`) went better — 87 papers at 96% coverage. It told us to treat attribution scores as privileged information, in the teacher-logit sense. It also found no direct theory for continuous Shapley-labeled supervised objectives.
+    32	
+    33	Between them, those two surveys covered attribution, uplift meta-learners, survival analysis, geo experiments, and proxy-label theory. **They left three areas untouched:** reinforcement learning for retention, long-term-value ranking objectives, and surrogate metrics.
+    34	
+    35	Those three areas are exactly what you need to replace a blend with an objective. That gap is why Survey 3 exists.
+    36	
+    37	---
+    38	
+    39	## Act 2 — Scoping by subtraction
+    40	
+    41	We wrote the Survey 3 brief on 2026-08-15. The move that shaped the whole run was **an exclusion list**.
+    42	
+    43	The brief bans five areas outright: multi-touch attribution, CATE and uplift meta-learners, survival and churn basics, geo and switchback experiments, and proxy-label learning. Surveys 1 and 2 already cover them. One exception survives: cite that work when a paper uses it **inside a ranking model**.
+    44	
+    45	That single exception did a lot of work later. It is why RERUM counts and the X-learner does not.
+    46	
+    47	On top of the exclusions we set eight research questions and nine search directions, seeded with 41 references. We also fixed hard floors: 120 references targeted, 45 as the floor, at least 60% industry sources, and D1–D4 to hold half the corpus before D5–D9 expanded.
+    48	
+    49	---
+    50	
+    51	## Act 3 — Three models, one brief, no cross-reading
+    52	
+    53	We then made an unusual choice. **Three models ran the identical brief in isolated workplaces.**
+    54	
+    55	The rule was strict. Each model owned one subfolder. Nobody read another model's folder. The shared root held only the brief, the requirements, the queue and the log. The queue was append-only. One NotebookLM notebook served all three.
+    56	
+    57	The reason was simple. One survey run gives you one reading of the literature. It gives you no way to tell a real finding from an artifact of the model that found it. Three independent runs make agreement mean something.
+    58	
+    59	The runs closed across three days. `cursor-grok` finished 2026-08-17 with 120 cards. `claude_opus` finished 2026-08-17 with 133 cards. `codex-sol` finished 2026-08-18 with 120 selected sources and 118 substantive extractions.
+    60	
+    61	Independence held. Both later logs record the check explicitly.
+    62	
+    63	---
+    64	
+    65	## Act 4 — What the field actually did
+    66	
+    67	Here is the arc the corpus describes. Years were verified against the notebook.
+    68	
+    69	**2008–2014 — the censored label.** Elkan and Noto (KDD 2008) established that an unlabeled sample is not a negative sample. Chapelle at Criteo (KDD 2014) turned that into the delayed feedback model, and showed that naive same-day labeling **underpredicts conversions by 21%**. That paper is the most-cited baseline in the entire corpus. Every later method that trains on a pending label descends from it.
+    70	
+    71	**2017–2019 — make it an MDP.** The first answer to "optimize the long term" was reinforcement learning. DRN at Microsoft (WWW 2018) folded user return frequency into the reward. Pinterest's notification volume control (KDD 2018) maximized site-wide DAU under a volume budget. SlateQ (Google, IJCAI 2019) decomposed a slate's long-term value into item-level values. Top-K off-policy REINFORCE (Google, WSDM 2019) scaled policy gradients to a huge action space.
+    72	
+    73	**2018–2022 — the cascade, and its proven bias.** In parallel the multi-task cascade matured. ESMM (Alibaba, SIGIR 2018) modeled CTR and CVR over the whole impression space, and became the corpus's second most-cited baseline. MMoE (Google, 2018) became the standard shared backbone. AITM (Meituan, KDD 2021) handled deeper funnels. Then Alibaba's own Multi-IPW and Multi-DR work (WWW 2020) proved ESMM biased, and ESCM² (SIGIR 2022) fixed it with a counterfactual regularizer.
+    74	
+    75	**2019–2025 — stop hand-tuning the blend.** This strand sits closest to our problem. PE-LTR (Alibaba, RecSys 2019) and Amazon's stochastic label aggregation (WWW 2020) started learning the weights. BatchRL-MTF (Tencent, KDD 2022) treated fusion as a session-level MDP, solved it with conservative Q-learning, and reported +2.55% dwell time and +9.65% positive-interaction rate at hundreds of millions of users. Tencent then published UnifiedRL and EnhancedRL (2024) as successors. Kuaishou's xMTF (WWW 2025) **replaced BatchRL-MTF's fixed log-sum formula** with formula-free monotonic fusion cells. The migration is documented end to end: fixed formula, then learned weights, then no formula at all.
+    76	
+    77	**2021–2022 — change the label, not the algorithm.** Two works showed you can buy much of the long-horizon win without RL. Google's user-response models (2021) added supervised auxiliary heads to REINFORCE, and the notebook confirms this **explicitly builds on** Chen et al. (2019). PinnerFormer (Pinterest, KDD 2022) trained one user representation against a dense multi-day future-action window instead of next-item prediction. The notebook confirms PinnerFormer **explicitly modifies** the all-action objective of SASRec (Kang and McAuley, 2018). Both arrows point backward.
+    78	
+    79	**2023–2025 — retention becomes the reward.** Kuaishou dominates this stretch. RLUR (WWW 2023) framed retention as an infinite-horizon MDP and minimized return-to-app time. Its online test ran about 150 days and moved app opens +0.450%, DAU +0.2%, and D7 +0.063%. TSCAC (WWW 2023) added constraints so engagement gains could not eat sparse interactions. GFN4Retention (KDD 2024) pushed a sparse session-level reward back onto item-level feedback. AURO (2025) **builds on RLUR** and attacks non-stationarity with a contrastive state-abstraction network.
+    80	
+    81	**2019–2026 — do not wait for the horizon.** Athey, Chetty, Imbens and Kang introduced the surrogate index (2019). Microsoft Research added a dynamically adjusted version. Spotify's Impatient Bandits (KDD 2023) combined partial activity traces through a Bayesian filter, and explained 50% of the prior variance from 8 days of traces. ★ **Correction applied:** my draft had Impatient Bandits citing Maystre et al. 2024, which would point forward in time. The notebook settles it. Impatient Bandits (August 2023) cites the **February 2023 arXiv preprint** (arXiv:2302.03561) of that work, published in July 2024. The arrow points backward. Later work kept sharpening the read: Spotify's LOPE (2024) on a live test, Pareto-optimal proxy metrics, and PROXIMA (2026), which scores a proxy for **segment-level fragility**.
+    82	
+    83	**2024–2026 — unify the architecture.** Generative rankers arrived: HSTU (Meta, ICML 2024), OneRec and OneRec-V2 (Kuaishou, 2025), MTGR (Meituan, 2025), and Netflix's GenRec and GenPage (2026). Alongside them, LTV heads went onto production rankers — ZILN (Google, 2019) as the revenue loss, LinkedIn LiRank (KDD 2024), Pinterest's Save, Revisit, Retain, and Alibaba's PDQ-LTV (2026), which **builds on** Zhan et al. (2022) for watch-time debiasing.
+    84	
+    85	**2018–2026 — reciprocity, on its own track.** The two-sided strand never merged with the strands above. SMILE (NeurIPS 2018) and the Palomares survey (2021) worked from static snapshots. CyberAgent produced a run of matching-market papers from 2022 onward. Yang et al. (KDD 2024) reformulated reciprocal metrics. Then ECDA (2026) delivered what the strand had lacked: a per-receiver exposure quota, a two-week calendar window, and a **large regional field experiment on a live dating platform**.
+    86	
+    87	One workplace states the disconnect plainly: **market-clearing methods and learned fusion never appear in the same system anywhere in this corpus.**
+    88	
+    89	---
+    90	
+    91	## Act 5 — The beliefs that broke
+    92	
+    93	The chronology is the easy half. The valuable half is where the survey overturned something we believed going in.
+    94	
+    95	**The Instagram Explore myth.** We treated Meta's Instagram Explore "value model" as settled precedent for unified long-term ranking. It is cited that way constantly. Reading its stated objective shows a **fixed-weight linear fusion over short-term engagement probabilities**, with no horizon and no delay handling stated anywhere. That reframed the whole project. We are not adopting a proven industry pattern. We are moving a research-stage idea into production. Plan accordingly.
+    96	
+    97	**A debiased prediction is not an effect.** This is the deepest reversal, and all three runs reached it independently. Methods that look causal — IPS weighting, doubly-robust estimation, ESCM² — mostly **debias a prediction**. One workplace put the consequence in one line: conventional outcome losses rank high-propensity users, not persuadable users. Our own product constraint said the same thing in plainer words. Retention conditional on exposure is not the effect of exposure, because active users retain regardless.
+    98	
+    99	**Most retention-RL evidence is circular.** Much of the RL-for-retention literature evaluates on the KuaiSim simulator. In KuaiSim, retention is drawn as `Geometric(p_ret)`, and `p_ret` rises mechanically with the immediate reward the policy is optimizing. The simulator assumes the conclusion. The survey adopted a hard rule: label every result as online A/B or simulator, and never compare the two. RLUR's online test survives that filter. Much of the rest does not.
+   100	
+   101	**Surrogates are safe but lossy.** We expected a validated surrogate to let us read a slow metric quickly. Netflix's study over 200 A/B tests and 1,098 arms found about 95% agreement between a 14-day and a 63-day read. On launch decisions it found **79% precision and 65% recall**, with zero false launches among tests significantly negative at 63 days. The framing flipped from "safe and sufficient" to "safe and lossy." Plan for missed true positives.
+   102	
+   103	**And you cannot validate a surrogate the obvious way.** This correction is sharper than the one above, and only one workplace surfaced it. Netflix's follow-up work shows that correlating user-level engagement with the long-run outcome is **biased**, and that the fitted slope can carry the **wrong sign**. The rule that follows is concrete. Do not validate a surrogate by correlating user-level likes with D30. Use a causal estimator across experiments instead.
+   104	
+   105	**More engagement is not more retention, and one system proved it on itself.** Pinterest's notification work (KDD 2018) and Duolingo's bandit study (KDD 2020) both found that **fewer** interventions can raise long-term engagement. TSCAC is the sharpest case, because the reversal happened inside a single deployment: optimizing WatchTime (+0.379%) and Share (+3.376%) drove **Comment down 0.619%**. That is the closest published analogue to our success paradox, where a good match ends the user's tenure.
+   106	
+   107	**SlateQ does not transfer.** We assumed SlateQ solved item-level credit assignment. Both of its licensing assumptions fail here. Users engage several candidates per session, so *Single Choice* breaks. A match needs a delayed action by the other person, so *Reward Dependence on Selection* breaks. Worse, Kuaishou's ItemA2C tried decomposing the RL critic to item level and it **failed**. The critic had to stay list-level. One workplace answers our credit-assignment question in three words: **most do not**.
+   108	
+   109	**Generative rankers unify the cascade, not the objective.** OneRec-V2 rewards a same-session watch-time quantile, and its own limitations section treats 7-day return as an evaluation metric only. MTGR trains on CTR and CTCVR. Netflix's GenRec supplies the number that settles it: **+0.115% on short-term engagement, and +0.006% on the long-term core metric**. The gain falls by a factor of roughly nineteen as the horizon lengthens. The architectural revolution and the objective question are separate problems.
+   110	
+   111	**Ranking on relevance alone breaks a two-sided market.** The numbers are stark. Naive ranking sends the top 20% of listings roughly 100% of requests. Market-clearing raises expected matches from 219.56 to 332.91 on a 200-user benchmark. A welfare-maximizing ranker gets more raw matches than a fair one (111.37 against 90.39) and carries **fourteen times the envy** (434 against 31). Reciprocity and capacity are a mandatory second stage, not a fairness patch.
+   112	
+   113	---
+   114	
+   115	## Act 6 — Halfway through, the tooling collapsed
+   116	
+   117	The survey ran on NotebookLM. On 2026-08-16, NotebookLM stopped.
+   118	
+   119	`claude_opus` hit a session quota at 16 of 133 papers, resumed, then hit `RESOURCE_EXHAUSTED` at 44 of 133. The run verified the failure three independent ways before acting. Two subagents reproduced it. `refresh_auth` succeeded while the error persisted. The lead reproduced it directly. The MCP server then disconnected.
+   120	
+   121	The response is the part worth remembering. The in-flight batches **escalated instead of writing cards from memory**, on the explicit grounds that substituting the model's own knowledge would violate the do-not-invent rule. The run then routed around the tool: 31 local PDFs from the Awesome repository, then 59 more downloaded and verified by `%PDF` magic header, 92 MB in total, gitignored.
+   122	
+   123	`cursor-grok` hit the same wall at roughly 45 cards. It finished from arXiv and direct URLs, and flagged that portion as not grounded in the notebook.
+   124	
+   125	`codex-sol` never hit the wall. It had used **scoped batch queries over about 15 sources at a time**, plus targeted content calls, instead of one query per paper. That difference in query shape is the whole explanation for why one run of three stayed on the intended tool. It is the single most reusable operational lesson in this survey.
+   126	
+   127	Two more honest records deserve mention. `claude_opus` finished with D1–D4 at 43% against a 50% floor, and logged it as an **open deviation** rather than cutting D8. Cutting D8 would have deleted every piece of dating-industry evidence in the corpus. And `codex-sol` wrote **explicit failure cards** for the two sources it could not extract, rather than filling them in from the title.
+   128	
+   129	---
+   130	
+   131	## Act 7 — The review gate said no twice, then missed one
+   132	
+   133	Only `codex-sol` ran an independent CLI review. It took three passes.
+   134	
+   135	**Round 1 — NEEDS_FIXES.** Zero critical findings, five high, four medium. The high findings were substantive. "Source-backed" claims were not auditable at claim level. Several comparison rows were malformed, one architecture field reading literally `Model identifier: codex-sol`. The "100% coverage" framing treated a populated URL cell as proof of a working link. The Rank-1 utility contradicted itself, placing 90-day revenue in the serving utility in one section and shadow-only in another. The incrementality stage had no defined estimand. The evaluation plan omitted confidence intervals, power and stop rules.
+   136	
+   137	**Round 2 — NEEDS_FIXES, much narrower.** All five high findings were confirmed resolved with proof-of-reading citations. Two medium findings survived: stale text still describing URLs as unvalidated.
+   138	
+   139	**Round 3 — PASS.**
+   140	
+   141	The gate earned its place. A self-contradiction on the serving utility is exactly the error a survey's own author cannot see.
+   142	
+   143	It also shows its limit. The round-2 finding named two files. Both were fixed. **A third file kept the stale text.** `codex-sol/literature-review.md` still carries `url_validation: pending` in its frontmatter and "URL validation is pending" in its body, while `executive-summary.md` and `coverage-evaluation.md` both record 120 of 120 resolved. A review that fixes the instances it was pointed at does not fix the class. Verified by direct `grep` on 2026-08-20.
+   144	
+   145	---
+   146	
+   147	## Act 8 — Where three independent runs agreed, and the one place they split
+   148	
+   149	The three workplaces used different names and landed in nearly the same place.
+   150	
+   151	| | Rank 1 | Rank 2 | Rank 3 |
+   152	|---|---|---|---|
+   153	| `claude_opus` | Reward-weighted short-term labels | Unified multi-task ranker, long-horizon head | Bilateral causal ranker on a delayed outcome |
+   154	| `cursor-grok` | Auxiliary-head LTV fusion | Retention-ensemble RL | Unified reward ranker |
+   155	| `codex-sol` | Reciprocal multi-task LTV ranker (30-day return and revenue, 90-day shadow) | Bilateral causal LTV ranker | Slate value RL or generative policy |
+   156	
+   157	Read the columns.
+   158	
+   159	**A multi-task ranker with long-horizon heads takes first place three times out of three.** No workplace read another. That agreement is evidence, not consensus.
+   160	
+   161	**Generative and reward-model rankers come last three times out of three.** The GenRec falloff number explains why.
+   162	
+   163	**All three demote the uplift model out of the serving formula immediately.** `cursor-grok` states the supporting count: zero of its 120 cards document a CATE score inside a swipe-ranker's serving formula. `codex-sol` reduces the uplift model to a frozen audit benchmark, promotable only if six named conditions hold. `claude_opus` keeps it running in parallel and untouched during the early stages.
+   164	
+   165	**Here is where they split.** Two of the three put a bilateral causal ranker on the roadmap as the destination. The third leaves it off the ranked list entirely and moves uplift permanently to evaluation. Its stated reason is blunt: **no source documents deleting the uplift model and putting CATE in the ranker.** `codex-sol` occupies the middle ground and names the precondition — that step needs logged randomized exposure with validated propensities and overlap, not observational logs.
+   166	
+   167	Three further gaps were confirmed by more than one run independently:
+   168	
+   169	- **No two-sided retention MDP exists anywhere in the corpus.** The retention-RL work is one-sided video.
+   170	- **No dating paper trains on retention or subscription revenue.** The dating work optimizes matches, dates, chat duration and welfare.
+   171	- **The "fundamentality" ranking in the method trackers is an artifact.** One run warned against reading it as quality. The other recomputed the formula and confirmed the score is explained **entirely by how often other corpus papers cite a method as a baseline**. Every other term in the formula evaluates to zero. New industrial methods score low because they are new, not because they are weak.
+   172	
+   173	All three also agree on the status of what they produced. It is a strategic proposal. `codex-sol` closes with the instruction outright: do not describe the package as implementation-ready or fully evidence-validated.
+   174	
+   175	---
+   176	
+   177	## Where we are, and where we are going
+   178	
+   179	**The arc in one sentence.** We set out to find the industry pattern for a single ranker trained on retention and revenue, found that the most-cited precedent does not do what it is cited for, and came away with a staged path whose first real step is not a model at all — it is proving we can read a long-horizon outcome early, and knowing how much that read costs us.
+   180	
+   181	**The founding premise survived, but only in half.** We wanted one model whose training objective is retention and revenue, with the blend gone. The survey endorses the first half without reservation: unify the **serving score**, learn the fusion, and take the hand-tuned blend out. It does not endorse the second half yet. Putting **incrementality** inside the training objective of a reciprocal, long-horizon ranker has no documented precedent in 120-plus industry sources. That is research, and it needs randomized exposure before it is even identifiable. Two of three runs still put it at the end of the road. One takes it off the road.
+   182	
+   183	**The standing plan** is the staged path the three runs broadly share:
+   184	
+   185	| Stage | Change | Gate to proceed |
+   186	|---|---|---|
+   187	| 0 | Instrument the join from event to 30-day retention and revenue. Log propensities and both-side actions. Ship nothing. | Replay reproduces assignment. Leakage tests pass. |
+   188	| 1 | **Validate a surrogate against past experiments, with a causal estimator.** | Precision and recall measured, not assumed. |
+   189	| 2 | Add long-horizon heads in shadow. Serving unchanged. | Heads calibrated on held-out horizons. |
+   190	| 3 | Replace the hand-tuned blend with learned fusion. Move uplift out of serving. | Fusion beats the blend on a long-horizon metric. No match-quality regression. |
+   191	| 4 | Add reciprocal allocation and a receiver-capacity penalty. | Match lift without overload or fairness regression. |
+   192	| 5 | Only under logged randomized exposure, move incrementality inside the objective. | Cluster-robust interval agrees with a powered market experiment. |
+   193	
+   194	**Do not skip Stage 1.** Every later stage depends on reading a long-horizon result faster than the horizon, and on knowing how lossy that read is.
+   195	
+   196	**Load-bearing caveats we carry forward:**
+   197	
+   198	- **Item-level credit for a reciprocal, delayed outcome is unsolved.** SlateQ's assumptions fail here, and Kuaishou's own attempt to decompose the critic failed. Anything we build on this point is new work, not adoption.
+   199	- **Prediction is not incrementality.** Keep the distinction on every card, every model and every review.
+   200	- **The delayed-feedback literature runs at hours to days.** Our horizons run to weeks. The framing transfers. The exponential-delay assumptions and the calibration timescales are not validated at our horizon by any paper in the corpus.
+   201	- **The mixed revenue stream has no precedent.** No paper models subscriptions and a la carte purchases together. Our two-head proposal is the one recommendation in this survey with no evidence either way, and it is labeled as such.
+   202	- **Congestion is an architecture gap, not a modeling gap.** A per-receiver exposure quota needs coordination across viewers. A per-request ranker cannot express it.
+   203	- **The worst measurement failure mode is interference through the training data.** A treatment changes what the shared model learns, which contaminates the control group with no direct user-to-user interference at all.
+   204	- **The dating industry publishes almost nothing.** Match Group, Bumble, Coffee Meets Bagel, Tantan and Soul returned nothing usable. Grindr states publicly that it runs no discovery ranker, which makes it a useful negative control — unifying the ranker is not universal practice even within dating. CyberAgent and the CoupLink field experiment are the real exception. Everything else transfers from LinkedIn Jobs, Airbnb and online recruitment, and every transfer is an assumption.
+   205	- **Our top-ranked pattern rests on a paper nobody could read.** Six sources are confirmed to exist and are permanently unreachable. Two matter: Netflix's *Reward Innovation for Long-Term Member Satisfaction* (RecSys 2023), described as the keystone of the reward-weighting pattern, and Meta's surrogate-metrics work (KDD 2026).
+   206	
+   207	**Contested claims, flagged rather than asserted:**
+   208	
+   209	- ★ **Resolved — PinnerFormer's horizon.** The notebook says a 14-day window. One card says 28 days. A second workplace reconciles them: the model **trains to 28 days and evaluates 14-day future actions**. Both numbers are right about different things.
+   210	- ★ **Corrected — the Kawamura paper.** `claude_opus` records "Kawamura et al., *Revisiting Reciprocal Recommender Systems*, KDD 2024." The notebook and `codex-sol` agree independently that these are two works. *Revisiting Reciprocal Recommender Systems* is Yang et al. (KDD 2024). *Counterfactual Reciprocal Recommender Systems* is Kawamura, Udagawa and Tateno (2025, KDD TSMO workshop). Treat them as distinct.
+   211	- ★ **Unresolved — Tripuraneni et al., *Choosing a Proxy Metric from Past Experiments*.** One card says Google, KDD 2024. The notebook says Spotify, 2023. A preprint a year ahead of publication explains the date. The affiliation conflict does not resolve, so this story names no company.
+   212	- **Verified contradiction — OCARM.** In `cursor-grok/literature-review.md`, the body text reports online LT30 at +20.47% and +34.43%. The comparison table reports +11.55% and +22.18% for the same split. Confirmed by `grep` at lines 465 and 899. Do not cite either number until the source card is checked.
+   213	- **Verified inconsistency — OCPC.** The running text in `claude_opus/literature-review.md` cites KDD 2019. Its own source filename says 2017.
+   214	- **Verified staleness — URL validation.** See Act 7. Three files in one workplace disagree about whether URLs were validated.
+   215	- **Minor.** `codex-sol/literature-review.md` names "seven recurring paradigms" in prose while its own tables list nine rows. The prose merges uplift and surrogate indexing into one item. This is a presentation inconsistency, not a substantive one.
+   216	- **Company-reported numbers are not paper results.** Hinge's "8x more likely to go on dates" reaches this corpus through a press article, not a paper. Several blog-sourced lifts carry no number at all, and the survey marks them rather than guessing.
+
+exec
+/bin/zsh -lc 'nl -ba README.md' in /Users/fox/Projects/paper_reading_repo/literature-survey/unified-ltv-ranking-dating
+ succeeded in 0ms:
+     1	# Literature Survey Topic — Unified Retention/Revenue Ranking Model for a Dating Recommender
+     2	
+     3	**Created:** 2026-08-16
+     4	
+     5	**Source brief:** `knowledge_base/projects/attribution_based_retention/survey-3-brief-unified-ltv-ranking-dating.md`
+     6	
+     7	---
+     8	
+     9	## Shared-folder convention (read this first)
+    10	
+    11	This folder is shared across several models running the same brief.
+    12	
+    13	- **Shared at this root:** `README.md`, `requirements.md`, `queue.md`, `notebooklm-state.md`, `log.md`.
+    14	- **Per-model workplaces:** each model writes into its own subfolder — `claude_opus/`, `gemini/`, `chatgpt/`, `codex/`, and so on.
+    15	- Each workplace holds `read-papers/`, `literature-review.md`, `executive-summary.md`, `method-tracker.md`, and that model's working notes.
+    16	- Do not read or overwrite another model's workplace.
+    17	- Extend `queue.md` additively. Append new rows. Never delete or overwrite existing rows.
+    18	
+    19	**NotebookLM notebook:** `unified-ltv-ranking-dating`, ID `67046a44-7490-4fe5-b54a-3f39ef37fdd3`.
+    20	Never call `notebook_create` for this topic. Call `notebook_get` or `notebook_query` against that ID.
+    21	
+    22	---
+    23	
+    24	## Why surveyed
+    25	
+    26	The team ranks candidate profiles on a dating app. The current design has two parts.
+    27	
+    28	1. A CTR/CVR-style model predicts short-term events: A likes B, A and B match, A and B converse.
+    29	2. An uplift model estimates the extra retention and revenue that a like, a match, or a conversation causes.
+    30	
+    31	The team blends the two scores after the fact. The target design replaces that blend with **one unified
+    32	ranking model** whose training objective is retention and revenue directly.
+    33	
+    34	This survey supports that migration decision. Surveys 1 and 2 in this knowledge base left three areas
+    35	uncovered: reinforcement learning for retention, long-term-value ranking objectives, and surrogate
+    36	metrics. This survey covers them.
+    37	
+    38	## Audience
+    39	
+    40	The machine learning team that builds the dating-app recommender, and the decision-makers who approve
+    41	the migration. The reader wants a ranked set of candidate architectures and a staged migration path,
+    42	not an academic overview.
+    43	
+    44	## Project Context
+    45	
+    46	### The system today
+    47	
+    48	- The team ranks candidate profiles (user B) for a viewer (user A).
+    49	- A CTR/CVR-style model predicts short-term events: like, match, conversation.
+    50	- An uplift model estimates the extra retention and revenue caused by a like, a match, or a conversation.
+    51	- The team blends those scores after the fact.
+    52	
+    53	### The target system
+    54	
+    55	One unified model predicts the retention and revenue that follow when the system shows B to A.
+    56	Retention and revenue become the training objective. The blend disappears.
+    57	
+    58	### Product constraints — each one shapes what counts as relevant
+    59	
+    60	- **Reciprocity:** a match needs a like from both sides.
+    61	- **Congestion:** B's attention and likes are a shared, limited resource across many viewers.
+    62	- **Cascade:** impression → like → match → conversation → date or subscription.
+    63	- **Low base rates:** matches and conversations are rare per impression.
+    64	- **Delayed labels:** retention runs 7 to 30 days. Subscription revenue runs over weeks.
+    65	- **Revenue mix:** subscriptions plus a la carte features (boosts, super likes, "see who likes you").
+    66	- **Success paradox:** a good match can end the user's tenure. Retention and revenue can conflict with
+    67	  match quality.
+    68	- **Prediction vs. incrementality:** retention conditional on exposure is not the effect of the
+    69	  exposure. Active users retain regardless. Track this distinction for every reference.
+    70	
+    71	### What "relevant" means here
+    72	
+    73	A reference is relevant when it helps answer one of the eight research questions below with evidence
+    74	from a real system. Industry practice is the target. Academic work supports it.
+    75	
+    76	A reference is **low relevance** when it optimizes a short-term proxy only, and says nothing about a
+    77	long-horizon objective, delayed labels, credit assignment, or a two-sided market.
+    78	
+    79	### Research questions the survey must answer
+    80	
+    81	- **Q1.** How do industry recommenders make retention, LTV, or revenue the training objective of the
+    82	  ranking model instead of CTR-like proxies?
+    83	- **Q2.** How do they attribute a user-level, delayed outcome to an item-level decision (one exposure
+    84	  or one slate)?
+    85	- **Q3.** Which label and horizon definitions do they use for retention and revenue? How do they
+    86	  handle delay, sparsity, and censoring?
+    87	- **Q4.** How do they combine short-term event heads with long-term heads: fixed fusion, learned
+    88	  fusion, or one value head?
+    89	- **Q5.** Where do uplift or incremental effects sit inside the ranking model itself, and what did that
+    90	  change?
+    91	- **Q6.** How do they evaluate such a model offline and online, given slow, noisy retention effects and
+    92	  two-sided interference?
+    93	- **Q7.** What is specific to two-sided or reciprocal markets: reciprocity, congestion, fairness across
+    94	  sides, revenue vs. match trade-off?
+    95	- **Q8.** Which migration paths from "CTR model + uplift blend" to a unified model are documented
+    96	  (auxiliary heads first, distillation, reward models, staged rollout)?
+    97	
+    98	### Excluded areas — prior surveys already cover these
+    99	
+   100	Do not re-survey these. Cite work from them only when a reference uses it **inside a ranking model**.
+   101	
+   102	- Multi-touch attribution (Shapley, Markov, deep MTA).
+   103	- CATE and uplift meta-learners (X-learner, DML, DragonNet, causal forest).
+   104	- Survival and churn basics (Cox-Time, DeepHit).
+   105	- Geo and switchback experiments.
+   106	- Proxy-label and noisy-label learning.
+   107	
+   108	### Per-reference card — every paper file must record these
+   109	
+   110	- Title, authors or company, venue, year, URL.
+   111	- Source type: blog / industry paper / academic.
+   112	- Direction: D1 to D9 (see `requirements.md`).
+   113	- Problem setting.
+   114	- Objective and label definition, with horizon and delay handling.
+   115	- **Prediction or incrementality:** does the model predict the outcome, or the effect of the exposure?
+   116	- Model architecture.
+   117	- **Credit assignment:** how a user-level outcome maps to an item-level decision.
+   118	- Training data and counterfactual handling.
+   119	- Offline and online evaluation.
+   120	- Reported gains.
+   121	- Applicability note for a two-sided dating recommender (2 lines).
+   122	- Unverified claims, marked as such.
+   123	
+   124	### Synthesis deliverables the executive summary must produce
+   125	
+   126	1. A comparison table of all references, one row each, with the card columns.
+   127	2. A taxonomy of unified long-term-value ranking approaches, with the industry adopters of each.
+   128	3. Three candidate architectures for this case, ranked. For each: objective, labels and horizons, how
+   129	   it absorbs the current CTR/CVR heads and the uplift blend, data needed, main risk.
+   130	4. A staged migration path from the current CTR/CVR + uplift blend to the unified model, with what to
+   131	   measure at each stage.
+   132	5. Label and horizon recommendations for retention and revenue in a dating app, with evidence.
+   133	6. An evaluation plan: offline metrics, surrogate validation, online design under two-sided
+   134	   interference.
+   135	7. Open questions, gaps, and a top-10 reading order.
+   136	
+   137	### Verification rules
+   138	
+   139	- Every reference needs a working URL.
+   140	- Do not invent titles, venues, or results.
+   141	- Separate what a source states from what the survey infers.
+   142	- Mark each seed reference as `confirmed` or `not found` in the log.
+
+codex
+# PROOF OF READING
+
+- `war-story.md` — “The founding premise survived, but only in half.” Approx. line 181.
+- `README.md` — “The team blends the two scores after the fact.” Approx. line 31.
+
+# VERDICT: NEEDS_FIXES
+
+## (a) Chronological and inspiration contradictions
+
+**HIGH — The 2024–2026 era contains work from 2019 and 2022.**
+
+> “**2024–2026 — unify the architecture.** Generative rankers arrived: HSTU (Meta, ICML 2024), OneRec and OneRec-V2 (Kuaishou, 2025), MTGR (Meituan, 2025), and Netflix's GenRec and GenPage (2026).”
+
+> “Alongside them, LTV heads went onto production rankers — ZILN (Google, 2019) as the revenue loss, LinkedIn LiRank (KDD 2024), Pinterest's Save, Revisit, Retain, and Alibaba's PDQ-LTV (2026), which **builds on** Zhan et al. (2022) for watch-time debiasing.”
+
+ZILN (2019) and the Zhan antecedent (2022) fall outside the heading. “Alongside them” also incorrectly suggests contemporaneity.
+
+Concrete fix: rename the era “2019–2026 — unify the architecture and add LTV heads,” or split it into “2019–2022 — LTV losses and debiasing foundations” and “2024–2026 — generative and unified architectures.”
+
+---
+
+**MEDIUM — The cascade paragraph narrates 2020 as following 2021.**
+
+> “AITM (Meituan, KDD 2021) handled deeper funnels. Then Alibaba's own Multi-IPW and Multi-DR work (WWW 2020) proved ESMM biased, and ESCM² (SIGIR 2022) fixed it with a counterfactual regularizer.”
+
+The causal arrows themselves point backward correctly—2020 critiques 2018 and 2022 follows 2020—but “Then” creates a 2021 → 2020 narrative reversal.
+
+Concrete fix: order the works as ESMM/MMoE (2018), Multi-IPW/Multi-DR (2020), AITM (2021), ESCM² (2022), while distinguishing the funnel-depth and debiasing branches.
+
+---
+
+**MEDIUM — The declared “first real step” conflicts with the staged plan.**
+
+> “We set out to find the industry pattern for a single ranker trained on retention and revenue, found that the most-cited precedent does not do what it is cited for, and came away with a staged path whose first real step is not a model at all — it is proving we can read a long-horizon outcome early, and knowing how much that read costs us.”
+
+The table immediately below makes instrumentation and replay validation Stage 0, before surrogate validation at Stage 1. A surrogate cannot be validated before the long-horizon join and experimental data are trustworthy.
+
+Concrete fix: say the first step is instrumentation, and the first modeling gate is causal surrogate validation.
+
+All other explicit `builds on` / `modifies` / `replaces` / successor arrows are internally chronological: xMTF 2025 → BatchRL-MTF 2022; the 2021 response models → Chen 2019; PinnerFormer 2022 → SASRec 2018; AURO 2025 → RLUR 2023; and PDQ-LTV 2026 → Zhan 2022. The Impatient Bandits case is explicitly and plausibly resolved through the February 2023 preprint.
+
+## (b) Unsupported factual claims
+
+**HIGH — Quantitative claims lack claim-level provenance.**
+
+The opening sourcing note names a NotebookLM notebook, but it does not connect individual numbers to a source card, URL, page, table, or experiment. The following unflagged claims therefore range from partially traceable to uncheckable:
+
+| Quoted claim | Enough provenance? |
+|---|---|
+| “**Survey 2** (`proxy-label-learning`) went better — 87 papers at 96% coverage.” | **No.** No survey artifact or coverage calculation is identified. |
+| “Chapelle at Criteo (KDD 2014) turned that into the delayed feedback model, and showed that naive same-day labeling **underpredicts conversions by 21%**.” | **Partial.** Author/company/venue/year identify the likely paper, but there is no card, URL, or experiment locator. |
+| “BatchRL-MTF … reported +2.55% dwell time and +9.65% positive-interaction rate at hundreds of millions of users.” | **Partial.** The paper is identifiable, but the exact table, population, and significance are not. |
+| “Its online test ran about 150 days and moved app opens +0.450%, DAU +0.2%, and D7 +0.063%.” | **Partial.** RLUR is identified in context, but the source location and metric definitions are absent. |
+| “Spotify's Impatient Bandits … explained 50% of the prior variance from 8 days of traces.” | **Partial.** The work is identifiable, but not the supporting result. |
+| “Netflix's study over 200 A/B tests and 1,098 arms found about 95% agreement between a 14-day and a 63-day read.” | **No.** The study is not named. |
+| “On launch decisions it found **79% precision and 65% recall**, with zero false launches among tests significantly negative at 63 days.” | **No.** Same unnamed study; no definition of the decision threshold or denominator. |
+| “Optimizing WatchTime (+0.379%) and Share (+3.376%) drove **Comment down 0.619%**.” | **Partial.** TSCAC is identifiable from context, but no result locator is supplied. |
+| “Netflix's GenRec supplies the number that settles it: **+0.115% on short-term engagement, and +0.006% on the long-term core metric**.” | **Partial.** No paper URL, table, test duration, or uncertainty is provided. “Settles it” is stronger than two point estimates warrant. |
+| “Naive ranking sends the top 20% of listings roughly 100% of requests.” | **No.** No source or benchmark is named. |
+| “Market-clearing raises expected matches from 219.56 to 332.91 on a 200-user benchmark.” | **No.** The benchmark and paper are unnamed. |
+| “A welfare-maximizing ranker gets more raw matches than a fair one (111.37 against 90.39) and carries **fourteen times the envy** (434 against 31).” | **No.** The source, definitions, and experimental setup are absent. |
+| “`claude_opus` finished with D1–D4 at 43% against a 50% floor…” | **No.** The sourcing note mentions logs generally, but this claim has no exact log reference. |
+
+Concrete fix: attach an endnote to every numeric result, pointing to the source card or URL and the relevant page/table. For internal process statistics, cite the exact log or coverage artifact. At minimum, name the two Netflix studies and the source of the market-clearing benchmarks.
+
+---
+
+**HIGH — Several load-bearing paper and company claims are not identifiable enough to check.**
+
+> “Reading its stated objective shows a **fixed-weight linear fusion over short-term engagement probabilities**, with no horizon and no delay handling stated anywhere.”
+
+The Instagram Explore source is not named or linked. This is presented as the myth-breaking discovery that reframed the project, so it requires unusually strong provenance.
+
+> “In KuaiSim, retention is drawn as `Geometric(p_ret)`, and `p_ret` rises mechanically with the immediate reward the policy is optimizing.”
+
+No KuaiSim paper/version, equation, or configuration is cited. The criticism may be correct, but the reader cannot verify whether it applies to the standard simulator, one configuration, or one workplace’s interpretation.
+
+> “Netflix's follow-up work shows that correlating user-level engagement with the long-run outcome is **biased**, and that the fitted slope can carry the **wrong sign**.”
+
+The follow-up work is unnamed.
+
+> “Microsoft Research added a dynamically adjusted version.”
+
+No title, year, or source is given.
+
+> “Grindr states publicly that it runs no discovery ranker…”
+
+No public statement, date, or URL is identified.
+
+Concrete fix: provide title/year/URL or a card link for each. Separate a source’s stated result from the story’s inference—for example, quote the relevant KuaiSim mechanism and then explain why the authors believe it makes the evaluation circular.
+
+---
+
+**HIGH — Corpus-wide absence claims are not auditable.**
+
+> “One workplace states the disconnect plainly: **market-clearing methods and learned fusion never appear in the same system anywhere in this corpus.**”
+
+> “`cursor-grok` states the supporting count: zero of its 120 cards document a CATE score inside a swipe-ranker's serving formula.”
+
+> “Its stated reason is blunt: **no source documents deleting the uplift model and putting CATE in the ranker.**”
+
+> “**No two-sided retention MDP exists anywhere in the corpus.**”
+
+> “**No dating paper trains on retention or subscription revenue.**”
+
+> “Putting **incrementality** inside the training objective of a reciprocal, long-horizon ranker has no documented precedent in 120-plus industry sources.”
+
+> “The exponential-delay assumptions and the calibration timescales are not validated at our horizon by any paper in the corpus.”
+
+> “No paper models subscriptions and a la carte purchases together.”
+
+> “Match Group, Bumble, Coffee Meets Bagel, Tantan and Soul returned nothing usable.”
+
+None supplies an auditable denominator, query, inclusion rule, card list, or duplicate handling. “120-plus industry sources” is especially unclear: each workplace has roughly 120 cards, but the document does not establish how many unique industry sources exist after overlap.
+
+Concrete fix: add an “absence-claim ledger” with the searched corpus, number of unique sources, relevant card IDs, query/filter, and scope. Phrase conclusions as “not found in the reviewed corpus as of 2026-08-20,” not universal nonexistence claims.
+
+I did not penalize the PinnerFormer, Kawamura/Yang, Tripuraneni, OCARM, OCPC, URL-validation, or Hinge claims because the document already marks them as corrected, unresolved, inconsistent, stale, or company-reported.
+
+## (c) Reasoning arc and turning points
+
+**CRITICAL — The conclusion conflates three different propositions.**
+
+> “The survey endorses the first half without reservation: unify the **serving score**, learn the fusion, and take the hand-tuned blend out. It does not endorse the second half yet. Putting **incrementality** inside the training objective of a reciprocal, long-horizon ranker has no documented precedent…”
+
+The README’s founding target is one model trained directly on retention and revenue. Incrementality is a separate research question and product constraint. The story collapses:
+
+1. Replacing fixed post-hoc fusion with learned fusion.
+2. Training predictive long-horizon retention/revenue heads.
+3. Training on the incremental causal effect of exposure.
+
+The evidence supports a staged experiment with the first two and shows that the third lacks precedent and identification. It does not show that “direct retention/revenue training” and “incrementality inside the objective” are the same rejected half.
+
+Concrete fix: rewrite the thesis around these three layers. Say learned unified serving is supported as a candidate; direct long-horizon outcome prediction is plausible but unvalidated for this dating setting; causal incremental ranking remains research requiring randomized exposure.
+
+---
+
+**HIGH — “Without reservation” contradicts the document’s own evidence.**
+
+> “The survey endorses the first half without reservation…”
+
+The document also says the proposal is not implementation-ready, no dating paper trains on retention or subscription revenue, no two-sided retention MDP exists, item-level reciprocal credit is unsolved, the mixed revenue target has no precedent, the horizon transfer is unvalidated, and the top-ranked pattern rests on an unreadable paper.
+
+Concrete fix: replace “without reservation” with “supports as the lowest-risk hypothesis to test first.” That matches the staged gates and the stated evidence limitations.
+
+---
+
+**HIGH — Several “beliefs that broke” were already explicit project constraints.**
+
+> “**A debiased prediction is not an effect.** This is the deepest reversal…”
+
+README already states that retention conditional on exposure is not the effect of exposure and instructs the survey to track the distinction. Reciprocity, congestion, the success paradox, and delayed outcomes were also known before the survey.
+
+These are load-bearing, but they are confirmed constraints rather than newly broken beliefs.
+
+Concrete fix: rename Act 5 to “Beliefs that broke and constraints the evidence confirmed.” For every entry, state the prior belief explicitly and classify the result as `reversal`, `confirmation`, or `new gap`.
+
+---
+
+**HIGH — The most important domain-specific turning points are buried after Act 5.**
+
+> “**No dating paper trains on retention or subscription revenue.**”
+
+> “**No two-sided retention MDP exists anywhere in the corpus.**”
+
+> “**The delayed-feedback literature runs at hours to days.** Our horizons run to weeks.”
+
+> “**The mixed revenue stream has no precedent.**”
+
+> “**Our top-ranked pattern rests on a paper nobody could read.**”
+
+Given the README’s target, these are more load-bearing than several current Act 5 entries. They directly undermine transfer validity, label design, revenue modeling, and the strength of the top recommendation.
+
+Concrete fix: elevate these into Act 5. In particular, make “the target system does not exist in the surveyed dating literature” the bridge from field history to the staged, evidence-gated proposal.
+
+---
+
+**MEDIUM — The surrogate material is one turning point split into two.**
+
+> “**Surrogates are safe but lossy.**”
+
+> “**And you cannot validate a surrogate the obvious way.**”
+
+These jointly establish one decision: surrogate use is acceptable only after experiment-level causal validation, with measured decision loss. Splitting them makes the list feel longer without adding a separate belief change.
+
+Concrete fix: combine them into one turning point, “A surrogate is useful only as a causally validated, explicitly lossy decision instrument,” and use the freed slot for the missing dating-domain or mixed-revenue turn.
+
+---
+
+**MEDIUM — Some conclusions outrun the evidence presented.**
+
+> “Reciprocity and capacity are a mandatory second stage, not a fairness patch.”
+
+The need to address reciprocity and congestion follows from the product context. The particular conclusion that they must be a second stage does not follow from the unnamed small benchmarks alone; it is a proposed architecture sequence.
+
+Similarly:
+
+> “The gain falls by a factor of roughly nineteen as the horizon lengthens. The architectural revolution and the objective question are separate problems.”
+
+One GenRec comparison strongly illustrates the distinction, but does not by itself “settle” the general question across generative rankers.
+
+Concrete fix: label these explicitly as synthesis recommendations: “For this product, the evidence suggests…” Reserve universal wording for conclusions supported across multiple identified sources.
+
+The arc is fundamentally the right one: learned unification is a plausible near-term engineering move, while a reciprocal, long-horizon incremental objective remains research. But the current “survived in half” formulation is too binary. The more defensible arc has three steps—learned fusion, direct long-horizon prediction, then causal incrementality—and it should foreground that even the first two remain gated hypotheses in this specific two-sided dating setting.
+tokens used
+29,980
+# PROOF OF READING
+
+- `war-story.md` — “The founding premise survived, but only in half.” Approx. line 181.
+- `README.md` — “The team blends the two scores after the fact.” Approx. line 31.
+
+# VERDICT: NEEDS_FIXES
+
+## (a) Chronological and inspiration contradictions
+
+**HIGH — The 2024–2026 era contains work from 2019 and 2022.**
+
+> “**2024–2026 — unify the architecture.** Generative rankers arrived: HSTU (Meta, ICML 2024), OneRec and OneRec-V2 (Kuaishou, 2025), MTGR (Meituan, 2025), and Netflix's GenRec and GenPage (2026).”
+
+> “Alongside them, LTV heads went onto production rankers — ZILN (Google, 2019) as the revenue loss, LinkedIn LiRank (KDD 2024), Pinterest's Save, Revisit, Retain, and Alibaba's PDQ-LTV (2026), which **builds on** Zhan et al. (2022) for watch-time debiasing.”
+
+ZILN (2019) and the Zhan antecedent (2022) fall outside the heading. “Alongside them” also incorrectly suggests contemporaneity.
+
+Concrete fix: rename the era “2019–2026 — unify the architecture and add LTV heads,” or split it into “2019–2022 — LTV losses and debiasing foundations” and “2024–2026 — generative and unified architectures.”
+
+---
+
+**MEDIUM — The cascade paragraph narrates 2020 as following 2021.**
+
+> “AITM (Meituan, KDD 2021) handled deeper funnels. Then Alibaba's own Multi-IPW and Multi-DR work (WWW 2020) proved ESMM biased, and ESCM² (SIGIR 2022) fixed it with a counterfactual regularizer.”
+
+The causal arrows themselves point backward correctly—2020 critiques 2018 and 2022 follows 2020—but “Then” creates a 2021 → 2020 narrative reversal.
+
+Concrete fix: order the works as ESMM/MMoE (2018), Multi-IPW/Multi-DR (2020), AITM (2021), ESCM² (2022), while distinguishing the funnel-depth and debiasing branches.
+
+---
+
+**MEDIUM — The declared “first real step” conflicts with the staged plan.**
+
+> “We set out to find the industry pattern for a single ranker trained on retention and revenue, found that the most-cited precedent does not do what it is cited for, and came away with a staged path whose first real step is not a model at all — it is proving we can read a long-horizon outcome early, and knowing how much that read costs us.”
+
+The table immediately below makes instrumentation and replay validation Stage 0, before surrogate validation at Stage 1. A surrogate cannot be validated before the long-horizon join and experimental data are trustworthy.
+
+Concrete fix: say the first step is instrumentation, and the first modeling gate is causal surrogate validation.
+
+All other explicit `builds on` / `modifies` / `replaces` / successor arrows are internally chronological: xMTF 2025 → BatchRL-MTF 2022; the 2021 response models → Chen 2019; PinnerFormer 2022 → SASRec 2018; AURO 2025 → RLUR 2023; and PDQ-LTV 2026 → Zhan 2022. The Impatient Bandits case is explicitly and plausibly resolved through the February 2023 preprint.
+
+## (b) Unsupported factual claims
+
+**HIGH — Quantitative claims lack claim-level provenance.**
+
+The opening sourcing note names a NotebookLM notebook, but it does not connect individual numbers to a source card, URL, page, table, or experiment. The following unflagged claims therefore range from partially traceable to uncheckable:
+
+| Quoted claim | Enough provenance? |
+|---|---|
+| “**Survey 2** (`proxy-label-learning`) went better — 87 papers at 96% coverage.” | **No.** No survey artifact or coverage calculation is identified. |
+| “Chapelle at Criteo (KDD 2014) turned that into the delayed feedback model, and showed that naive same-day labeling **underpredicts conversions by 21%**.” | **Partial.** Author/company/venue/year identify the likely paper, but there is no card, URL, or experiment locator. |
+| “BatchRL-MTF … reported +2.55% dwell time and +9.65% positive-interaction rate at hundreds of millions of users.” | **Partial.** The paper is identifiable, but the exact table, population, and significance are not. |
+| “Its online test ran about 150 days and moved app opens +0.450%, DAU +0.2%, and D7 +0.063%.” | **Partial.** RLUR is identified in context, but the source location and metric definitions are absent. |
+| “Spotify's Impatient Bandits … explained 50% of the prior variance from 8 days of traces.” | **Partial.** The work is identifiable, but not the supporting result. |
+| “Netflix's study over 200 A/B tests and 1,098 arms found about 95% agreement between a 14-day and a 63-day read.” | **No.** The study is not named. |
+| “On launch decisions it found **79% precision and 65% recall**, with zero false launches among tests significantly negative at 63 days.” | **No.** Same unnamed study; no definition of the decision threshold or denominator. |
+| “Optimizing WatchTime (+0.379%) and Share (+3.376%) drove **Comment down 0.619%**.” | **Partial.** TSCAC is identifiable from context, but no result locator is supplied. |
+| “Netflix's GenRec supplies the number that settles it: **+0.115% on short-term engagement, and +0.006% on the long-term core metric**.” | **Partial.** No paper URL, table, test duration, or uncertainty is provided. “Settles it” is stronger than two point estimates warrant. |
+| “Naive ranking sends the top 20% of listings roughly 100% of requests.” | **No.** No source or benchmark is named. |
+| “Market-clearing raises expected matches from 219.56 to 332.91 on a 200-user benchmark.” | **No.** The benchmark and paper are unnamed. |
+| “A welfare-maximizing ranker gets more raw matches than a fair one (111.37 against 90.39) and carries **fourteen times the envy** (434 against 31).” | **No.** The source, definitions, and experimental setup are absent. |
+| “`claude_opus` finished with D1–D4 at 43% against a 50% floor…” | **No.** The sourcing note mentions logs generally, but this claim has no exact log reference. |
+
+Concrete fix: attach an endnote to every numeric result, pointing to the source card or URL and the relevant page/table. For internal process statistics, cite the exact log or coverage artifact. At minimum, name the two Netflix studies and the source of the market-clearing benchmarks.
+
+---
+
+**HIGH — Several load-bearing paper and company claims are not identifiable enough to check.**
+
+> “Reading its stated objective shows a **fixed-weight linear fusion over short-term engagement probabilities**, with no horizon and no delay handling stated anywhere.”
+
+The Instagram Explore source is not named or linked. This is presented as the myth-breaking discovery that reframed the project, so it requires unusually strong provenance.
+
+> “In KuaiSim, retention is drawn as `Geometric(p_ret)`, and `p_ret` rises mechanically with the immediate reward the policy is optimizing.”
+
+No KuaiSim paper/version, equation, or configuration is cited. The criticism may be correct, but the reader cannot verify whether it applies to the standard simulator, one configuration, or one workplace’s interpretation.
+
+> “Netflix's follow-up work shows that correlating user-level engagement with the long-run outcome is **biased**, and that the fitted slope can carry the **wrong sign**.”
+
+The follow-up work is unnamed.
+
+> “Microsoft Research added a dynamically adjusted version.”
+
+No title, year, or source is given.
+
+> “Grindr states publicly that it runs no discovery ranker…”
+
+No public statement, date, or URL is identified.
+
+Concrete fix: provide title/year/URL or a card link for each. Separate a source’s stated result from the story’s inference—for example, quote the relevant KuaiSim mechanism and then explain why the authors believe it makes the evaluation circular.
+
+---
+
+**HIGH — Corpus-wide absence claims are not auditable.**
+
+> “One workplace states the disconnect plainly: **market-clearing methods and learned fusion never appear in the same system anywhere in this corpus.**”
+
+> “`cursor-grok` states the supporting count: zero of its 120 cards document a CATE score inside a swipe-ranker's serving formula.”
+
+> “Its stated reason is blunt: **no source documents deleting the uplift model and putting CATE in the ranker.**”
+
+> “**No two-sided retention MDP exists anywhere in the corpus.**”
+
+> “**No dating paper trains on retention or subscription revenue.**”
+
+> “Putting **incrementality** inside the training objective of a reciprocal, long-horizon ranker has no documented precedent in 120-plus industry sources.”
+
+> “The exponential-delay assumptions and the calibration timescales are not validated at our horizon by any paper in the corpus.”
+
+> “No paper models subscriptions and a la carte purchases together.”
+
+> “Match Group, Bumble, Coffee Meets Bagel, Tantan and Soul returned nothing usable.”
+
+None supplies an auditable denominator, query, inclusion rule, card list, or duplicate handling. “120-plus industry sources” is especially unclear: each workplace has roughly 120 cards, but the document does not establish how many unique industry sources exist after overlap.
+
+Concrete fix: add an “absence-claim ledger” with the searched corpus, number of unique sources, relevant card IDs, query/filter, and scope. Phrase conclusions as “not found in the reviewed corpus as of 2026-08-20,” not universal nonexistence claims.
+
+I did not penalize the PinnerFormer, Kawamura/Yang, Tripuraneni, OCARM, OCPC, URL-validation, or Hinge claims because the document already marks them as corrected, unresolved, inconsistent, stale, or company-reported.
+
+## (c) Reasoning arc and turning points
+
+**CRITICAL — The conclusion conflates three different propositions.**
+
+> “The survey endorses the first half without reservation: unify the **serving score**, learn the fusion, and take the hand-tuned blend out. It does not endorse the second half yet. Putting **incrementality** inside the training objective of a reciprocal, long-horizon ranker has no documented precedent…”
+
+The README’s founding target is one model trained directly on retention and revenue. Incrementality is a separate research question and product constraint. The story collapses:
+
+1. Replacing fixed post-hoc fusion with learned fusion.
+2. Training predictive long-horizon retention/revenue heads.
+3. Training on the incremental causal effect of exposure.
+
+The evidence supports a staged experiment with the first two and shows that the third lacks precedent and identification. It does not show that “direct retention/revenue training” and “incrementality inside the objective” are the same rejected half.
+
+Concrete fix: rewrite the thesis around these three layers. Say learned unified serving is supported as a candidate; direct long-horizon outcome prediction is plausible but unvalidated for this dating setting; causal incremental ranking remains research requiring randomized exposure.
+
+---
+
+**HIGH — “Without reservation” contradicts the document’s own evidence.**
+
+> “The survey endorses the first half without reservation…”
+
+The document also says the proposal is not implementation-ready, no dating paper trains on retention or subscription revenue, no two-sided retention MDP exists, item-level reciprocal credit is unsolved, the mixed revenue target has no precedent, the horizon transfer is unvalidated, and the top-ranked pattern rests on an unreadable paper.
+
+Concrete fix: replace “without reservation” with “supports as the lowest-risk hypothesis to test first.” That matches the staged gates and the stated evidence limitations.
+
+---
+
+**HIGH — Several “beliefs that broke” were already explicit project constraints.**
+
+> “**A debiased prediction is not an effect.** This is the deepest reversal…”
+
+README already states that retention conditional on exposure is not the effect of exposure and instructs the survey to track the distinction. Reciprocity, congestion, the success paradox, and delayed outcomes were also known before the survey.
+
+These are load-bearing, but they are confirmed constraints rather than newly broken beliefs.
+
+Concrete fix: rename Act 5 to “Beliefs that broke and constraints the evidence confirmed.” For every entry, state the prior belief explicitly and classify the result as `reversal`, `confirmation`, or `new gap`.
+
+---
+
+**HIGH — The most important domain-specific turning points are buried after Act 5.**
+
+> “**No dating paper trains on retention or subscription revenue.**”
+
+> “**No two-sided retention MDP exists anywhere in the corpus.**”
+
+> “**The delayed-feedback literature runs at hours to days.** Our horizons run to weeks.”
+
+> “**The mixed revenue stream has no precedent.**”
+
+> “**Our top-ranked pattern rests on a paper nobody could read.**”
+
+Given the README’s target, these are more load-bearing than several current Act 5 entries. They directly undermine transfer validity, label design, revenue modeling, and the strength of the top recommendation.
+
+Concrete fix: elevate these into Act 5. In particular, make “the target system does not exist in the surveyed dating literature” the bridge from field history to the staged, evidence-gated proposal.
+
+---
+
+**MEDIUM — The surrogate material is one turning point split into two.**
+
+> “**Surrogates are safe but lossy.**”
+
+> “**And you cannot validate a surrogate the obvious way.**”
+
+These jointly establish one decision: surrogate use is acceptable only after experiment-level causal validation, with measured decision loss. Splitting them makes the list feel longer without adding a separate belief change.
+
+Concrete fix: combine them into one turning point, “A surrogate is useful only as a causally validated, explicitly lossy decision instrument,” and use the freed slot for the missing dating-domain or mixed-revenue turn.
+
+---
+
+**MEDIUM — Some conclusions outrun the evidence presented.**
+
+> “Reciprocity and capacity are a mandatory second stage, not a fairness patch.”
+
+The need to address reciprocity and congestion follows from the product context. The particular conclusion that they must be a second stage does not follow from the unnamed small benchmarks alone; it is a proposed architecture sequence.
+
+Similarly:
+
+> “The gain falls by a factor of roughly nineteen as the horizon lengthens. The architectural revolution and the objective question are separate problems.”
+
+One GenRec comparison strongly illustrates the distinction, but does not by itself “settle” the general question across generative rankers.
+
+Concrete fix: label these explicitly as synthesis recommendations: “For this product, the evidence suggests…” Reserve universal wording for conclusions supported across multiple identified sources.
+
+The arc is fundamentally the right one: learned unification is a plausible near-term engineering move, while a reciprocal, long-horizon incremental objective remains research. But the current “survived in half” formulation is too binary. The more defensible arc has three steps—learned fusion, direct long-horizon prediction, then causal incrementality—and it should foreground that even the first two remain gated hypotheses in this specific two-sided dating setting.

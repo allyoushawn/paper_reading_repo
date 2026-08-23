@@ -1,0 +1,35 @@
+You are reviewing a narrative document, not code. Do NOT explore the repository. Read ONLY the files listed below, ONE FILE PER TOOL CALL.
+
+PRIMARY ARTIFACT (the thing under review):
+1. war-story.md
+
+EVIDENCE FILES (read these to check claims; all are small):
+2. README.md
+3. log.md
+4. claude_opus/log.md
+5. claude_opus/executive-summary.md
+6. codex-sol/executive-summary.md
+7. cursor-grok/executive-summary.md
+
+You MAY additionally open at most 10 files under claude_opus/read-papers/, codex-sol/read-papers/, or cursor-grok/read-papers/ if you need to check a specific number, venue, or year. Name every such file you open. Do not open more than 10, and do not list directories beyond what you need to find them.
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file above, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not review a file you could not read; do not infer its contents from the filename.
+
+CONTEXT: war-story.md is a narrative history ("war story") of a literature survey on two-sided market balancing in dating-app recommendation. Three AI model runs (claude_opus, codex-sol, cursor-grok) executed the same survey between 2026-08-16 and 2026-08-20 against a shared NotebookLM notebook. The war story interleaves two strands: how the research FIELD evolved (2009-2026), and how the SURVEY PROJECT itself evolved (tool failures, corrections, disagreements between the three runs). A star character marks claims the author corrected during a verification pass.
+
+REVIEW TASK. Report findings under exactly these three headings.
+
+(a) CHRONOLOGICAL AND INSPIRATION CONTRADICTIONS
+Find any sentence where an earlier work is said to build on, extend, cite, be inspired by, or be a response to a LATER work. Check every lineage arrow and every "X then Y" ordering claim against the years the document itself states. Quote the offending sentence and give the correct direction. If you find none, say so explicitly.
+
+(b) UNSUPPORTED OR OVERSTATED FACTUAL CLAIMS
+For each date, venue, authorship, and reported number in war-story.md, judge whether the document asserts it with more confidence than its own evidence supports. Flag in particular:
+  - numbers stated without saying whether they are synthetic, simulated, offline, or from a real field experiment;
+  - venue or year claims where the evidence files disagree with each other;
+  - any claim attributed to a source the evidence files describe as unreadable, empty, paywalled, or secondhand.
+Quote the sentence and say what hedge is missing. Also flag the OPPOSITE error: places where the document hedges a claim that the evidence actually supports firmly.
+
+(c) ARC COHERENCE AND TURNING POINTS
+The document has Act 0 through Act 8. Judge whether the causal chain actually holds: does each act's "what changed" follow from the evidence presented in that act? Name any act whose turning point is not really a turning point (a restatement rather than a reversal of belief). Most importantly: name any MAJOR turning point in this body of work that the document MISSED, and say where it should go and why it matters more than something currently included.
+
+Be specific and quote. Prefer a short list of real defects over a long list of style notes. Do not modify any files.

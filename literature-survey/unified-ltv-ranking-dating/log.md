@@ -1,4 +1,5 @@
 # unified-ltv-ranking-dating — shared run log
+## [2026-08-20] synthesis | **war-story.md composed at the shared root** — narrative history across all three workplaces (`claude_opus/`, `codex-sol/`, `cursor-grok/`) plus surveys 1-2 and the project KB. Chronology verified against NotebookLM (2 claims corrected, 1 resolved, 1 left open); 3 internal contradictions re-verified by grep. Independent CLI review PASS after 3 fix rounds (1 CRITICAL: the closing thesis had collapsed 3 distinct propositions into one). Raw reviews under `war-story-review/`.
 
 ## [2026-08-18] ingest | **codex-sol workplace complete** — 120 cards, 120-row comparison table, claim-evidence table, literature review, executive summary, method tracker, URL validation 120/120, and independent CLI review PASS under `codex-sol/`. NotebookLM corpus remained 146 sources; other model workplaces were not read or modified.
 ## [2026-08-17] ingest | cursor-grok continuation complete — 120 cards (was 90) + updated literature-review, executive-summary, method-tracker, cards-index under `cursor-grok/`. Independence vs `claude_opus/` preserved.

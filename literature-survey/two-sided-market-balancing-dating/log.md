@@ -1,5 +1,15 @@
 # two-sided-market-balancing-dating/ — log
 
+## [2026-08-20] compose-war-story — `war-story.md` written at this topic root
+
+- Scope: all three model runs (`claude_opus`, `codex-sol`, `cursor-grok`) plus the shared root files. Nine sections: Act 0-7, an Epilogue audit, the arc, a standing direction, and load-bearing caveats.
+- Verification: 5 NotebookLM queries (3 failed — 2 incomplete chunked reads, 1 timeout), so market-design and experimentation claims were checked against `*/read-papers/` extraction cards instead. The cards resolved 4 conflicts the notebook could not, and beat the notebook on 3 claims where the two disagreed.
+- 21 corrections marked with a star. Notable: the Tapple "Gini 0.75 -> 0.60" is a model output in the NSW paper under a social-welfare variant, not a production result under TU. MRet is ICLR 2026, not a preprint, and its ~70% figure is synthetic. The 2026 NSW extension is an arXiv preprint with an unfilled venue placeholder, not an ACM TORS article. "Multiple Randomization Designs" is Masoero et al. (2025-12-02, arXiv v4), not "Bajari et al. 2021". Mashayekhi CSUR is 2024. Ramanathan's Tapple line starts at RecSys 2020, not AAAI-21.
+- Review gate: `codex exec` (`gpt-5.6-sol`, effort high) — probe OK, no fallback needed. Proof-of-reading gate passed (7 files quoted verbatim, 10 extraction cards named). Raw output at `war-story-review/v1-codex-raw.txt`, prompt at `war-story-review/v1-prompt.txt`. Findings: no chronological contradiction, 14 overstatements or missing hedges, and 1 missed turning point. All applied.
+- **Missed turning point now fixed (matters beyond this document):** Chen, Hsieh & Lin, "Reducing Recommendation Inequality via Two-Sided Matching: A Field Experiment of Online Dating," International Economic Review 2023 — a live dating field experiment applying TU matching, cited by the MODE, MRet and ECDA cards but read by no run. It was on `codex-sol`'s Phase 4 list of five prescribed next searches, none of which were executed. Its absence made 2026 look like the first live test of the whole idea. It was not.
+- Follow-ups for the next run. Read the Chen/Hsieh/Lin 2023 paper directly. Resolve the Rios/Saban/Zheng identity, year and effect size, because nobody has read that paper and the ingested PDF is a different manuscript. Confirm Mashayekhi CSUR 2024 against the ACM record. Decide the Fong working-paper vs Marketing Science 2024 citation, whose titles differ and whose identity the card says is unconfirmed.
+
+
 ## [2026-08-17] literature-survey-nlm | cursor-grok nlm-cli — added 8 notebook sources (165 total); queried RecSys 2025 + Kanzhun + Hinge + UniCoRn. Deep research started (task ChBjM2UxZDliYmYxN2JiODI4EAgaBDAxZDIqA3Vzdw) but CLI poll/import 400. Outputs under ./cursor-grok/.
 
 ## [2026-08-17] literature-survey-nlm | cursor-grok gap-fill — 72 annotated (was 66), 86% T1+2; Hinge 2025 mutual-compat pages, GFRR, UniCoRn, Kanzhun IR, Xia/Baihe, RecSys 2025 mine. NLM MCP disconnected; 61-hit re-import still blocked. Outputs under ./cursor-grok/.
