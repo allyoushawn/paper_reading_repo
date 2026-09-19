@@ -1,0 +1,33 @@
+You are an independent reviewer. The draft was written by Codex (gpt-5.6-sol). You are Claude. Do not rewrite the survey from scratch. Do not explore the repository. Do not read `../20260917_survey/` or parent `../read-papers/`.
+
+READ ONLY THESE FILES, ONE FILE PER TOOL CALL, IN THIS ORDER, EACH IN FULL:
+1. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/README.md
+2. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/discovery/D3_retention_attribution.md
+3. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/q2-class-index.md
+4. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/compact-summaries-1.md
+5. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/compact-summaries-2.md
+6. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q3-last-touch-replacement.md
+7. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/method-tracker.md
+8. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/literature-review.md
+9. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/executive-summary.md
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file above, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not review a file you could not read; do not infer its contents from the filename.
+
+REVIEW TASK (design / synthesis review of three survey documents). Check:
+
+A. Completeness: executive-summary.md has a direct Q1 answer, a direct Q2 answer with a TRUE/PARTIAL/NOT table, a last-touch replacement mapped onto swipe/match/conversation, and an explicit keep/change verdict on the 2026-06-13 plan (binary N7; v1 interpretable removal-effect; v2 calibrated deep DDA + survival head).
+
+B. Citation rule: every Q1/Q2 claim and recommendation bullet cites a paper's full name that appears in the compact summaries (this-run cards). Flag citations to parent-only papers (Amazon Ads MTA 2025 paper, LiDDA arXiv paper, MAL, CABB) that have no card here. LinkedIn engineering blog is in-scope.
+
+C. Q2 rubric (D3): TRUE = per-touch retention credit with causal/MTA decomposition; PARTIAL = item-level scores/surrogates; NOT = RL/LTR/bandit/policy. RLUR, GFN4Retention, AURO, SEC, OCARM, MRet are not automatically TRUE. Flag misclassifications vs D3 + card method descriptions. Card "Q2 class" headers are NLM guesses and may be wrong.
+
+D. Incremental language: v1 credit must not be called incremental unless a cited card estimates that exact contrast on N7 (or analogous delayed binary retention). Deletion residuals, Shapley, RL advantage, and attention scores are not automatically incremental lift. NLM q3 said no scoped paper estimates removing one swipe on binary N7.
+
+E. Numbers: any quantitative claim in the three files must appear in the compact summaries or D3; otherwise mark as unsupported. Netflix cards are stubs — numbers from discovery one-liners are not verified.
+
+F. Related-notebook over-classification: GFN/MRet must not be treated as TRUE attribution solely because a related notebook said so.
+
+Return:
+- VERDICT: PASS | PASS WITH FIXES | FAIL
+- Numbered list of evidence-backed fixes only (file, what's wrong, what to change, which card/source supports the fix). Skip nits that do not change Q1/Q2/recommendation correctness.
+- End with `FILES READ: <n> of 9`.

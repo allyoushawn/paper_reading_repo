@@ -1,0 +1,98 @@
+## PROOF OF READING
+
+1. `literature-survey/attribution-based-retention/20260917_survey/executive-summary.md` (~L16): `The 2025–2026 industry frontier is not a single attribution architecture.`
+2. `literature-survey/attribution-based-retention/20260917_survey/literature-review.md` (~L31): `These papers show that match value is concave and bilateral, but the cards correct NotebookLM’s characterization: MRet and Wantedly optimize future allocation; they do not perform retrospective per-match attribution.`
+13. `literature-survey/attribution-based-retention/20260917_survey/method-tracker.md` (~L54): `ALM-MTA is the strongest template for the eventual causal attributor because it produces explicit deletion credit for every touchpoint, addresses unobserved system-level confounding through a front-door proxy mediator, and reports deployment at 400M DAU.`
+14. `literature-survey/attribution-based-retention/20260917_survey/README.md` (~L17): `Attribute a user's retention to particular swipes the user made, so that the platform learns which swipes (and, later, which recommended profiles) keep users coming back.`
+3. `literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-1.md` (~L73): `Answers: Q2 direct — this is the closest match found to "attribution of retention to individual in-app interactions" with a working, deployed method.`
+4. `literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-2.md` (~L85): `attributes a specific surrogate outcome (same-item revisit within 0–6 days) to a specific save action, but does not attribute the ultimate DAU/retention outcome fractionally across a full multi-touch history; it is single-touch (save → its own revisit), not multi-touch credit splitting.`
+5. `literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-3.md` (~L41): `MRet is a forward-looking allocation/ranking policy driven by a learned retention-vs-match-count curve, not a backward-looking credit-assignment method over realized swipes/matches.`
+6. `literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-4.md` (~L41): `estimates user-level CATE for marketing-campaign allocation under LP constraints; does not do multi-touch sequence attribution or fractional per-interaction retention credit.`
+7. `literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-1.md` (~L59): `AUC on next-3-day retention: Base MLP 0.7180 (ZhihuRec) / 0.6827 (industry); naive uniform-weighting IURO(AVG) 0.5838 / 0.6732 (worse than base — uniform credit fails); IURO(MIL) 0.8269 / 0.7209; IURO(MIL+MSS) 0.8312 / 0.7255; IURO(CMIL+MSS) 0.8437 / 0.7291; full IURO(RCMIL+MSS) 0.8445 / 0.7301 (best).`
+8. `literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-2.md` (~L17): `Live A/B on Kuaishou and Kuaishou Lite (200M+ DAU, 10% traffic, 2+ weeks): cumulative active-days lift of +0.098% (Kuaishou) and +0.122% (Kuaishou Lite), reported as >200,000 additional DAU per platform; valid interest-cluster expansion +1.31%/+1.14%.`
+9. `literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-3.md` (~L72): `Online production deployment (400M DAU): DAU +0.04%, daily active creators +0.6%, unit exposure efficiency +670%, producer WAU +0.566%, production traffic efficiency +0.504%, uploads/user +0.569%; platform-health metrics (active devices, time spent) fluctuate negligibly.`
+10. `literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-4.md` (~L49): `Overall calibration error index: Raw Attribution 1.00, Device ML 0.31 (69.11% reduction), ETDC+HCA 0.09 (91.38% reduction).`
+11. `literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-5.md` (~L24): `statistically significant **+7.20% lift in LTV** (p=0.041, 95% CI [0.31%, 14.09%]).`
+12. `literature-survey/attribution-based-retention/20260917_survey/discovery/D3.md` (~L7): `Nothing published by any of these companies themselves on attributing retention to individual matches/swipes — only marketing/product-teardown content, job postings (Hinge "ML Engineer, Dating Outcomes"), and TinVec (2017 swipe embeddings, not retention-attribution).`
+
+---
+
+## A. FACT CHECK
+
+**1. Invented sample size (method-tracker, Impatient Bandits row).** Tracker: “Offline 8.77M Spotify traces.” Neither Impatient Bandits card states 8.77M. Summaries say “real-world Spotify podcast-discovery logs” and “a pool of 200 podcast shows” (`cards-summaries-1.md` ~L41–L43, ~L67). Unsupported.
+
+**2. IURO AUC contrast is the public split, not WeChat (executive-summary, Why not keep last-touch).** Report: “AUC 0.5838 … versus 0.8445.” Card: those figures are ZhihuRec; industry WeChat is 0.6732 vs 0.7301 (`cards-summaries-1.md` ~L59). Affiliation is WeChat/Tencent; the headline gap is not.
+
+**3. Konitzer 25% is a simulation cell, not a production last-touch result (executive-summary, Why not keep last-touch).** Card: “Controlled simulation … at τ=0.75, φ=0, last-touch attribution credited platform G with exactly 25% of conversions it caused” (`cards-summaries-4.md` ~L27). Failure mode is off-platform unobserved conversion, not mis-weighting visible in-app swipes.
+
+**4. “No Tencent publication” contradicts the same report’s Q2 lead (executive-summary, Q2; D3).** D3: “No published per-event retention-credit method from Tencent” (`D3.md` ~L8). IURO card: “Northeastern University … and WeChat/Tencent” with a live WeChat A/B (`cards-summaries-1.md` ~L55–L59). D3 missed IURO; repeating D3 as a survey finding is false.
+
+**5. v1 calls deletion an “estimated incremental probability” (executive-summary, Recommendations).** ALM-MTA card: credit is “the counterfactual drop in upload probability when τⱼ is deleted” inside a front-door model, outcome upload not N7 (`cards-summaries-3.md` ~L65). Relevance: “No — attributes content-upload probability, not N7” (`relevance-index-3.md` ~L31). Predictive leave-one-out is not that estimator.
+
+Numbers that do match cards: 91.38% ETDC; +7.20% LTV; IURO +0.76%/+0.65%; GFN +0.015%/+0.069%; ALM-MTA DAU +0.04% / creators +0.6% / 400M DAU; Downstream Rewards +0.36% Successful Sessions; Taobao Author Time LT3 +0.21%; Wantedly OR 0.957/0.948 not significant; MRet ~66.5% offline.
+
+## B. OVERCLAIMS
+
+**Direct.** Q2 groups Downstream Rewards with IURO/GFN as rare “direct per-interaction retention credit.” Card: “Partly — proxy downstream rewards … does not compute explicit offline multi-touch credit” (`relevance-index-3.md` ~L85). Approach table: IURO has “Direct per-item retention labels”; card scores are predicted `s_ui`, not observed item labels (`cards-summaries-1.md` ~L57).
+
+**Industry / pattern.** Q1 folds Wu (LLM selection, “no causal correction,” `relevance-index-4.md` ~L8) and Bhat (aggregate campaign-day, “no user-level tracking,” `relevance-index-3.md` ~L140) into “granular observational credit … corrected with randomized incrementality.” Those cards are not RCT-calibrated touch credit. Li et al. is channel-day DNU (`relevance-index-3.md` ~L118); Wei is user-level CATE (`relevance-index-4.md` ~L41).
+
+**Deployed vs offline.** MRet ~66.5% is offline on imputed dating logs (`cards-summaries-3.md` ~L80; tracker correctly says offline). Exec/review “real dating data” is true but easy to read as a live test. SMEO +5.4% DR-CVR is offline off-policy; serving is precomputed KV (`cards-summaries-3.md` ~L41–L43). Tracker “Production-scale serving” is not a live conversion lift.
+
+**Significant.** GFN review cites 1st-stage +0.015% and omits 2nd-stage overall +0.002% unstarred (`cards-summaries-1.md` ~L103). ReAlloc review cites +3.53% pay orders and omits GMV −2.64% (`cards-summaries-5.md` ~L66).
+
+**Scoring vs own rubric (method-tracker).** Rubric: normalization/stratification = 1. Downstream Rewards UP-normalization is scored 2; IURO activity-weighting is scored 2. Both should be 1 unless randomization or an explicit causal estimator is present. Composite 9/8 for those rows is inflated.
+
+## C. ANSWER QUALITY
+
+**Q1.** The useful pattern is incrementality-over-response plus some experiment or identification layer (Li, Wei, Snap HTE, DoorDash DML, Instagram). Calling it “granular observational credit calibrated by RCTs” is too tight for Li (not granular) and too loose for Wu/Bhat/ALM-MTA (not that stack). Name the pattern as: observational scores, if used, are not the objective; decisions are trained or calibrated on incremental outcomes. Put Li/Wei/CanniUplift/Snap in the answer; move LLM/MMM to landscape.
+
+**Q2.** The ranking-vs-attribution split is correct for MRet and Wantedly (`relevance-index-3.md` ~L41, ~L74). Direct credit is correctly rare; IURO and GFN belong. Pinterest Downstream Rewards does not belong in that sentence without “partly.” Negative scope: no named dating-company paper is right (D3 ~L7; MRet is Hanjuku-kaso on unnamed data). Do not extend that negative to Tencent, and do not treat D3’s “direct” tags on MRet/Wantedly/Impatient Bandits as ground truth — the cards override them.
+
+## D. RECOMMENDATION
+
+v1 formula is well-defined as a predictive deletion residual: inputs `H`, `e_j`, binary `Y_N7`; output theoretically in [−1,1]; signed vs `c_j^+` is specified. It is not an incremental probability. No v1-cited paper estimates that exact `do()` contrast on N7. ALM-MTA deletion is front-door upload credit; SMEO masking is conversion prefixes; IURO is attention scores.
+
+Selection-bias device is a collage. Downstream Rewards used UP-normalization on proxy features, not on deletion credits (`cards-summaries-4.md` ~L15). Propensity/position are Wei/SMEO/Taobao, not in the v1 source list. No cited v1 paper used this bundle.
+
+Validation anchor: a new exposure/score-perturbation holdout is realistic (Instagram 50/50; Snap ITT) but does not exist yet. v1 cannot inherit Li-style calibration without it. Two-sided interference is named only in v2; it is a v1 risk (CRRS bilateral treatment, `cards-summaries-1.md` ~L89). Other missing risks: leave-one-out effects need not sum to `Y`; ranker can fit user propensity rather than swipe quality; match as later feature leaks policy.
+
+**Do not ship v1 as written.** Ship as an explanation/debug score, or wait for an independent holdout and a conservation constraint, and stop calling `c_j` incremental.
+
+## E. IS THE MEASUREMENT RIGGED
+
+Partly, until the holdout exists. Deletion labels from a model of `P(Y_N7|H)` are highly correlated with user activity; a downstream ranker trained on those labels can look strong on user-level N7 / log loss without discriminating causal swipes. AUUC/Qini “on randomized traffic” is not identified on observational last-touch-like data. Conservation vs “user-level predicted N7 lift” can be satisfied by construction from the same `P(Y|H)`.
+
+Present: forward splits; proposed negative-control outcomes; placebo timestamps; don’t recycle the calibration cohort. Missing: **placebo touch** (credit a never-shown profile / post-cutoff swipe); a treatment assigned independently of the attributor; specified negative controls (not just the phrase). Experiment-level conservation, if the holdout is real and frozen, is the hard-to-game piece.
+
+## F. OMISSIONS
+
+Cite in Q1/v1: **SMEO** (LOO masking + PAL; closest v1 mechanic; tracker 8); **CanniUplift** (PGA conservation + RDD organic/pseudo-uplift; tracker 8); **Instagram uplift** (randomized send/drop template); **Airbnb FIV** (PSM “would have happened anyway”); **IURO** as a v1 architecture source (rank 2, unused in v1 sources); **CRRS** (bilateral treatment / vacant-slot cost on dating logs); **Privacy-Robust Incrementality** (Certify/Reject/Unresolved — calibration step 4 copies this uncited). Retentive Relevance and Save–Revisit–Retain are honest partial Q2 hits the exec omits.
+
+## G. CONSISTENCY ACROSS THE THREE FILES
+
+Exec “Most Fundamental Methods” matches method-tracker Top Method Analysis ranks 1–5. Table order is not score-sorted; eight other methods also score 8, so the top-5 cut is implicit Q2 relevance, not the stated composite.
+
+Every exec-cited paper appears in the literature review with a `read-papers/` link.
+
+Transfer ratings: tracker matches cards for the ranked rows (Li/Konitzer/ReAlloc/IMA = background 0; IURO/ALM-MTA/Wei/Downstream = adaptable 1). Tension: Q1 leads with Li (background transfer). Impatient Bandits: KDD card adaptable vs Spotify-blog card background; tracker uses 1.
+
+---
+
+VERDICT: PASS WITH FIXES
+
+1. `executive-summary.md` Why not last-touch: label IURO 0.5838/0.8445 as ZhihuRec and quote WeChat 0.6732/0.7301.
+2. `executive-summary.md` Why not last-touch: scope Konitzer 25% as a simulation of off-platform observability, not in-app last-touch.
+3. `executive-summary.md` Q2: drop Tencent/Snap/LinkedIn from D3’s “nothing published” list, or say D3 missed IURO.
+4. `executive-summary.md` Q2: mark Downstream Rewards as partial proxy credit, not direct per-interaction retention credit.
+5. `executive-summary.md` Q1: do not put Wu/Bhat in the RCT-calibration pattern; add CanniUplift/Snap as incrementality exemplars.
+6. `executive-summary.md` v1: call `c_j` a predictive deletion residual, not incremental probability.
+7. `executive-summary.md` v1 sources: add SMEO masking, IURO scoring, CanniUplift conservation, Instagram/Snap holdout; keep MRet as a feature prior only.
+8. `executive-summary.md` Evaluation: require an independent exposure holdout and a placebo-touch fixture before AUUC/Qini or ranker N7 is treated as causal.
+9. `method-tracker.md`: delete 8.77M; rescore IURO and Downstream Rewards bias device to 1 per the rubric.
+10. `literature-review.md` GFN/ReAlloc: include the unstarred 2nd-stage GFN figure and ReAlloc GMV −2.64%.
+11. `executive-summary.md` v1 risk: name two-sided interference and non-conservation, not only “user motivation.”
+12. `method-tracker.md` / exec ranking: state that score-8 ties were broken by Q2 closeness, not by composite uniqueness.
+
+FILES READ: 14 of 14
+exit=0

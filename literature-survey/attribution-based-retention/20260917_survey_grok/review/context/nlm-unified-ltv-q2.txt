@@ -1,0 +1,501 @@
+{
+  "value": {
+    "answer": "Here is a breakdown of the papers in your sources that address **user retention or long-term engagement attribution** to individual recommendations, items, notifications, or actions. \n\n---\n\n### **1. GFN4Retention (Kuaishou & City University of Hong Kong, KDD 2024)**\n* **Title:** *Modeling User Retention through Generative Flow Networks* [1, 2].\n* **Company:** Kuaishou Technology & City University of Hong Kong [1].\n* **Method:** Formulates session-based recommendation as a trajectory generation task using Generative Flow Networks (GFNs) [3]. It uses a Detailed Balance (DB) loss and an integrated reward function (\\\\(R = R_{\\text{retention}} \\cdot e^{\\alpha \\sum r_{\\text{immediate}}}\\\\)) to flow-match intermediate states [3-5].\n* **Credit Type:** **Per-item / per-action credit** (step-wise retention attribution) [3, 4]. A backward flow estimator back-propagates the end-of-session macro retention reward to every intermediate recommendation step in continuous action space [3, 4].\n* **Deployed:** **Yes.** Deployed in the multi-stage ranking ensemble modules of Kuaishou’s short-video platform [6, 7].\n* **True Multi-Touch Retention Attribution:** **Present.** It explicitly models step-wise retention attribution by back-propagating terminal session retention signals through backward probabilistic flows across intermediate item actions [3, 4, 8].\n\n---\n\n### **2. RevisitMTL / Save-Revisit-Retain (Pinterest, AAAI 2026)**\n* **Title:** *Save, Revisit, Retain: A Scalable Framework for Enhancing User Retention in Large-Scale Recommender Systems* [9].\n* **Company:** Pinterest Inc. [9].\n* **Method:** A multi-task learning (MTL) ranking framework that establishes a surrogate causal attribution process linking in-app \"save\" (repin) actions to subsequent cross-session and cross-day revisitations (0–6 day window, grid-clicks and board impressions) [9-12].\n* **Credit Type:** **Per-item credit** [11, 12]. It adds a revisitation head directly to the multi-task item ranker, predicting the probability (\\\\(c_{\\text{RP\\&RV}}\\\\)) that a candidate Pin will be saved and revisited [11, 12].\n* **Deployed:** **Yes.** Deployed on Pinterest’s Related Pins surface serving 500M+ active users [9].\n* **True Multi-Touch Retention Attribution:** **Present** (in surrogate form). It explicitly establishes causal attribution linking individual saved items to subsequent cross-session revisitations within a 0–6 day window [9-11, 13].\n\n---\n\n### **3. Alibaba PDQ-LTV Framework (Alibaba, WWW 2026)**\n* **Title:** *A Long-term Value Prediction Framework In Video Ranking* [14, 15].\n* **Company:** Alibaba Group & Tsinghua University [15].\n* **Method:** A ranking-stage LTV framework combining Position-aware Debias Quantile (PDQ) normalization with a learnable multi-dimensional attribution module (contextual, behavioral, content, author signals) and cross-temporal author modeling (\\\\(S_{\\text{auth}}^{(t)}\\\\) over 7 days) [15-18].\n* **Credit Type:** **Per-item credit** [17, 19, 20]. Decomposes subsequent session watch time (\\\\(S_j = \\sum c_{ji} t_i\\\\)) back to specific exposed items using learnable multi-dimensional causal weights while zeroing out unrelated noise [19-21].\n* **Deployed:** **Yes.** Deployed at billion-scale on the Taobao App production video ranker [22-24].\n* **True Multi-Touch Retention Attribution:** **Present.** It incorporates explicit multi-dimensional causal attribution to credit subsequent intra-session watch time and multi-day author return visits back to individual item exposures [16, 17, 19-21].\n\n---\n\n### **4. Spotify Podcast RL / Maystre et al. (Spotify & Columbia, 2024)**\n* **Title:** *Optimizing Audio Recommendations for the Long-Term: A Reinforcement Learning Perspective* [25].\n* **Company:** Spotify & Columbia University [25].\n* **Method:** Offline RL framework utilizing a content-relationship user state (\\\\(Z_t\\\\)) and structured \\\\(Q\\\\)-function decomposition that estimates item-level \"stickiness\" models (expected active return days to item \\\\(a\\\\) over a 60-day horizon post-discovery) [26-34].\n* **Credit Type:** **Per-item credit** [29-34]. Attributes expected long-term active return days directly to individual item exposures via item-level stickiness vectors (\\\\(\\theta_a\\\\)) [30-34].\n* **Deployed:** **Yes.** Deployed globally at Spotify on Home banner and podcast discovery shelves [25, 35-37].\n* **True Multi-Touch Retention Attribution:** **Present.** The item-decomposed \\\\(Q\\\\)-function assigns credit for changes in projected 60-day item stickiness directly to individual recommendation events [27, 30, 38, 39].\n\n---\n\n### **5. RLUR (Kuaishou, WWW 2023)**\n* **Title:** *Reinforcing User Retention in a Billion Scale Short Video Recommender System* [40, 41].\n* **Company:** Kuaishou Technology [40, 41].\n* **Method:** Infinite-horizon request-based Markov Decision Process (MDP) with dual critics (Retention Critic \\\\(Q_T\\\\) estimating return-to-app time interval, Immediate Critic \\\\(Q_I\\\\) for in-session engagement), quantile reward normalization, and soft off-policy regularization [40, 42-44].\n* **Credit Type:** **Policy-level RL objective** [8, 40, 45, 46]. It outputs continuous action vectors to weight ranking score ensembles per request [45]. The authors explicitly note that because retention is a macro-behavior, decomposing retention rewards directly to individual items or lists is unresolved in their formulation [8, 47].\n* **Deployed:** **Yes.** Deployed at scale on Kuaishou's short-video platform [40].\n* **True Multi-Touch Retention Attribution:** **Absent.** [8, 47] (Optimizes request-level MDP ranking weights over the session without decomposing item-level retention credit) [8, 40, 45].\n\n---\n\n### **6. AURO (Kuaishou & NTU, WWW 2025)**\n* **Title:** *AURO: Reinforcement Learning for Adaptive User Retention Optimization in Recommender Systems* [48, 49].\n* **Company:** Kuaishou Technology & Nanyang Technological University [48, 49].\n* **Method:** Adaptive continuous-action RL framework for non-stationary environments using a value-based contrastive loss to learn state abstractions, combined with rejection sampling and optimism under uncertainty [49, 50].\n* **Credit Type:** **Policy-level RL objective** [51, 52]. Generates \\\\(k\\\\)-dimensional continuous action vectors to dynamically weight scoring models at serving time [51].\n* **Deployed:** **Yes.** Evaluated online and deployed at Kuaishou [49, 50].\n* **True Multi-Touch Retention Attribution:** **Absent.** (Optimizes policy-level continuous action vectors targeting session-end return time) [51, 52].\n\n---\n\n### **7. SEC (Kuaishou Ecosystem / KuaiRand, 2025)**\n* **Title:** *Stratified Expert Cloning for Retention-Aware Recommendation at Scale* [53, 54].\n* **Company:** Video platforms (Kuaishou / KuaiRand ecosystem research) [53, 55, 56].\n* **Method:** Imitation learning framework using multi-level expert stratification (stratifying users by retention history into expert tiers), behavior cloning per tier, adaptive expert policy selection, and action entropy regularization [54, 57, 58].\n* **Credit Type:** **Policy-level imitation learning objective** [57, 58]. Learns specialized recommendation policies by cloning trajectories of high-retention expert user groups [57, 58].\n* **Deployed:** **Yes.** Deployed in large-scale online A/B tests on two major video platforms [55].\n* **True Multi-Touch Retention Attribution:** **Absent.** (Imitates high-retention user trajectories via behavior cloning without calculating multi-touch attribution) [54, 57].\n\n---\n\n### **8. OCARM (Short-Video Platform, 2026)**\n* **Title:** *Onboarding Content Augmented Retention Modeling* [59, 60].\n* **Company:** Short-video platform / Real-Time Bidding (RTB) advertising researchers [59, 61, 62].\n* **Method:** Two-stage distillation-aligned framework. Stage 1 intentionally allows feature leakage during training by encoding future onboarding content (\\\\(x_c\\\\), up to \\\\(D\\\\) days) via hierarchical attention (HAE) as a teacher signal for retention prediction (\\\\(LT_d\\\\)) [60, 61, 63, 64]. Stage 2 trains a user encoder (SFE) on observable pre-conversion features to approximate the teacher representation via distillation alignment [60, 64, 65].\n* **Credit Type:** **Policy-level / user-level prediction objective** [61, 62]. Predicts overall user revisit frequency (\\\\(LT_d\\\\) over \\\\(d\\\\) days) for RTB bidding decisions [61, 62].\n* **Deployed:** **Yes.** Validated on offline industrial logs and deployed in online RTB advertising systems [59, 62, 66].\n* **True Multi-Touch Retention Attribution:** **Absent.** (Attributes retention to overall user/ad context for bidding rather than item-level multi-touch attribution) [61, 67].\n\n---\n\n### **9. Multi-Attribution Learning / MAL (Alibaba, CIKM 2025)**\n* **Title:** *See Beyond a Single View: Multi-Attribution Learning Leads to Better Conversion Rate Prediction* [68-71].\n* **Company:** Taobao & Tmall Group of Alibaba [68].\n* **Method:** Multi-task framework (Attribution Knowledge Aggregator + Primary Target Predictor) co-training CVR under multiple attribution rules (First-Click, Last-Click, Linear, and Data-Driven MTA) using Cartesian-based Auxiliary Training (CAT) [69, 70, 72-74].\n* **Credit Type:** **Per-action / per-touchpoint credit** [69, 75, 76]. Assigns conversion credit across historical ad click touchpoints using multi-touch attribution (MTA) mechanisms [69, 75, 76].\n* **Deployed:** **Yes.** Deployed in Alibaba's display advertising system [70, 77-79].\n* **True Multi-Touch Retention Attribution:** **Present** (for ad conversion paths across touchpoints) [69, 75, 80].\n\n---\n\n### **Note on FID**\n* **FID Status:** **Absent in sources.** The acronym **FID** as a retention-attribution method does not appear in your notebook's source materials.",
+    "conversation_id": "dc728216-e9ef-4449-8b5c-1bba6e9bcb5b",
+    "sources_used": [
+      "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "ab9db06f-530d-4123-adce-92e44aa285ad",
+      "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "192447f1-df6d-4e75-a91b-b1e550047316",
+      "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+      "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+      "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "ee77d832-cc2f-48ac-80ef-c0bad82bae29"
+    ],
+    "citations": {
+      "1": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "2": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "3": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "4": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "5": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "6": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "7": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "8": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "9": "ab9db06f-530d-4123-adce-92e44aa285ad",
+      "10": "ab9db06f-530d-4123-adce-92e44aa285ad",
+      "11": "ab9db06f-530d-4123-adce-92e44aa285ad",
+      "12": "ab9db06f-530d-4123-adce-92e44aa285ad",
+      "13": "ab9db06f-530d-4123-adce-92e44aa285ad",
+      "14": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "15": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "16": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "17": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "18": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "19": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "20": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "21": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "22": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "23": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "24": "f276301c-3a6f-4093-a138-3a2ededb9232",
+      "25": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "26": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "27": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "28": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "29": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "30": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "31": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "32": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "33": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "34": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "35": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "36": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "37": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "38": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "39": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+      "40": "192447f1-df6d-4e75-a91b-b1e550047316",
+      "41": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+      "42": "192447f1-df6d-4e75-a91b-b1e550047316",
+      "43": "192447f1-df6d-4e75-a91b-b1e550047316",
+      "44": "192447f1-df6d-4e75-a91b-b1e550047316",
+      "45": "192447f1-df6d-4e75-a91b-b1e550047316",
+      "46": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "47": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+      "48": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+      "49": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+      "50": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+      "51": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+      "52": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+      "53": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+      "54": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+      "55": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+      "56": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+      "57": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+      "58": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+      "59": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "60": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "61": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "62": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "63": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "64": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "65": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "66": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "67": "dc23ab85-0648-42fa-821c-297f4dc06534",
+      "68": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "69": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "70": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "71": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "72": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "73": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "74": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "75": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "76": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "77": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "78": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "79": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+      "80": "ee77d832-cc2f-48ac-80ef-c0bad82bae29"
+    },
+    "references": [
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 1,
+        "cited_text": "Zijian Zhang City University of Hong Kong Hong Kong, China zijian.zhang@my.cityu.edu.hk Lantao Hu Kuaishou Technology Beijing, China hulantao@kuaishou.com Han Li Kuaishou Technology Beijing, China lihan08@kuaishou.com Peng Jiang* Kuaishou Technology Beijing, China jiangpeng@kuaishou.com ABSTRACT Recommender systems aim to fulfill the user’s daily demands.While most existing research focuses on maximizing the user’s engagement with the system, it has recently been pointed out that how frequently the users come back for the service also reflects the quality and stability of recommendations. However, optimizing this user retention behavior is non-trivial and poses several challenges including the intractable leave-and-return user activities, the sparse and delayed signal, and the uncertain relations between users’ retention and their immediate feedback towards each item in the recommendation list. In this work, we regard the retention signal as an overall estimation of the user’s end-of-session satisfaction and propose to estimate this signal through a probabilistic flow. This flow-based modeling technique can back-propagate the retention reward towards each recommended item in the user session, and we show that the flow combined with traditional learning-to-rank objectives eventually optimizes a non-discounted cumulative reward for both immediate user feedback and user retention. We verify the effectiveness of our method through both offline empirical studies on two public datasets and online A/B tests in an industrial platform. The source code is accessible to facilitate replication 1."
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 2,
+        "cited_text": "CCS CONCEPTS Information systems→ Recommender systems. KEYWORDS Recommender Systems, Generative Flow Networks, Retention Op-timization ACM Reference Format: Ziru Liu†, Shuchang Liu†, Bin Yang, Zhenghai Xue, Qingpeng Cai*, Xiangyu Zhao*, Zijian Zhang, Lantao Hu, Han Li, and Peng Jiang*. 2024. Modeling User Retention through Generative Flow Networks. In Proceedings of the 30th ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD ’24), August 25–29, 2024, Barcelona, Spain. ACM, New York, NY, USA, 12 pages. https://doi.org/10.1145/3637528.3671531"
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 3,
+        "cited_text": "Inspired by the recent development of Generative FlowNetworks (GFNs)[3, 28, 36–39, 53, 54, 54], we propose an alternative approach GFN4Retention that considers the session-level recommendation as a generation task where the retention signal is directly modeled by the trajectory generation probability. Similar to the general GFN formulation, a probabilistic generation process will finally construct a user session (trajectory) where the target retention reward is matched only by the end of the process. Specifically, each recommendation step is considered as a conditional forward probabilistic flow to the next user state and each user state is associated with a flow estimator that represents the generation probability of reaching this state. During optimization, the end-of-session terminal state directly matches the generation probability with the retention reward. For non-terminal states, a flow matching learning objective that incorporates an additional backward probabilistic flow is used to back-propagate the retention reward towards every step in the sequence. This would implicitly model each recommendation action’s retention attribution. As discussed in [4], GFNs have"
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 4,
+        "cited_text": "demonstrated remarkable strength in generating diverse objects of high quality, which naturally solves the aforementioned exploration challenge of RL. Nevertheless, incorporating GFNs in the recommendation task with retention optimization also brings new challenges. In its design, GFNs may find it difficult to track the nuanced changes in user engagement of each recommendation step, since it originally assumes the absence of intermediate rewards. As a countermeasure, we derive an integrated reward system that can balance the immediate reward and the retention attribution in each recommendation step. The final reward of GFN4Retention derives a refined detailed balance loss that matches the session-level generation probability with the product of the retention reward and the non-discounted cumulative reward of immediate feedback. Secondly, the recommendation space is combinatorially large and the list-wise recommendation is generated and represented by a point in the continuous vector space [6, 33, 50] in practice. We show that the flow matching property still holds in this continuous space and illustrate how to design each flow estimation component accordingly. To this end, we summarize our key contributions in this paper as follows:"
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 5,
+        "cited_text": "3.4.1 Reward Design: To accommodate the flow estimation framework and guarantee the correctness of the detailed balance objective, we propose a reward integration through the product: 𝑅(S) = R · 𝑒𝛼 · ∑𝑇 −1 𝑡=1 𝑟𝑡 (6) Modeling User Retention through Generative Flow Networks KDD ’24, August 25–29, 2024, Barcelona, Spain where 𝛼 is the parameter to balance the importance of user immediate rewards and we will conduct further analysis for this term in Section 4.7 to illustrate the relations. The cumulative reward 𝑒 ∑𝑇 −1"
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 6,
+        "cited_text": "4.8 Live Experiment We conduct the live evaluation of our GFN4Retention solution through an A/B test on a real-world industrial video recommendation platform. The system serves billions of user requests every day and the daily candidate pool is around several million. The overall recommender system consists of a relevant candidate retrieval stage and three rank-and-filter stages that gradually scale down the number of selected items before it is ready for exposure. As shown in Figure 7, we deploy GFN4Retention in the ranking score ensemble modules of two of the ranking stages (i.e. the first ranking stage and the second-ranking stage) with separately learned policy models. The output action corresponds to the weights that fuse the ranking scores from multiple score prediction models. The baseline in the first ranking stage linearly combines the input ranking scores with empirically fixed parameters, while the baseline in the second ranking stage adopts an RL-based solution that automatically searches the action space. For each experiment, we holdout 10% of the total online traffic for the GFN4Retention solution and 20% of"
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 7,
+        "cited_text": "the total online traffic for the baseline. For the retention signal, we use the reciprocal return time gap as the retention reward of a user session and the normalized watch time as an immediate reward. Correspondingly, the evaluation consists of the next-day user return frequency and the average watch time which are evaluated on daily basis. Both metrics are better if larger. We summarize the results in Table 3 which proves that the GFN4Retention method can significantly improve the user’s retention and the corresponding immediate reward. When focusing on the target user group with relatively lower activity in the system, the improvement in retention is more significant. Note that we have applied the proposed method in the two major ranking scenarios in the system, indicating its generalization ability and scalability in different stages."
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 8,
+        "cited_text": "Yet, the relation between the session-level cumulative reward and user retention is still unclear, so the authors in [6] further show that the RL-based method may directly integrate the cross-session retention signal into the long-term value estimation. Though effective, this method is not designed to investigate the influence of each interaction on the retention signal (denoted as “retention attribution”) and it also indirectly optimizes the retention with cumulative immediate rewards as a surrogate. Besides, all RL-based solutions may suffer from the exploration and exploitation trade-off [16] that limits their performance on unstable metrics. This instability is particularly pronounced in scenarios where user retention dynamics are complex, uncertain, and rapidly evolving. In general, we want to have a stable exploratory solution that can simultaneously optimize user retention and immediate rewards."
+      },
+      {
+        "source_id": "ab9db06f-530d-4123-adce-92e44aa285ad",
+        "citation_number": 9,
+        "cited_text": "Save, Revisit, Retain: A Scalable Framework for Enhancing User Retention in Large-Scale Recommender Systems Weijie Jiang, Armando Ordorica, Jaewon Yang, Olafur Gudmundsson, Yucheng Tu*, Huizhong Duan Pinterest Inc. weijiejiang,aordorica,jaewonyang,ogudmundsson,ytu,hduan@pinterest.com Abstract User retention is a critical objective for online platforms like Pinterest, as it strengthens user loyalty and drives growth through repeated engagement. A key indicator of retention is revisitation, i.e., when users return to view previously saved content, a behavior often sparked by personalized recommendations and user satisfaction. However, modeling and optimizing revisitation poses significant challenges. One core difficulty is accurate attribution: it is often unclear which specific user actions or content exposures trigger a revisit, since many confounding factors (e.g., content quality, user interface, notifications, or even changing user intent) can influence return behavior. Additionally, the scale and timing of revisitations introduce further complexity; users may revisit content days or even weeks after their initial interaction, requiring the system to maintain and associate extensive historical records across millions of users and sessions. These complexities render existing methods insufficient for robustly capturing and optimizing long-term revisitation. To address these gaps, we introduce a novel, lightweight, and interpretable framework for modeling revisitation behavior and optimizing long-term user retention in Pinterest’s search-based recommendation context. By defining a surrogate attribution process that links saves to subsequent revisitations, we reduce noise in the causal relationship between user actions and return visits. Our scalable event aggregation pipeline enables large-scale analysis of user revisitation patterns and enhances the ranking system’s ability to surface items with high retention value. Deployed on Pinterest’s Related Pins surface to serve 500+ million users, the framework led to a significant lift of 0.1% in active users without additional computational costs. Our data analysis reveals novel insights, such as the impact of content topics on revisitation rates; for example, users are more likely to revisit aesthetically pleasing topics."
+      },
+      {
+        "source_id": "ab9db06f-530d-4123-adce-92e44aa285ad",
+        "citation_number": 10,
+        "cited_text": "In this study, we propose a novel lightweight and interpretable framework for modeling user revisitation behavior and optimizing for long-term user retention in the Figure 1: Revisitation Attribution Illustration recommendation context of search. Research shows that well-chosen user behaviors can serve as effective surrogate rewards for predicting and optimizing long-term engagement in recommender systems (Wang et al. 2022). There-fore, to address the first challenge of attribution, we establish a surrogate for the causal effect of saving an item on subsequent revisitation events to reduce ambiguity and noise in revisitation signals. Figure 1 illustrated two types of revisitation attribution process."
+      },
+      {
+        "source_id": "ab9db06f-530d-4123-adce-92e44aa285ad",
+        "citation_number": 11,
+        "cited_text": "score = ∑ i∈L ui · p(ci|q, θ) (2) Revisitation Label Design Goal. We seek a revisitation signal that balances label density (coverage) and intent (precision) as the best proxy for retention. Interaction type. Impression-based revisits provide high coverage but include incidental scroll noise; grid-click revisits are rarer but indicate deliberate return intent. Section “Revisitation Behavior Analysis” shows grid-click revisits correlate more strongly with downstream activity than impressions. Temporal window. In section “Revisitation Behavior Analysis”, we observed that revisits concentrate shortly after saves (sharp decay within the first week). In addition, the sooner revisitation happens, the more likely it is for users to be more active within the following 1-month period. There-fore, we utilized the revisitation behaviors that happened 0-6 days after repin as revisitation labels as they are more recent and take up most of the revisitation actions. We surmised that driving more revisitation behaviors on the saved Pin in the following week could lead to an increase in active days by users and potentially improve user retention. In addition, based on our finding that revisitation grid-clicks take less than half of the volume of revisitation impressions but they tend to drive deeper engagement than revisitation impressions, we utilized revisitation grid-clicks that happened 0-6 days after repin while only use same-day revisitation impressions as repin. The final revisitation labels include:"
+      },
+      {
+        "source_id": "ab9db06f-530d-4123-adce-92e44aa285ad",
+        "citation_number": 12,
+        "cited_text": "We merge the three types of labels as the final revisitation label, and add a revisitation head in the multi-tasks learning ranking model for predicting the probability of a candidate Pin being saved and revisited in the future using the constructed revisitation label. Therefore, the loss function with the additional revisitation head is shown in Equation (3), where RP indicates Repin and RV stands for Revisit. loss2 = loss1 +wRP&RV · [cRP&RV log p(cRP&RV |q, θ) + (1− cRP&RV )log p(1− cRP&RV |q, θ)] (3)"
+      },
+      {
+        "source_id": "ab9db06f-530d-4123-adce-92e44aa285ad",
+        "citation_number": 13,
+        "cited_text": "Home Decor 0.1780 Education 0.1602 DIY and Crafts 0.1733 Art 0.1572 Quotes 0.1725 Architecture 0.1495 Beauty 0.1666 Vehicles 0.1334 Parenting 0.1659 Electronics 0.1079 Travel 0.1654 Finance 0.1056 Conclusion This work introduces a revisitation modeling framework in a multi-task learning recommender system, using Pinterest as a test bed. By analyzing user save (repin) actions and their cross-session, cross-date revisitation behaviors, we establish causal links between saved Pins and user retention. Our approach encompasses comprehensive behavior analysis, label and feature design for revisitation, and demonstrates scalability to other online platforms. Differing from traditional recommender systems that rely on in-session actions, our model leverages cross-session, cross-date, and cross-surface revisitation data, aiming to enhance long-term user retention and core engagement metrics, as validated through both offline and large-scale online experiments."
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 14,
+        "cited_text": "A Long-term Value Prediction Framework In Video Ranking Report GitHub Issue × Title: Content selection saved. Describe the issue below: Description: Submit without GitHub Submit in GitHub arXiv is now an independent nonprofit! Learn more × arXiv logo Back to arXiv Why HTML? Report Issue Back to Abstract Download PDF Abstract. 1 Introduction 2 Related Works 2.1 Immediate Response Prediction 2.2 Long-term Value Prediction 3 Methods 3.1 Position Debias Quantile-based Framework 3.2 Long-term Value Attribution 3.3 Long-term Value Cycle Modeling 4 Model Framework 5 Experiments 5.1 Experimental Setup 5.2 Offline Evaluation 5.2.1 PDQ Method 5.2.2 Attributed Method 5.2.3 Author Time Method 5.3 Online Experiments 6 Conclusion References"
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 15,
+        "cited_text": "License: CC BY 4.0 arXiv:2602.17058v1 [cs.IR] 19 Feb 2026 A Long-term Value Prediction Framework In Video Ranking Conference: Proceedings of the ACM Web Conference 2026; April 13–17, 2026; Dubai, United Arab Emirates. Proceedings of the ACM Web Conference 2026 (WWW '26), April 13–17, 2026, Dubai, United Arab Emirates ISBN: 979-8-4007-2307-0/2026/04 DOI: 10.1145/3774904.3792830 CCS: Information systems Retrieval models and ranking CCS: Information systems Novelty in information retrieval Huabin Chen Affiliation: Alibaba Group , Hangzhou , China email: chenhuabin.chb@alibaba-inc.com , Xinao Wang Affiliation: Alibaba Group , Hangzhou , China email: wangxinao.wxa@alibaba-inc.com , Huiping Chu Affiliation: Alibaba Group , Hangzhou , China email: yueqi.chp@alibaba-inc.com , Keqin Xu Affiliation: Alibaba Group , Hangzhou , China email: xukeqin.xkq@alibaba-inc.com , Chenhao Zhai Affiliation: Tsinghua University , Shenzhen , China email: dch23@mails.tsinghua.edu.cn , Chenyi Wang Affiliation: Alibaba Group , Hangzhou , China email: wangchenyi.wcy@alibaba-inc.com , Kai Meng Affiliation: Alibaba Group , Hangzhou , China email: mengkai.meng@alibaba-inc.com and Yuning Jiang Note: Corresponding author Affiliation: Alibaba Group , Hangzhou , China email: mengzhu.jyn@alibaba-inc.com"
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 16,
+        "cited_text": "2026; © cc Abstract. Accurately modeling long-term value (LTV) at the ranking stage of short-video recommendation systems remains a practical challenge. Though production systems and recent research have begun exploring delayed feedback and extended user engagement, modeling LTV with fine-grained attribution and robust positional normalization for billion-scale platforms is underdeveloped. In this work, we present a practical ranking-stage LTV framework that systematically addresses three core challenges: position bias, attribution ambiguity, and temporal limitations."
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 17,
+        "cited_text": "First, to address position bias in sequential video feeds, we introduce a Position-aware Debias Quantile (PDQ) module that normalizes engagement signals using quantile-based distributions, enabling position-robust LTV estimation without requiring architectural changes. Second, we propose a multi-dimensional attribution module that learns continuous strengths across contextual, behavioral, and content-related signals, moving beyond static rule sets to capture nuanced influences among videos. Explicit noise filtering is incorporated via a customized hybrid loss, improving causal clarity in LTV attribution. Third, our cross-temporal author modeling module constructs censoring-aware, day-level long-term value targets, capturing creator-driven re-engagement over extended time windows. While our framework currently focuses on the author dimension, it is readily extensible to further aspects such as topics or styles."
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 18,
+        "cited_text": "(11) S auth ( t ) = ∑ d = t − N + 1 t ∑ v ∈ V auth α t − d ⋅ t v  ( d ) S^{(t)} {\\text{auth}}=\\sum {d=t-N+1}^{t}\\sum_{v\\in V_{\\text{auth}}}\\alpha^{t-d}\\cdot t_{v}(d) where S a  u  t  h ( d ) S^{(d)} {auth} quantifies the author's influence over N N -day window. α \\alpha models the temporal decay of user attention, while V auth V {\\text{auth}} denotes videos by the same author. N = 7 N=7 strikes an optimal balance between system latency and predictive efficacy, accounting for approximately 6.3% of the users' total viewing time. User interest typically plateaus after the seventh day, and extending the window beyond this period could result in increased training latency without substantial gains."
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 19,
+        "cited_text": "Multi- dimensional Value Attribution: To mitigate attribution inaccuracies, we implement fine- grained, multi- dimensional attribution with continuous (learnable) strengths across contextual relevance, behavioral affinity, and content similarity. We further refine attribution through author identity, categorical alignment, multimodal similarity, co- occurrence, and contextual signals, while explicitly filtering unrelated content. This hierarchical attribution mechanism enables precise value apportionment through a customized hybrid loss function that mitigates target underestimation."
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 20,
+        "cited_text": "Here, c i ∈ [ 0 , 1 ] c_{i}\\in[0,1] quantifies the causal relationship between the j j -th and i i -th videos, reflecting the strength of the correlation. Table 1 quantifies attribution effectiveness across three dimensions using two metrics: (1) Slide Time Contribution Ratio ( S r  a  t  i  o S_{ratio} ) and (2) Video Coverage Ratio ( V r  a  t  i  o V_{ratio} ). • Contextual Dependency: Models sequential patterns through adjacent position co-occurrence c j  i ( p  o  s ) c_{ji}^{(pos)} and collection-based transitions c j  i ( c  o  l ) c_{ji}^{(col)} . • Behavioral Similarity: Captures retrieval consistency c j  i ( r  e  c ) c_{ji}^{(rec)} and video-to-video similarity c j  i ( v  2  v ) c_{ji}^{(v2v)} using V2V tables. • Content Affinity: Quantifies cross-modal alignment c j  i ( m  m ) c_{ji}^{(mm)} via multimodal embeddings, author associations c j  i ( a  u  t  h ) c_{ji}^{(auth)} , and category coherence c j  i ( c  a  t ) c_{ji}^{(cat)} ."
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 21,
+        "cited_text": "where σ \\sigma denotes the sigmoid function and { w ( d ) } {w^{(d)}} are learnable parameters. The correlation coefficients were reduced to binary values of 0 and 1 to simplify the modeling process: (8) c j  i = s  g  n  ( c j  i ( p  o  s ) + c j  i ( c  o  l ) + c j  i ( r  e  c ) + c j  i ( v  2  v ) + c j  i ( m  m ) + c j  i ( a  u  t  h ) + c j  i ( c  a  t ) ) c_{ji}=sgn\\left(c_{ji}^{(pos)}+c_{ji}^{(col)}+c_{ji}^{(rec)}+c_{ji}^{(v2v)}+c_{ji}^{(mm)}+c_{ji}^{(auth)}+c_{ji}^{(cat)}\\right) As each request yields four items, we integrate the six adjacent position videos ( c j  i ( p  o  s ) c_{ji}^{(pos)} ) generated from the current video, along with their associated collection videos ( c j  i ( c  o  l ) c_{ji}^{(col)} ), into the slide time. c j  i ( c  o  l ) c_{ji}^{(col)} linked content with the same retrieval within the same session. c j  i ( v  2  v ) c_{ji}^{(v2v)} : Within the same session, we perform pairwise comparisons of videos and attribute those with a V2V similarity score exceeding 0.5. c j  i ( m  m ) c_{ji}^{(mm)} : Within the same session, we calculate the multimodal similarity between each pair of videos. Videos with a similarity score exceeding 0.9 are attributed accordingly. The multimodal embeddings are extracted with pretrained models CLIP ( Radford et al. 2021 ) , Vindlu ( Cheng et al. 2023 ) , and BEIT3 ( Wang et al. 2023a ) . c j  i ( a  u  t  h ) c_{ji}^{(auth)} : Despite low co-occurrence frequency within sessions, author-related videos account for substantial watch time, suggesting strong user engagement with preferred creators."
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 22,
+        "cited_text": "Extensive offline experiments and online A/B tests demonstrate statistically significant gains in LTV- related metrics and stable trade- offs with short- term objectives. The framework is realized as task augmentation within an existing ranking model, facilitates billion-scale deployment on Taobao's production system with efficient training and serving, achieving sustained user engagement improvements while remaining compatible with industrial constraints. Keywords: Video Recommendation, Long-term Value Prediction, LTV, Position Debias † †"
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 23,
+        "cited_text": "Figure 7. UV and VV improvement at different positions. day_level_sample Figure 8. Metrics of author time with different training methods. day_level_sample 5.3. Online Experiments We integrate the LTV modules into the Taobao App's production ranker via a unified multi- objective framework. We integrate the LTV modules into the Taobao App's production ranker via a unified multi- objective framework that preserves both raw scores and the score- induced order. We report relative lifts versus the baseline; all changes with underline are statistically significant at conventional levels over the multi- day horizon."
+      },
+      {
+        "source_id": "f276301c-3a6f-4093-a138-3a2ededb9232",
+        "citation_number": 24,
+        "cited_text": "Table 6 presents the performance results of the methods evaluated with online testing over several days on the Taobao App. We use the MSE method for the initial slide time as our baseline, which has already gained an improvement of 4% VV. The results show the great success of our proposed long-term framework. Among them, PDQ achieves a larger improvement of 2.49 % 2.49% for VV. Figure 7 shows the improvement in the slide rate of different positions of the PDQ target, and the increase of UV and VV can demonstrate the increase in the slide rate of users. QA VV and QA watch time refer to the VV and time spent on high-quality authors, who are vital contributors to the content ecosystem. Author LTV achieves statistically significant gains in long-term retention ( L  T 3 : + 0.21 % LT_{3}:+0.21% ) and quality author engagement (QA VV: +4.03%). The attribute slide time task exhibits a gain of 1.23 % 1.23% on watch time at the expense of 1.92 % 1.92% VV, representing a cost-effective approach. The three targets each played a distinct role. PDQ mitigates position bias; Attributed Slide Time improves intra- session attribution; Author Time strengthens cross- day signals for high- quality creators. In all tests, system guardrails (latency, error rates) remained within production thresholds, and the unified fusion preserved ranking stability during traffic ramps."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 25,
+        "cited_text": "Optimizing Audio Recommendations for the Long-Term: A Reinforcement Learning Perspective Lucas Maystre1, Daniel Russo1,2, and Yu Zhao1 1Spotify 2Columbia University July 30, 2024 Abstract We present a novel podcast recommender system deployed at industrial scale. This system successfully optimizes personal listening journeys that unfold over months for hundreds of millions of listeners. In deviating from the pervasive industry practice of optimizing machine learning algorithms for short-term proxy metrics, the system substantially improves long-term performance in A/B tests. The paper offers insights into how our methods cope with attribution, coordination, and measurement challenges that usually hinder such long-term optimization. To contextualize these practical insights within a broader academic framework, we turn to reinforcement learning (RL). Using the language of RL, we formulate a comprehensive model of users’ recurring relationships with a recommender system. Then, within this model, we identify our approach as a policy improvement update to a component of the existing recommender system, enhanced by tailored modeling of value functions and user-state representations. Illustrative offline experiments suggest this specialized modeling reduces data requirements by as much as a factor of 120,000 compared to black-box approaches."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 26,
+        "cited_text": "Formally, we define an item-level value function, or “stickiness-model”, as V (a) π0 (z;u) = Eπ0  T0∑ τ=t+1 1 (Cτ,a > 0)︸ ︷︷ ︸ =r(Cτ,a) | Zt+1,a = z , ut = u, St+1 ̸= ∅  . (9) Recall that Ct,a denotes the user’s consumption of item a at period t. This model calculates the expected number of future periods in which the user will engage with item a, given their current content-relationship state z with the item and their overall taste vector u. Notice that the stickiness model in (15) is an idealized quantity, which we will eventually need to approximate via regression."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 27,
+        "cited_text": "The key to policy improvement is the estimation of a state-action value function, dubbed a “Q- function”. In this context, the Q-function quantifies how short-term deviations from the incumbent recommendation policy impact the “long-term expected reward” associated with a user’s future app interactions. Our approach to modeling theQ-function is driven by a key hypothesis: recommendations significantly contribute to long-term user satisfaction by fostering the formation of specific, recurring engagement patterns with individual pieces of content, which we call “item-level listening habits”. In the context of audio streaming, these habits can manifest in various forms: a user might develop a regular routine"
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 28,
+        "cited_text": "with a specific podcast show, returning to it as new episodes are released; form an attachment to a particular creator’s content; or integrate a curated playlist into their daily activities. Here, we use the term “item” to refer to any distinct piece of content that can be recommended, such as a podcast show2, an album, or a playlist. For instance, consider the hypothetical 60-day user journey in Figure 2. The user’s journey with the app as a whole is quite complex, but repeated interactions with the show “Podcast X” seem intrinsically linked. In this fictitious journey, individual recommendations not only lead to immediate engagement but also help a user discover a podcast show they return to regularly, becoming part of their routine. Collectively, these individual habits coalesce to define the user’s overall engagement pattern with the platform. This hypothesis underpins our entire modeling approach and distinguishes it from more generic RL approaches."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 29,
+        "cited_text": "Motivated by this hypothesis, we tailor Q-function modeling to capture how a recommendation of a specific item, to a specific user, helps foster a satisfying listening habit with the item. This modeling involves three new contributions: 1. We introduce a pragmatic user-state representation that is tailored to this hypothesis. A novel and critical component of this representation is something we call a “content-relationship state”, offering a compressed encoding of the user’s listening history with any particular piece of content (called an “item”)."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 30,
+        "cited_text": "2. We introduce item-level value functions, dubbed ‘stickiness models’. These stickiness models project the strength of a user’s long-term listening habit with a specific item. 3. We introduce structural assumptions under which the Q-function decomposes conveniently, enabling us to break the complex task of long-term optimization into more manageable, item-specific predictions. In particular, the long-term benefit of a recommendation is broken up into a) modeling the user’s direct response to the recommendation in the short-term, b) calculating the transition in the users’ content-relationship state with that item following different levels of immediate engagement, and c) calculating how this state transition changes stickiness predictions for that user and that specific item."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 31,
+        "cited_text": "V (a) π0 ( z+;ut ) = Eπ0 [ t+60∑ τ=t+1 1 (Cτ,a > 0) | Zt+1,a = z+ , ut = u, St+1 ̸= ∅ ] , (15) a fixed-horizon variant of the definition in (11). To implement (14), one needs to model the stickiness V (a) π0 (u, z) for any user vector u, any item a and but just two possible content-engagement states z. For now, focus on approximating stickiness from the engagement state z+ appearing in (14), representing a user who just listened the item for the first time. We train a new vector representation of items {θa}a∈A, called “stickiness” vectors, that (to reduce engineering effort) pair with pre-existing user vectors, and approximate stickiness of new discoveries through dot products as:"
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 32,
+        "cited_text": "V (a) π0 (u, z+) = u⊤θa. Recall from (5) that, through the dot product ν⊤ a u, the original item vector νa encodes a user’s propensity to have some interaction the item, however brief it may be. At times, we call these “item clickiness vectors.” In contrast, the taking a dot products with an item stickiness vector θa encodes the propensity of users with certain tastes to return to item a many times after listening to it for the first time. 8We choose a 60-day window for practical reasons. It is long enough to capture recurring podcast listening habits, but short enough to measure in practical experiments."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 33,
+        "cited_text": "23 Since we use pre-existing user-representations (rather than co-learning them), item stickiness vectors are easy to estimate. For each item a, we gather a dataset on users who discovered item a, their features at the time they first listened to the item, and their interactions with the item postdiscovery. Specifically, in our prototypes, we set Da = {(u, V̂ (a))} to be a dataset of tuples ranging over users who discovered the item more than 60 days ago. That is, we locate users who are entering engagement-state z+. The tuple (u, V̂ (a)) describes the vector representation of the user’s tastes u ∈ Rd at the time of the discovery and V̂ (a) ∈ {0, · · · , 59} is the sum of consumption indicators in (15), equal to the number of days in the subsequent 59 days that the user returned to and listened to the item. Item “stickiness” vectors θa are trained by solving the least-squares9 problem"
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 34,
+        "cited_text": "θa = arg min θ∈Rd ∑ (u,V̂ (a))∈Da (θ⊤u− V̂ (a))2. Stickiness vectors are trained not just on recent discoveries from banner recommendations, but on discoveries from across the application and over a fairly long time window. We gather enough data to do more than fine-tuning (see Remark 4), instead offering a new understanding of items in the catalog. This data-pooling is a key advantage to training the long-term model separately from the short-term one. Abstractly, it is Assumption 2 that enables this separation."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 35,
+        "cited_text": "At Spotify, a leading audio streaming service, we have implemented a novel approach to podcast recommendations that successfully optimizes for outcomes of long-term user journeys. This approach has shown immense impact, now powering recommendations for hundreds of millions of users worldwide. In one A/B test, our method increased average listening time attributable to recommendations by 81% for affected users over a 60-day period. A larger-scale experiment demonstrated significant improvements in overall app-level outcomes, despite altering only a small component of the app."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 36,
+        "cited_text": "Assumption 4 (Sufficiency of state variables). Under π0, for any item a ∈ A⋆ and period t, Pπ0(Ct,a > 0|St, At,⋆) = Pπ0(Ct,a > 0|ut, Xt, Zt,a, At,⋆) and Eπ0  T1∑ τ=t+1 r(Cτ,a) | St, Zt+1,a  = Eπ0  T1∑ τ=t+1 r(Cτ,a) | ut, Zt+1,a  . 5 Online and offline experiments showing real-world impact Our theoretical framework, centered on optimizing for long-term user satisfaction through aiding in the formation of lasting item-level listening habits, has been put to the test in real-world implementations at Spotify. These implementations were initially designed to serve as testable prototypes that, even with low engineering effort, might demonstrate the enormous potential impact of purposefully optimizing for the long term in recommendation systems. But the methodology proved so effective that it is now used in production in several parts of the app. We share evidence from A/B tests involving tens of millions of users."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 37,
+        "cited_text": "5.1.3 Experimental impact on targeted metrics in a small A/B test The first A/B test we describe involves results from show promotions on the banner component displayed in Figure 3a. Twelve markets were included in the test. For each one, editors hand-picked between 3 and 74 shows that are original and exclusive to Spotify. The test period lasts one week. During this time, a single personalized recommendation of an eligible show is made to each user in the test. For every user, we exclude from the candidate pool any show that the user has already listened to in the past. Downstream activity is observed for sixty days after the recommendation was first seen by the user. Users are assigned to one of four groups randomly."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 38,
+        "cited_text": "We say the user “listens” to item a if Ct,a > 0, whereas “no-listen” occurs that period if Ct,a = 0. The term Pπ0(Ct,a > 0|ut, Xt, Zt,a, At,⋆ = a) denotes the probability that the user listens to item a today if it is recommended at position ⋆. The probability conditioned on At,⋆ ̸= a, corresponding to organic listens, is defined analogously. The overall formula values a recommendation based on two factors: a) its influence on whether a listen of that item occurs today, and b) whether listen and no-listen events result in substantially different expected return days to the recommended item, as assessed through the stickiness model. One can estimate this Q-function by separately estimating models of short-term listening behavior and the long-term, item-level, stickiness models."
+      },
+      {
+        "source_id": "69ceeb8b-8273-4163-8aa6-2a347b6b6d7d",
+        "citation_number": 39,
+        "cited_text": "However, our experience suggests that this more specialized modeling played an essential role in overcoming measurement challenges (i.e. in enabling data-efficient solutions). To support this, Section 6.2 provides an empirical study of data requirements under several Q-function estimators. 6.1 High-level discussion Attribution. As discussed in Section 1.1, it is subtle to attribute credit for long-term user outcomes to individual recommendation decisions. The formula in Corollary 1 deals with this issue in an intuitively compelling way. Individual recommendations are credited with changes in predicted item-level listen habits, and receive no credit for listening that would be anticipated regardless. More abstract theory of reinforcement learning also clarifies a sense in which Q-functions coherently attribute credit among individual actions, assuming they are estimated perfectly; see Appendix D.3 for a review."
+      },
+      {
+        "source_id": "192447f1-df6d-4e75-a91b-b1e550047316",
+        "citation_number": 40,
+        "cited_text": "∑∞ 𝑖=1 𝛾 𝑖−1𝑇 (𝑠𝑖 ), where 𝛾 (0 < 𝛾 < 1) is the discount factor. 3 METHOD In this section we firstly discuss the learning of retention in the delayed reward setting. Then we propose techniques to tackle these challenges incurred by the characteristic of user retention. 3.1 Retention Critic Learning In this section we discuss how to learn the retention. We learn a critic function 𝑄𝑇 (𝑠𝑖𝑡 , 𝑎𝑖𝑡 |𝑤𝑇 ) parameterized by 𝑤𝑇 , to estimate the cumulative returning time from the current state 𝑠𝑖𝑡 and action 𝑎𝑖𝑡 . We follow the deep deterministic policy gradient method [15] to estimate the cumulative returning time reward. As shown in Figure 1(d), the loss function 𝐿(𝑤𝑇 ) for learning returning time is∑︁ 𝑠𝑖𝑡 ,𝑎𝑖𝑡 ∈𝐷"
+      },
+      {
+        "source_id": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+        "citation_number": 41,
+        "cited_text": "References (1) Bansal et al. (2018) Mayank Bansal, Alex Krizhevsky, and Abhijit Ogale. 2018. ChauffeurNet: Learning to Drive by Imitating the Best and Synthesizing the Worst. arXiv:arXiv:1812.03079 Cai et al. (2023a) Qingpeng Cai, Shuchang Liu, Xueliang Wang, Tianyou Zuo, Wentao Xie, Bin Yang, Dong Zheng, Peng Jiang, and Kun Gai. 2023a. Reinforcing User Retention in a Billion Scale Short Video Recommender System. The Web Conference 2023 Industry Track. (2023). arXiv:arXiv:2302.01724 Cai et al. (2023b) Qingpeng Cai, Shuchang Liu, Xueliang Wang, Tianyou Zuo, Wentao Xie, Bin Yang, Dong Zheng, Peng Jiang, and Kun Gai. 2023b. Reinforcing user retention in a billion scale short video recommender system. In Companion Proceedings of the ACM Web Conference 2023 . 421–426. Carbonell and Goldstein (1998) Jaime Carbonell and Jade Goldstein. 1998. The use of MMR, diversity-based reranking for reordering documents and producing summaries. In Proceedings of the 21st annual international ACM SIGIR conference on Research and development in information retrieval . 335–336. Ding et al. (2023) Rui Ding, Ruobing Xie, Xiaobo Hao, Xiaochun Yang, Kaikai Ge, Xu Zhang, Jie Zhou, and Leyu Lin. 2023. Interpretable User Retention Modeling in Recommendation. In Proceedings of the 17th ACM Conference on Recommender Systems . 702–708. Ethayarajh et al. (2024) Kawin Ethayarajh, Winnie Xu, Niklas Muennighoff, Dan Jurafsky, and Douwe Kiela. 2024. Kto: Model alignment as prospect theoretic optimization. arXiv preprint arXiv:2402.01306 (2024). Florence et al. (2022) Pete Florence, Corey Lynch, Andy Zeng, Oscar A Ramirez, Ayzaan Wahid, Laura Downs, Adrian Wong, Johnny Lee, Igor Mordatch, and Jonathan Tompson. 2022. Implicit behavioral cloning. In Conference on Robot Learning . PMLR, 158–168. Fujimoto et al. (2018) Scott Fujimoto, Herke Hoof, and David Meger. 2018. Addressing function approximation error in actor-critic methods. In International conference on machine learning . PMLR, 1587–1596. Haarnoja et al. (2018) Tuomas Haarnoja, Aurick Zhou, Pieter Abbeel, and Sergey Levine. 2018. Soft actor-critic: Off-policy maximum entropy deep reinforcement learning with a stochastic actor. In International conference on machine learning . PMLR, 1861–1870. He and Chua (2017) Xiangnan He and Tat-Seng Chua. 2017. Neural Factorization Machines for Sparse Predictive Analytics. In Proceedings of the 40th International ACM SIGIR Conference on Research and Development in Information Retrieval, Shinjuku, Tokyo, Japan, August 7-11, 2017 , Noriko Kando, Tetsuya Sakai, Hideo Joho, Hang Li, Arjen P. de Vries, and Ryen W. White (Eds.). ACM, 355–364. doi: 10.1145/3077136.3080777 Hester et al. (2018) Todd Hester, Matej Vecerik, Olivier Pietquin, Marc Lanctot, Tom Schaul, Bilal Piot, Dan Horgan, John Quan, Andrew Sendonaris, Ian Osband, et al. 2018. Deep q-learning from demonstrations. In Proceedings of the AAAI conference on artificial intelligence , Vol. 32. Hidasi et al. (2015) Balázs Hidasi, Alexandros Karatzoglou, Linas Baltrunas, and Domonkos Tikk. 2015. Session-based Recommendations with Recurrent Neural Networks. arXiv:arXiv:1511.06939 Ho and Ermon (2016) Jonathan Ho and Stefano Ermon. 2016. Generative adversarial imitation learning. Advances in neural information processing systems 29 (2016). Huang et al. (2016) Yanxiang Huang, Bin Cui, Jie Jiang, Kunqian Hong, Wenyu Zhang, and Yiran Xie. 2016. Real-time video recommendation exploration. In Proceedings of the 2016 international conference on management of data . 35–46. Jia and Manocha (2024) Biao Jia and Dinesh Manocha. 2024. Sim-to-real robotic sketching using behavior cloning and reinforcement learning. In 2024 IEEE International Conference on Robotics and Automation (ICRA) . IEEE, 18272–18278. Koren et al. (2009) Yehuda Koren, Robert Bell, and Chris Volinsky. 2009. Matrix factorization techniques for recommender systems. Computer 42, 8 (2009), 30–37."
+      },
+      {
+        "source_id": "192447f1-df6d-4e75-a91b-b1e550047316",
+        "citation_number": 42,
+        "cited_text": "𝐼 (𝑠𝑖𝑡 , 𝑎𝑖𝑡 ) + | |𝐸 (𝑢𝑖𝑡 |𝑤𝑒 ) − 𝐸 (𝑢𝑖𝑡 |𝑤∗ 𝑒 ) | |22. The loss of the immediate reward critic, 𝐿(𝑤𝐼 ) is similar to Eq.(1), shown in Figure 1(e). 3.3 Uncertainty The returning time is highly uncertain and affected by many factors outside the system. To reduce its variance , we now propose a normalization technique. We use the ratio of the true returning time over the predicted returning time as the normalized retention reward. For predicting the returning time, we learn a session-level"
+      },
+      {
+        "source_id": "192447f1-df6d-4e75-a91b-b1e550047316",
+        "citation_number": 43,
+        "cited_text": "classification model 𝑇 ′ to predict the returning probability. We firstly calculate the empirical distribution of returning time, then use the 𝛽% percentile of the distribution, 𝑇𝛽 to determine whether the sample 𝑥 is positive or negative. The label 𝑦 of sample 𝑥 is positive if the returning time is less than 𝑇𝛽 as the shorter time means the better. The loss function of 𝑇 ′ is 𝑦 ∗ 𝑙𝑜𝑔𝑇 ′(𝑥) + (1 − 𝑦) ∗ 𝑙𝑜𝑔(1 − 𝑇 ′(𝑥)), and 𝑇 ′(𝑥) predicts the probability that the returning time is shorter than𝑇𝛽 . Then we get a lower bound of the expected returning time by the Markov Inequality [29], 𝐸𝑇 (𝑥) ≥ 𝑃 (𝑇 (𝑥) ≥ 𝑇𝛽 ) ∗ 𝑇𝛽 ∼ (1 − 𝑇 ′(𝑥)) ∗ 𝑇𝛽 as the predicted returning time. Thus we get the normalized retention reward, 𝑟 (𝑠𝑖𝑡 , 𝑎𝑖𝑡 ) ="
+      },
+      {
+        "source_id": "192447f1-df6d-4e75-a91b-b1e550047316",
+        "citation_number": 44,
+        "cited_text": "𝑐𝑙𝑖𝑝{0, 𝑇 (𝑠𝑖 ) (1−𝑇 ′ (𝑥))∗𝑇𝛽 , 𝛼}, where 𝛼 is a positive constant. 3.4 Bias As the returning time of high active users is much shorter than that of low active users, and the habit of these groups are quite different, we learn two separate policies 𝜋 (·|\\high) and 𝜋 (·|\\low) for high active group and low active group respectively. As we want to minimize the returning time and maximize the immediate rewards, the loss of the policy 𝜋 (·|\\high) is a weighted sum of the immediate critic and retention critic,"
+      },
+      {
+        "source_id": "192447f1-df6d-4e75-a91b-b1e550047316",
+        "citation_number": 45,
+        "cited_text": "Session i ends Return App Session i+1 star ts . . . Returning Time Profile &  history Request context Candidate video features Request State Candidate items Action Predicted scores of videos Ranking score Actor Selector 6 videos Scor ing Models b) Inference of RLUR Figure 1: The infinite horizon request-based MDP and the framework of RLUR factor of non-terminal samples is set as 1 to prevent the returning time reward from vanishing by the exponential decay mechanism. If one set the discount factor to be a number less than 1, the importance of returning time in future sessions will be extremely small. Optimizing the loss (1) is equivalent to estimate"
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 46,
+        "cited_text": "KDD ’24, August 25–29, 2024, Barcelona, Spain Ziru Liu et al. user’s return-to-app behavior. This metric is one of the most critical performance estimators for many online services since it closely correlates with the pivotal business indicator, i.e. Daily Active Users (DAU) [64]. In practice, modeling and optimizing user retention is a challenging task because of its between-session nature. Specifically, the retention behavior does not happen until the user leaves the current session and returns at the beginning of the next session. And it has no clear relation to any single recommendation step in previous interactions. Furthermore, the user’s activity between the two consecutive sessions is assumed unobservable for the service, introducing extra uncertainty. To circumvent these challenges, evidence has found promising results using reinforcement learning (RL) to optimize the cumulative reward for the entire user interaction sequence [6, 14] as a surrogate. Intuitively, the user returns to the platform because the system’s overall impression is sufficiently positive and attractive, which can be partially measured by the sum of (positive feedback related) rewards in the session. RL-based recommendation solutions solve the optimization of this cumulative reward by formulating the user interaction sequence as a Markov Decision Process (MDP) and learning a policy that considers the long-term impact of each recommendation action [2, 61]. This allows them to dynamically tailor recommendations at each point of user interaction, adapting to the evolving preferences and optimizing the cumulative reward of the whole session."
+      },
+      {
+        "source_id": "3183e5a0-4ebb-4f26-bd56-5be0441fe5a5",
+        "citation_number": 47,
+        "cited_text": "A notable advancement includes leveraging decision transformer-based models to tackle user retention challenges, and ingeniously reframing the reinforcement learning (RL) problem as an autoregression issue [57]. Furthermore, some researchers argue that user retention—viewed as feedback accumulated over multiple interactions with the system—presents a complex challenge in attributing retention rewards to individual items or sequences [6]. They propose conceptualizing this issue using reinforcement learning to minimize the cumulative time intervals across sessions. Our work builds upon these insights into retention optimization, uniquely considering the integration of immediate feedback within the modeling framework to better capture the nuances of user retention dynamics. Moreover, our approach has demonstrated efficacy across both offline datasets and large-scale online platforms."
+      },
+      {
+        "source_id": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+        "citation_number": 48,
+        "cited_text": "∗Corresponding Author 1Code is available at Github. This work is licensed under a Creative Commons Attribution 4.0 International License. WWW ’25, April 28-May 2, 2025, Sydney, NSW, Australia © 2025 Copyright held by the owner/author(s). ACM ISBN 979-8-4007-1274-6/25/04 https://doi.org/10.1145/3696410.3714956 CCS Concepts Information systems → Recommender systems; • Comput-ing methodologies → Reinforcement learning. Keywords Reinforcement Learning; recommender systems; user retention; non-stationary environments"
+      },
+      {
+        "source_id": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+        "citation_number": 49,
+        "cited_text": "ACM Reference Format: Zhenghai Xue, Qingpeng Cai, Bin Yang, Lantao Hu, Peng Jiang, Kun Gai, and Bo An. 2025. AURO: Reinforcement Learning for Adaptive User Reten-tion Optimization in Recommender Systems. In Proceedings of the ACMWeb Conference 2025 (WWW ’25), April 28-May 2, 2025, Sydney, NSW, Australia. ACM,NewYork, NY, USA, 11 pages. https://doi.org/10.1145/3696410.3714956 1 Introduction Recent advances in recommender systems have shown promising results in enhancing user retention through the application of Rein-forcement Learning (RL) [6, 45, 55], primarily due to RL’s capacity to effectively manage delayed reward signals [7, 37] and promote efficient exploration strategies [5, 11]. This focus on long-term engagement, as opposed to short-term feedback, is driven by its direct correlation with key performance indicators such as daily active users (DAU) and user dwell time. Nonetheless, the dynamic and ever-changing nature of large-scale online recommendation platforms presents a significant challenge to RL-based recommendation algorithms, with constant shifts in user behavior patterns. For instance, stock traders may exhibit increased activity on a news recommendation application during periods of significant financial news, and promotions might boost user interactions with recommended products in a shopping application. From the perspective of RL, different user behavior patterns will lead to constantly evolving environment dynamics and reward functions. Due to the poor generalization ability of standard RL methods [23, 46], policies that behave well during training can struggle in the deployment phase due to the evolving recommendation environment."
+      },
+      {
+        "source_id": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+        "citation_number": 50,
+        "cited_text": "We leave relevant researches on recommendation with evolving user interests in Appendix B. 6 Conclusion In this work, we address the challenge of non-stationary environments when optimizing user retention with RL. Through data-driven analyses, we identify several fluctuation factors in user behavior, such as the positive ratio of immediate feedback and the user return time distribution, as the main causes of non-stationarity. To tackle this challenge, we propose the AURO algorithm for training adaptive recommendation policies. AURO utilizes a new value-based contrastive loss to train an additional state abstraction module in the policy network. The state abstraction enables RL policies to identify different sorts of fluctuations in user behavior patterns universally. To facilitate safe and efficient policy adaptation, we combine the idea of optimism under uncertainty with rejection sampling to boost exploration. Experimental results demonstrate that AURO outperforms state-of-the-art methods in optimising long-term and non-stationary user retention. It also ensures stable recommendation quality in face of distribution shift of environment dynamics and reward function. Ethics Statement While our approach involves real user logs, the user data we used have been stripped of all sensitive privacy information. Each user is denoted by an anonymous user id, and sensitive features are encrypted in the form of one-hot vectors."
+      },
+      {
+        "source_id": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+        "citation_number": 51,
+        "cited_text": "make discrete action selection burdensome, we follow the practice in literature [6, 45] and employ 𝑘-dimensional continuous actions. User Open App Candidate Items RL Policy Scoring Model State 𝒔𝒕 Top-n Items Immediate Reward 𝒓𝒕𝒊𝒎 Action 𝒂𝒕 Leave App Return APP Retention Reward 𝒓𝒕𝒓𝒆 Figure 1: The procedure of optimizing user retention with RL. At step 𝑡 , the RL policy generates the actions 𝑎𝑡 . A pretrained deep scoring model is used to predict a 𝑘 dimensional score 𝑥𝑖 = (𝑥𝑖1, 𝑥𝑖2, · · · , 𝑥𝑖𝑘 ) for each candidate item 𝑖 , where each dimension evaluates the item in a particular aspect. The scoring model will be treated as a black box in this paper. Subsequently, a predefined ranking function 𝑓 is employed to compute the final ranking score 𝑓 (𝑎𝑡 , 𝑥𝑖 ) for each selected item 𝑖 . The system then recommends the top-𝑛 items to the user according to the ranking score."
+      },
+      {
+        "source_id": "09d70e01-bb66-4d4f-b6aa-5ce62389a2a9",
+        "citation_number": 52,
+        "cited_text": "are invisible to RL algorithms. 𝑇 is the transition function. At step 𝑡 , 𝑇 updates the user profile and browsing history in state 𝑠𝑡 according to the action 𝑎𝑡 and current hidden parameters 𝜃 , generating the next state distribution 𝑠𝑡+1 ∼ 𝑇𝜃 (·|𝑠𝑡 , 𝑎𝑡 , 𝜃 ). 𝑟 is the reward function. To optimize user retention, the time gap of users returning to the recommendation platform is used to calculate the retention reward assigned to the last step of an episode 𝑟𝜃 (𝑠0, 𝑎0, 𝑠1, 𝑎1, · · · , 𝑠𝑡 , 𝑎𝑡 , 𝜃 ) = 𝜆 × user return time, where 𝜆 is the predefined weighing coefficient. The reward is set to zero at other steps. 𝛾 is the discount factor that determines how much the policy accounts for rewards in future steps. 𝜌0 is the initial state distribution. When the session starts, 𝑠0 is randomly sampled according to 𝜌0 and the current hidden parameter 𝜃 : 𝑠0 ∼ 𝜌0 (·|𝜃 )."
+      },
+      {
+        "source_id": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+        "citation_number": 53,
+        "cited_text": "Stratified Expert Cloning for Retention-Aware Recommendation at Scale Report GitHub Issue × Title: Content selection saved. Describe the issue below: Description: Submit without GitHub Submit in GitHub arXiv is now an independent nonprofit! Learn more × arXiv logo Back to arXiv Why HTML? Report Issue Back to Abstract Download PDF Abstract. 1 Introduction 2 Related Work 2.1 User Retention in Recommendation Systems 2.2 Imitation Learning 3 PRELIMINARIES 3.1 Problem Formulation 3.2 Challenges in Optimizing Long-term User Retention 3.3 Imitation Learning for User Retention 4 THE PROPOSED FRAMEWORK 4.1 Overview of the SEC Framework 4.2 Training Stage 4.2.1 Multi-Level Expert Stratification 4.2.2 Behavior Cloning for Each Expert Level 4.2.3 Action Entropy Regularization 4.2.4 Training Objectives 4.3 Inference Stage 4.3.1 User State Representation and Clustering 4.3.2 Adaptive Expert Selection Mechanism 4.3.3 Generating Retention-Oriented Recommendations 5 Experiments 5.1 Offline Experiments 5.1.1 Experimental Setup 5.1.2 Baselines and Metrics 5.1.3 RQ1 Results 5.1.4 RQ2 Results 5.2 Online Experiments 5.2.1 Experimental Setup 5.2.2 RQ3 Results 5.2.3 RQ4 Results 6 Limitations 7 Conclusion References A GenAI Usage Disclosure"
+      },
+      {
+        "source_id": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+        "citation_number": 54,
+        "cited_text": "2025; © acmlicensed Abstract. User retention is critical in large-scale recommender systems, significantly influencing online platforms' long-term success. Existing methods typically focus on short-term engagement, neglecting the evolving dynamics of user behaviors over time. Reinforcement learning (RL) methods, though promising for optimizing long-term rewards, face challenges like delayed credit assignment and sample inefficiency. We introduce Stratified Expert Cloning (SEC), an imitation learning framework that leverages abundant interaction data from high-retention users to learn robust policies. SEC incorporates: 1) multi-level expert stratification to model diverse retention behaviors; 2) adaptive expert selection to dynamically match users with appropriate policies based on their state and retention history; and 3) action entropy regularization to enhance recommendation diversity and policy generalization."
+      },
+      {
+        "source_id": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+        "citation_number": 55,
+        "cited_text": "Through comprehensive offline and extensive online A/B tests on two major video platforms, SEC substantially improves user retention compared to state-of-the-art methods, highlighting its effectiveness and practicality in large-scale recommendation scenarios. The contributions of our work are summarized as follows: • We propose SEC, a novel imitation learning framework for hierarchical behavior cloning from expert users to optimize long-term retention. • We introduce adaptive expert selection based on user state and history to personalize recommendations. • We employ action entropy regularization to enhance recommendation diversity and generalization. • We validate SEC's superiority through extensive experiments and online evaluations on large-scale platforms."
+      },
+      {
+        "source_id": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+        "citation_number": 56,
+        "cited_text": "We employ the KuaiSim retention simulator ( Zhao et al. 2023a ) to emulate long-term user behavior, which includes a leave module predicting session exits and a return module estimating platform revisit likelihood. The configurations follow the GFN model settings ( Liu et al. 2024a ) . In our experiments, users with return times of <=3 days are considered experts at different levels. We use the Policy network framework from GFN with a Transformer architecture. User embeddings are pre-trained and fixed. During inference, we set 1000 clusters per expert level with δ k \\delta_{k} as half the mean inter-cluster distance. Optimization uses Adam with batch size 128, λ = 0.01 \\lambda=0.01 , and learning rate 0.0003."
+      },
+      {
+        "source_id": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+        "citation_number": 57,
+        "cited_text": "To address these limitations, we turn to imitation learning, leveraging expert demonstration data—particularly from high-retention users—to bypass the inefficiencies of RL exploration. We propose Stratified Expert Cloning (SEC), an imitation learning framework that stratifies expert users by retention levels and learns specialized behavior policies tailored to each group. SEC encompasses three core technical innovations designed to optimize long-term user retention: (1) multi-level expert stratification, which segments expert users into distinct retention-based hierarchies and learns specialized recommendation policies for each level, enabling nuanced behavioral modeling across the retention spectrum; (2) adaptive expert selection, which dynamically assigns users to the most appropriate expert policy based on their current state embedding and historical interaction patterns, providing personalized recommendation strategies; and (3) action entropy regularization, which promotes recommendation diversity through nuclear norm maximization in the action space, preventing policy collapse while enhancing exploration and generalization across user interests. Together, these components form a comprehensive framework that effectively leverages expert behaviors to improve user retention in large-scale recommender systems."
+      },
+      {
+        "source_id": "a6817bf6-d4cc-4dbd-b56e-5c02533ff462",
+        "citation_number": 58,
+        "cited_text": "Based on these insights, we propose a novel imitation learning framework specifically designed to address the challenges of optimizing user retention in recommender systems. The following section details our approach. 4. THE PROPOSED FRAMEWORK 4.1. Overview of the SEC Framework The Stratified Expert Cloning (SEC) framework optimizes long-term user retention in recommender systems by learning from high-retention expert users. SEC consists of three main components. First, multi-level expert behavior cloning stratifies expert users into K K levels based on retention scores and learns a specialized policy π k \\pi_{k} for each level. Second, action entropy regularization encourages recommendation diversity by incorporating an entropy regularization term in the training objective. Third, an adaptive selection mechanism assigns users to the most appropriate expert level based on their current state and historical interactions."
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 59,
+        "cited_text": "CCS Concepts Information systems→ Recommender systems. Keywords Recommender systems, Retention Modeling, Feature Leakage 1 Introduction User retention serves as a critical metric for assessing long-term user engagement, capturing the sustained value of user-platform interactions and representing a core optimization objective in modern recommender systems [7] and user growth scenarios [1]. Unlike immediate short-term feedback signals such as clicks and stays, retention more accurately reflects users’ overall satisfaction and value perception, indicating whether a platform can consistently deliver sufficient value to drive sustained revisits and realize a positive return on marketing investment. Consequently, in real-time bidding (RTB) advertising systems designed for user re-engagement, the predictive accuracy of retention prediction directly determines the decisions regarding bidding strategies, audience targeting and budget allocation, ultimately influencing the conversion efficiency and incremental returns of the overall campaign."
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 60,
+        "cited_text": "To this end, we propose a two-stage distillation-aligned framework OCARM for Onboarding Content Augmented Retention Modeling, enabling the retention model to implicitly perceive future consumed content at inference time without feature leakage, thus providing high-quality signals for model optimization. In the first stage, we intentionally allow feature leakage during training by jointly encoding future interaction sequence logs together with the retention model inputs, and train an onboarding content encoder to produce teacher representations. The encoder employs hierarchical attention to compress sequential content representations while capturing both intra-day and inter-day temporal causality. In the second stage, a user encoder is trained to align with the frozen onboarding content representations via distillation objective, thereby approximating unobserved future features. Therefore, at inference time, the model requires only observable features for informative retention prediction for bidding decisions."
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 61,
+        "cited_text": "𝑠 and ad contexts 𝑥 (𝑎) 𝑠 . In contrast, the onboarding content sequence is unavailable at bidding time. We denote it by 𝑥𝑐 = {𝑣0, 𝑣1, . . . , 𝑣𝑛}, spanning up to 𝐷 days, where 𝑣𝑖 ∈ 𝑥𝑐 corresponds to an item interacted with by user 𝑢 after conversion. The prediction target 𝑦 is defined as the revisit frequency LT_d of a user over the next 𝑑 days. Therefore the retention prediction task at serving time can be formulated as the conditional probability 𝑝 (𝑦 |𝑥𝑢 ), since 𝑥𝑢 is the only information available for online inference before conversions. However, during training, the sequence of onboarding content 𝑥𝑐 is accessible and can be leveraged as auxiliary information for retention modeling learning."
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 62,
+        "cited_text": "𝑦 = 𝑓𝑟𝑒𝑡𝑒𝑛𝑡𝑖𝑜𝑛 ( [𝑥𝑢 ;𝑔𝑢 (𝑥𝑢 )]), (9) while the onboarding content encoder is discarded after training. This design enables informative retention prediction without introducing feature leakage. 3 Experiments 3.1 Experimental Settings To validate the effectiveness of our proposed framework, we conduct extensive offline and online experiments. Dataset. We construct an industrial dataset collected from a widely used short-video platform to conduct offline analysis. The dataset includes millions of users and billions of interaction records."
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 63,
+        "cited_text": "HAE! User Profile Accessible Feature Behavior Sequences y!\"# y!\"_% Retention Model! User Profile Behavior SequencesOnboarding Content Embedding Layer! y!\"# y!\"_% HAE ❄ SFE! Alignment Loss Retention Model❄ User Profile Behavior Sequences Embedding Layer❄ y!\"# y!\"_% SFE❄ Stop-gradient User Profile Accessible Feature + Q-Former Concat Concat LT1 LT_D Historical Interactions Ad Contexts Training Stage 1 Training Stage 2 Inference Figure 2: Overview of the proposed framework OCARM. In Stage 1, HAE learns teacher representations from deliberately leaked onboarding content. In Stage 2, SFE is trained to align with the frozen teacher through distillation based on accessible user-side features. During inference, only SFE is activated for retention prediction without feature leakage."
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 64,
+        "cited_text": "model’s features, with the whole framework is jointly optimized under the retention prediction objective: L𝑆𝑡𝑎𝑔𝑒1 = BCE(𝑓𝑟𝑒𝑡𝑒𝑛𝑡𝑖𝑜𝑛 ( [𝑥𝑢 ; 𝑒𝑐 ]), 𝑦), (3) where 𝑓𝑟𝑒𝑡𝑒𝑛𝑡𝑖𝑜𝑛 (·) is the retentionmodel and [; ] denotes concatenation. Such end-to-end training encourages the learned onboarding content representation to better align with the retention task, ensuring the retention model’s awareness of the onboarding content. 2.3 User Representation Distillation Alignment In the second stage, we aim to train a user encoder, which maps observable user features to a user representation that approximates the onboarding content representation. Thus we froze the onboarding content encoder and align user representation through distillation."
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 65,
+        "cited_text": "L𝑎𝑙𝑖𝑔𝑛 = ∑︁ 𝑡 ∈Task L𝑠𝑖𝑚 (𝑒 (𝑡 )𝑢 , sg(𝑒 (𝑡 )𝑐 )), (7) where sg(·) denotes the stop-gradient operator to stabilize the distillation target and prevent the collapse of the representation. To ensure the representation alignment remains in service of the retention objective and preserves the stability of the core task, we Conference acronym ’XX, June 03–05, 2018, Woodstock, NY Tianbao Ma*, Ruochen Yang*, Chengen Li, Yuexin Shi, Jiangxia Cao† , Linxun Chen, Zhaojie Liu, Yanan Niu, Han Li and Kun Gai"
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 66,
+        "cited_text": "demonstrate the effectiveness and practical value of our method in real industrial scenario. 4 Conclusion In this paper, we identify the temporal visibility gap in RTB retention prediction, where the most predictive onboarding content is inaccessible at bidding time. We then propose OCARM, a two-stage distillation-aligned framework that first encodes leaked onboarding content via hierarchical attention as teacher signals, then trains a user encoder to approximate these representations from observable features alone. Offline and online experiments on a real-world short-video platform validate the effectiveness of our framework."
+      },
+      {
+        "source_id": "dc23ab85-0648-42fa-821c-297f4dc06534",
+        "citation_number": 67,
+        "cited_text": "Optimizing retention modeling has emerged as a pivotal challenge in industrial user growth, with increasing research in recent * Equal Contributions, Jiangxia Cao is the corresponding author. Outside Inside Conversion Click Ad Delivery Onboarding Content Retention RTB System Recommender System ❌ Inaccessibility Figure 1: The journey of user retention, where bidding decision is made prior to conversion, and the onboarding content is inaccessible at this time. years [2, 6, 8, 9]. Despite diverse technical approaches, existing methods largely share the same idea, which is to enhance longterm retention by optimizing recommendation policies to deliver more relevant and engaging content. These approaches are predominantly deployed in the post-acquisition phase, where users have already entered the platform and their interactions are managed by recommendation systems. In this setting, the platform possesses abundant prior user profiles and behavior contexts, leveraging them as the input features for the model to optimize retention targets."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 68,
+        "cited_text": "See Beyond a Single View: Multi-Attribution Learning Leads to Better Conversion Rate Prediction Sishuo Chen∗ Zhangming Chan∗ Xiang-Rong Sheng chensishuo.css@alibaba-inc.com zhangming.czm@alibaba-inc.com xiangrong.sxr@alibaba-inc.com Taobao & Tmall Group of Alibaba Beijing, China Lei Zhang Sheng Chen Chenghuan Hou zl165646@alibaba-inc.com chensheng.cs@alibaba-inc.com jinyao@alibaba-inc.com Taobao & Tmall Group of Alibaba Beijing, China Han Zhu Jian Xu Bo Zheng† zhuhan.zh@alibaba-inc.com xiyu.xj@alibaba-inc.com bozheng@alibaba-inc.com"
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 69,
+        "cited_text": "Taobao & Tmall Group of Alibaba Beijing, China Abstract Conversion rate (CVR) prediction is a core component of online advertising systems, where the attribution mechanisms—rules for allocating conversion credit across user touchpoints—fundamentally determine label generation and model optimization. While many industrial platforms support diverse attribution mechanisms (e.g., First-Click, Last-Click, Linear, and Data-Driven Multi-Touch Attri-bution), conventional approaches restrict model training to labels from a single production-critical attribution mechanism, discarding complementary signals in alternative attribution perspectives."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 70,
+        "cited_text": "To address this limitation, we propose a novelMulti-Attribution Learning (MAL) framework for CVR prediction that integrates signals from multiple attribution perspectives to better capture the underlying patterns driving user conversions. Specifically, MAL is a joint learning framework consisting of two core components: the Attribution Knowledge Aggregator (AKA) and the Primary Tar-get Predictor (PTP). AKA is implemented as a multi-task learner that integrates knowledge extracted from diverse attribution labels. PTP, in contrast, focuses on the task of generating well-calibrated conversion probabilities that align with the system-optimized attribution metric (e.g., CVR under the Last-Click attribution), ensuring direct compatibility with industrial deployment requirements. Additionally, we propose CAT, a novel training strategy that leverages the Cartesian product of all attribution label combinations to generate enriched supervision signals. This design substantially enhances the performance of the attribution knowledge aggregator. Empirical evaluations demonstrate the superiority of MAL over single-attribution learning baselines, achieving +0.51% GAUC improvement on offline metrics. Online experiments demonstrate that MAL achieved a +2.6% increase in ROI (Return on Investment)."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 71,
+        "cited_text": "CCS Concepts Applied computing→ Electronic commerce; • Information systems→ Computational advertising. Keywords Conversion Rate Prediction, Multi-Attribution Learning, Computa-tional Advertising ACM Reference Format: Sishuo Chen, Zhangming Chan, Xiang-Rong Sheng, Lei Zhang, Sheng Chen, Chenghuan Hou, Han Zhu, Jian Xu, and Bo Zheng. 2025. See Be-yond a Single View: Multi-Attribution Learning Leads to Better Conver-sion Rate Prediction. In Proceedings of the 34th ACM International Con-ference on Information and Knowledge Management (CIKM ’25), November 10–14, 2025, Seoul, Republic of Korea. ACM, New York, NY, USA, 9 pages. https://doi.org/10.1145/3746252.3761580"
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 72,
+        "cited_text": "To address this limitation, we propose a novelMulti-Attribution Learning (MAL) framework that integrates multi-attribution signals to enhance prediction accuracy for the target attribution mechanism. The theoretical basis of multi-attribution learning lies in the complementary insights offered by different attribution mechanisms, which together enable a more comprehensive understanding of user conversion behavior. Specifically, we formalize CVR prediction under the system-optimized attribution mechanism as the primary optimization objective, while constructing a joint learning architecture that incorporates conversion signals from multiple attribution mechanisms—including first-click, last-click, linear, and MTA. The proposed framework aim to leverages the diverse attribution signals to refine the primary target estimation while ensures deployment compatibility with industrial systems."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 73,
+        "cited_text": "Concretely, our approach follows a joint learning manner consisting of two core components: (1) Attribution Knowledge Ag-gregator (AKA), implemented as a multi-task learner that extracts knowledge from diverse attribution labels; and (2) Primary Target Predictor (PTP), which leverage the extracted knowledge to enhance the main conversion prediction task. Specifically, AKA jointly predicts CVR under multiple attribution mechanisms by employing dedicated prediction towers for each attribution mechanism. From the outputs of these towers, we extract high-level conversion knowledge representations, which capture the pattern of user conversion behavior. PTP then fuses these representations with the original features to achieve improved CVR prediction performance under the system-optimized attribution mechanism (primary target)."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 74,
+        "cited_text": "To further enhance knowledge transfer, we introduce CAT,which is short for Cartesian-based Auxiliary Training, a novel auxiliary task training strategy based on combinations of cross-attribution labels. It generates multi-dimensional supervision signals by computing the Cartesian product of attribution labels across multiple mechanisms. This approach goes beyond traditional single-mechanism formulations by producing fine-grained supervisory signals that capture more nuanced aspects of user conversion behavior."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 75,
+        "cited_text": "Formally, we frame CVR prediction with labels from diverse attribution mechanisms as a weighted binary classification problem with the following sample definition: Positive Samples. Samples with non-zero attribution weights constitute positive samples, with attribution weights serving as sample importance weights. Negative Samples. Samples receiving zero attribution weights are treated as negative samples. In this study, we utilize four attribution mechanisms: last-click, first-click, linear, and multi-touch attribution (MTA). Importantly, the attribution methods employed in MAL are not limited to these four - the framework supports seamless integration of additional attribution mechanisms without architectural constraints."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 76,
+        "cited_text": "3.3.2 Multi-Task Optimization. AKA is a multi-task learner that simultaneously predicts CVR under diverse attribution labels. As described earlier, AKA adopts a shared-bottom architecture, where multiple labels jointly supervise the model to capture complementary signals from different attribution perspectives. Note that althoughwe employ only the standard shared-bottom structure, other multi-task learning methods are also compatible with AKA in principle. The training data 𝒟 comprises user-ad interactions (𝑢, 𝑖), each associated with four conversion labels generated under one of four attribution rules: 𝑙last from Last-Click, 𝑙first from First-Click, 𝑙linear from Linear, and 𝑙mta from MTA. Notably, all labels 𝑙 take a value in the range [0,1], reflecting the partial credit assigned to the corresponding click under each attribution mechanism."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 77,
+        "cited_text": "We summarize our main contributions as follows: We propose a novel multi-attribution learning framework that integrates multiple attribution signals to enhance performance under the system-optimized attribution mechanism. This work pioneers the industrial deployment of multi-attribution learning in CVR modeling, addressing critical limitations in existing literature that focus exclusively on single-attribution learning. We propose an implementation of the proposed MAL framework, which incorporates the AKA and PTP architectures and the Carte-sian product of attribution labels across different mechanisms. These components collectively enable more comprehensive modeling of user conversion intentions. We conduct comprehensive experiments on the display advertising system in Alibaba, demonstrating statistically significant improvements: +2.6% in ROI during online A/B tests compared to the production baseline. We believe that the insights we have gathered will serve as valuable resources for industrial practitioners seeking to leverage multi-attribution learning to enhance the CVR prediction."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 78,
+        "cited_text": "4.3 Online A/B Testing We conduct a strict online A/B experiment in the display advertising system of Taobao, Alibaba, lasting from May 21st to May 25th, 2025. Results show that compared to the production baseline, the MALmodel delivers an overall 2.7% lift in GMV (GrossMerchandise Volume), a 1.2% rise in BuyCnt (the number of orders), and a 2.6% increase in ROI (Return on Investment). Note that GMV, BuyCnt, and Table 5: The AUC increase and the growth of positive samples of representative industries."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 79,
+        "cited_text": "5 Conclusion and Discussion Traditional industrial CVR prediction models have predominantly relied on single-attribution learning frameworks, utilizing only the production-deployed attribution mechanism for model training. This study establishes a paradigm shift through our novel multiattribution learning framework that strategically synthesizes signals frommultiple attribution mechanisms to enhance performance under the primary attribution mechanism for production. Through systematic investigation of architectural design and learning objectives, we propose the MAL framework for multipleattribution knowledge utilization, which is further enhanced with Cartesian-based auxiliary training (CAT) for enriching the supervision signals. Experiments show thatMAL yields substantial improvements in CVR prediction accuracy, addressing fundamental limitations of single-attribution approaches that inadequately capture the conversion intention in user conversion journeys. Online A/B tests in the Taobao advertising system confirmed the superiority of MAL. The findings provide both a methodological framework and empirical insights that can support the effective integration of multi-attribution learning into CVR prediction."
+      },
+      {
+        "source_id": "ee77d832-cc2f-48ac-80ef-c0bad82bae29",
+        "citation_number": 80,
+        "cited_text": "Private (A) Private (B) Private (A) Private (B)Shared Private (Primary) Private (Primary) Private (A) Private (B) Private (A) Private (B)Shared Figure 2: Mechanism comparison between traditional multitask learning approaches (left) and our MAL framework (right). The primary target is selected from options A or B based on business requirements in the MAL framework. (2) data-driven multi-touch attribution mechanisms based on attribution models [30] relying on causal inference techniques, such as DeepMTA [50], CAMTA [20], CausalMTA [43], and LiDDA [1]. Our study opens up a new avenue for enhancing CVR prediction with labels generated under different attribution mechanisms."
+      }
+    ]
+  }
+}

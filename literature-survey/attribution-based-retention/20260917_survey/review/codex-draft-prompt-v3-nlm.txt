@@ -1,0 +1,37 @@
+SKILL INSTRUCTION: Load and follow the skill `claude-literature-survey-nlm` (file: /Users/fox/.codex/skills/claude-literature-survey-nlm/SKILL.md). Do NOT load `claude-literature-survey` or any other skill. You are executing ONLY the Codex-assigned steps of that skill for a survey whose Phases 0–3 and 4-A are already complete: (a) Phase 4-B — consolidate the NotebookLM cross-source responses into a `literature-review.md` draft using the Main Review File Template; (b) Phase 3.5-lite — derive a compact `method-tracker.md` (Methodology Table + Top Method Analysis) from the per-paper cards; (c) Phase 5 File 3 — draft `executive-summary.md` using the Executive Summary File Template, including "Most Fundamental Methods" (top 5 from your method tracker) and a "Recommendations" section that answers the Project Context questions Q1 and Q2 and proposes the replacement for last-touch attribution. Do not run NotebookLM tools, do not modify any file, do not explore the repository.
+
+READ ONLY THESE FILES, ONE FILE PER TOOL CALL, IN THIS ORDER, EACH IN FULL (paths relative to the working directory):
+1. /Users/fox/.codex/skills/claude-literature-survey-nlm/SKILL.md   (the skill; apply its Phase 4-B, Phase 3.5, Phase 5 instructions)
+2. /Users/fox/knowledge_base/context/literature-survey/literature-survey-templates.md   (Main Review File Template, Method Tracker File Template, Executive Summary File Template)
+3. literature-survey/attribution-based-retention/20260917_survey/README.md   (Q1, Q2, Project Context — the north star, follow list)
+4. literature-survey/attribution-based-retention/20260917_survey/review/context/nlm-synthesis-q1-mechanisms.md   (NotebookLM Phase 4-A response: retention-credit mechanisms)
+5. literature-survey/attribution-based-retention/20260917_survey/review/context/nlm-synthesis-q2-q4.md   (NotebookLM Phase 4-A responses: industry SOTA; three replacement designs; bias devices and evaluation)
+6. literature-survey/attribution-based-retention/20260917_survey/discovery/nlm-research-3-4.md   (NotebookLM deep-research condensed records with comparison tables)
+7. literature-survey/attribution-based-retention/20260917_survey/discovery/D3.md   (Q2 web follow log incl. platforms that published nothing)
+8. literature-survey/attribution-based-retention/20260917_survey/discovery/D4.md   (Q1 engineering-blog follow log)
+9. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-1.md   (per-paper Project Relevance sections, part 1)
+10. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-2.md
+11. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-3.md
+12. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-4.md
+13. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-1.md   (per-paper Summary + Evidence sections, part 1)
+14. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-2.md
+15. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-3.md
+16. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-4.md
+17. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-5.md
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file above, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not use a file you could not read; do not infer its contents from the filename.
+
+BACKGROUND (also in README.md). A dating platform attributes a user's next-7-day retention (N7: active on day 7 after a reference day) to the user's most recent swipes with LAST-TOUCH attribution and trains a ranking model on those labels. Q1 = the latest industry attribution approach (2025–2026). Q2 = has anyone in industry published attribution of retention / engagement / days-active to individual in-app interactions? The parent survey (April 2026, 62 ad-tech MTA papers) found no retention-attribution paper; a 2026-06-13 decision fixed: binary N7 target, v1 = interpretable removal-effect attributor, v2 = calibrated deep data-driven attribution with a survival head. The executive summary must confirm or revise that plan with evidence from the cards.
+
+OUTPUT FORMAT. After the proof-of-reading section, output the three documents, each preceded by a marker line exactly as shown, in this order:
+
+===== FILE: method-tracker.md =====
+(Method Tracker File Template: Methodology Table over the methods in the cards — method, paper, year, venue, company, unit of credit, outcome, bias device, deployment evidence; then "Top Method Analysis" ranking the top 5 for the dating retention problem with a one-paragraph justification each. Compute a simple composite score from: production deployment with numbers (0–3), per-interaction credit (0–3), selection-bias device (0–2), transfer rating from the card (direct 2 / adaptable 1 / background 0). Show the score.)
+
+===== FILE: literature-review.md =====
+(Main Review File Template. Categories to use, in this order: 1. Retention credited to individual interactions — reciprocal / two-sided platforms; 2. Retention credited to individual interactions — feed recommenders (RL/flow credit, per-item long-term value, per-action uplift); 3. Notification incrementality; 4. Industry attribution systems 2025–2026 (experiment-calibrated, causal, LLM, multi-attribution); 5. Incrementality measurement and privacy-era attribution; 6. Long-term outcome estimation (surrogate index and variants). Every paper gets an entry per the template with a link to its card as `read-papers/<filename>`. Put weakly relevant cards under References (Low Relevance). Every claim names its paper; use only numbers present in the files; where NotebookLM synthesis and a card disagree, prefer the card and say so.)
+
+===== FILE: executive-summary.md =====
+(Executive Summary File Template. Key Questions = Q1 and Q2 verbatim from README.md. Main Findings must open with a direct ≤200-word answer to Q1 and a direct ≤200-word answer to Q2 — the Q2 answer must separate "direct per-interaction retention credit" from "retention-aware ranking objectives" and state the negative evidence from D3.md (which dating, gaming, and social companies published nothing). Most Fundamental Methods = top 5 from method-tracker.md. Approach Comparison table. Recommendations = a phased plan (v1 / v2 / v3) to replace last-touch for per-swipe N7 credit: for each phase give sources, the exact credit formula or estimator for ONE swipe, the selection-bias device, handling of the daily recurring outcome and heterogeneous touches (swipe, like, match, message), the validation anchor, cost (low / medium / high), and main risk; then "Against the 2026-06-13 plan" (keep / change) and "Why not keep last-touch" with the strongest evidence; then an evaluation protocol without per-interaction ground truth (offline estimators, online metrics and holdout design, calibration loop). Cite every paper by full name as `"Author et al., full paper title, venue year"`. Length 2–3 pages.)
+
+Word budget across the three files: at most 7000 words. Write in plain, active-voice sentences. No preamble before the proof-of-reading section and no closing recap after the last file. End with one line: `FILES READ: <n> of 17`.

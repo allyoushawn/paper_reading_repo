@@ -1,0 +1,49 @@
+You are drafting a literature-survey report. This is a SYNTHESIS task over files on disk. Do not modify any file. Do not explore the repository. Read ONLY the files listed below, ONE FILE PER TOOL CALL, in this order, and read each in full:
+
+1. literature-survey/attribution-based-retention/20260917_survey/README.md  (questions Q1, Q2, project context, follow list)
+2. literature-survey/attribution-based-retention/20260917_survey/review/context/nlm-synthesis-q1-mechanisms.md
+3. literature-survey/attribution-based-retention/20260917_survey/review/context/nlm-synthesis-q2-q4.md
+4. literature-survey/attribution-based-retention/20260917_survey/discovery/nlm-research-3-4.md
+5. literature-survey/attribution-based-retention/20260917_survey/discovery/D3.md  (web-search follow log for Q2 — includes which companies published NOTHING)
+6. literature-survey/attribution-based-retention/20260917_survey/discovery/D4.md  (engineering-blog follow log for Q1)
+7. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-1.md
+8. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-2.md
+9. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-3.md
+10. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-4.md
+11. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-1.md
+12. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-2.md
+13. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-3.md
+14. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-4.md
+15. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-5.md
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file above, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not review a file you could not read; do not infer its contents from the filename.
+
+BACKGROUND. A dating platform attributes a user's next-7-day retention (N7: active on day 7 after a reference day) to the user's most recent swipes with LAST-TOUCH attribution, and uses those labels to train a ranking model that predicts per-candidate incremental retention value. The platform wants (Q1) the latest industry attribution approach (2025–2026) and (Q2) whether anyone in industry has published attribution of retention / engagement / days-active to individual in-app interactions, plus a recommendation that replaces last-touch. An earlier survey (April 2026, 62 papers, ad-tech multi-touch attribution) found no retention-attribution paper; its top picks were CausalMTA, LiDDA, Amazon Ads causal-calibrated MTA, Shapley credit, and time-to-event attribution. A decision on 2026-06-13 fixed: binary N7 target; v1 = interpretable removal-effect attributor; v2 = calibrated deep data-driven attribution with a survival head. Your draft must confirm or revise that plan with evidence from the files.
+
+TASK. After the proof-of-reading section, write the survey report in Markdown, at most 3800 words, with exactly these sections:
+
+# Attribution-based retention — follow-up survey (2026-09-17)
+
+## 1. Answers
+- **Q1 answer** (≤200 words, direct): what the latest industry attribution approach is, naming companies and papers, and the one design pattern they share.
+- **Q2 answer** (≤200 words, direct): yes / partly / no with the strongest evidence, naming the platforms that published per-interaction retention credit, and stating clearly which kinds of companies (e.g. dating apps) have published nothing.
+
+## 2. Q1 — Industry attribution, 2025–2026
+A table: company | paper (full title, venue, year) | mechanism | unit of credit | calibration anchor to experiments | stance on last-touch | deployment evidence with numbers. Then 4–6 paragraphs on the shared design pattern (observational sequence model + experimental calibration + causal adjustment), the privacy-era shift, and what changed since the April 2026 survey.
+
+## 3. Q2 — Retention credited to individual interactions
+A table grouped by mechanism (counterfactual deletion; RL / flow backward credit; per-item long-term-value or surrogate prediction; per-action uplift; retention-curve marginal gain per match): company | paper | unit of credit | outcome | selection-bias device | deployment evidence with numbers | transfer rating. Then paragraphs on: the reciprocal-market cluster (MRet, Wantedly, MODE, Revisiting RRS) and why it matters for dating; the Kuaishou lineage (RLUR, GFN4Retention, AURO, CDUM, HMUM, ALM-MTA); Pinterest / Meta / Spotify long-term-value labels; notification uplift (Instagram, Pinterest). End with a "Negative evidence" paragraph built from D3.md: which dating, gaming, and social companies published nothing, and what that implies.
+
+## 4. Recommendation — replacing last-touch for per-swipe N7 credit
+State the recommended design as a phased plan (v1 / v2 / v3). For each phase give: name; the sources it is built from; the exact credit formula or estimator for ONE swipe; how it removes selection bias (engaged users swipe more); how it handles the daily recurring outcome and heterogeneous touches (swipe, like, match, message); the validation anchor (which experiment or calibration object); cost (low / medium / high); main risk. Then a short subsection "Against the 2026-06-13 plan" saying what to keep and what to change, and a subsection "Why not keep last-touch" with the strongest evidence from the files (e.g. cannibalization gap, assisted own goal, PVM incentive result, LiDDA end-of-path bias).
+
+## 5. Evaluation without per-interaction ground truth
+A concrete protocol built from the files: offline (which estimators and proxies), online (which metrics and holdout designs), and a calibration loop (which anchor, how often).
+
+## 6. Coverage and limits of this run
+What was searched (follow list, blogs, NotebookLM research, OpenAlex/arXiv harvest), what could not be ingested, and open items.
+
+## 7. References
+Every paper cited above, full title, venue, year, and the card filename from the relevance index in backticks.
+
+RULES. Every factual claim must name its paper. Use the numbers in the files; do not invent numbers. If a claim in the NotebookLM synthesis conflicts with a card, prefer the card and say so. Where evidence is weak (e.g. Wantedly result not statistically significant), say so. Write in plain, active-voice sentences. Do not add a preamble or a closing recap outside the sections. At the end, add one line: `FILES READ: <n> of 15`.

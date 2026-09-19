@@ -1,0 +1,48 @@
+SKILL INSTRUCTION: Load and follow the skill `claude-literature-survey-nlm` (file: /Users/fox/.codex/skills/claude-literature-survey-nlm/SKILL.md). Do NOT load `claude-literature-survey` or any other skill. You are executing ONLY the Codex-assigned steps of that skill for a survey whose Phases 0–3 and 4-A are already complete: (a) Phase 3.5-lite — derive a compact `method-tracker.md` (Methodology Table + Top Method Analysis) from the per-paper cards; (b) Phase 4-B — consolidate the NotebookLM cross-source responses into a `literature-review.md` draft using the Main Review File Template; (c) Phase 5 File 3 — draft `executive-summary.md` using the Executive Summary File Template, including "Most Fundamental Methods" (top 5 from your method tracker) and a "Recommendations" section that answers Project Context questions Q1 and Q2 and proposes the replacement for last-touch attribution. Do not run NotebookLM tools, do not modify any file, do not explore the repository.
+
+READ ONLY THESE FILES, ONE FILE PER TOOL CALL, IN THIS ORDER, EACH IN FULL (paths are absolute):
+1. /Users/fox/.codex/skills/claude-literature-survey-nlm/SKILL.md
+2. /Users/fox/knowledge_base/context/literature-survey/literature-survey-templates.md
+3. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/README.md
+4. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q1-mechanisms.md
+5. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q2-industry-sota.md
+6. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q3-last-touch-replacement.md
+7. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q4-bias-eval.md
+8. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/discovery/D3_retention_attribution.md
+9. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/discovery/D4_eng_blogs.md
+10. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/discovery/D1_industry_authors.md
+11. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/related-notebooks-q2.md
+12. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/q2-class-index.md
+13. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/compact-relevance-1.md
+14. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/compact-relevance-2.md
+15. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/compact-summaries-1.md
+16. /Users/fox/Projects/paper_reading_repo/literature-survey/attribution-based-retention/20260917_survey_grok/review/context/compact-summaries-2.md
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file above, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not use a file you could not read; do not infer its contents from the filename.
+
+HARD RULES FOR THIS RUN
+- This is an independent Grok-owned survey. Cite ONLY papers that have a card filename in this folder's compact summaries / relevance index. Do not cite parent-survey papers that have no card here (Amazon Ads MTA 2025 paper, LiDDA arXiv paper, MAL, CABB, etc. are parent-only). LinkedIn's 2025 engineering blog card is in-scope; the LinkedIn arXiv paper is not.
+- Every Q1/Q2 claim and every recommendation bullet must cite a paper's full name from a card you were given.
+- Q2 classification uses the rubric in D3_retention_attribution.md: TRUE = per-touch retention credit with causal/MTA decomposition; PARTIAL = item-level scores or surrogates without identified causal MTA; NOT = RL / LTR / bandit / policy optimization. RL-for-retention (RLUR, GFN4Retention, AURO, SEC, OCARM, MRet) is not automatically attribution; say whether each produces per-interaction credit.
+- Related-notebook NLM answers over-classify GFN/MRet as TRUE. Cards plus the D3 rubric override related-notebook labels.
+- Card "Q2 class" headers are NotebookLM guesses; if they conflict with the D3 rubric applied to the card's method description, re-classify and say so.
+- Netflix cards are stubs (`nlm:failed`). Do not treat discovery one-liners as measured results.
+- v1 credit must NOT be called incremental unless a cited card estimates that exact contrast on N7 (or an analogous delayed binary retention label). A deletion residual, Shapley value, RL advantage, or attention score is not automatically incremental lift.
+- Where NotebookLM synthesis and a card disagree, prefer the card and say so.
+- Use only numbers present in the files. If a number is missing, write "not reported in the card".
+- Do not explore `../20260917_survey/` or parent `../read-papers/`.
+
+BACKGROUND (also in README.md). A dating platform attributes a user's next-7-day retention (N7: active on day 7 after a reference day) to the user's most recent swipes with LAST-TOUCH attribution and trains a ranking model on those labels. Q1 = the latest industry attribution approach (production/industry-authored systems 2025-01 → 2026-09, plus newest work from the follow-list teams). Q2 = has anyone published attribution of retention / engagement / days-active to individual in-app interactions (recs, matches, messages, notifications, swipes)? Academic work counts iff it names a production dataset or deployment. A 2026-06-13 decision fixed: binary N7 target; v1 = interpretable removal-effect attributor; v2 = calibrated deep data-driven attribution with a survival head. The executive summary must confirm or revise that plan with evidence from the cards. Analogies: ad touchpoint → swipe or match; conversion → N7; channel → like / match / conversation / notification.
+
+OUTPUT FORMAT. After the proof-of-reading section, output the three documents, each preceded by a marker line exactly as shown, in this order:
+
+===== FILE: method-tracker.md =====
+(Method Tracker File Template: Methodology Table over the methods in the cards — method, paper, year, venue, company, unit of credit, outcome, bias device, deployment evidence; then "Top Method Analysis" ranking the top 5 for the dating retention problem with a one-paragraph justification each. Compute a simple composite score from: production deployment with numbers (0–3), per-interaction credit (0–3), selection-bias device (0–2), transfer rating from the card (direct 2 / adaptable 1 / background 0). Show the score. Also keep the template's baseline-mention / variant / simplicity columns if you can fill them from the cards; otherwise mark "n/a in cards".)
+
+===== FILE: literature-review.md =====
+(Main Review File Template. Categories to use, in this order: 1. Retention credited to individual interactions — reciprocal / two-sided platforms; 2. Retention credited to individual interactions — feed recommenders (RL/flow credit, per-item long-term value, per-action uplift); 3. Notification incrementality; 4. Industry attribution systems 2025–2026 (experiment-calibrated, causal, LLM, multi-attribution); 5. Incrementality measurement and evaluation devices; 6. Long-term outcome estimation (surrogate index and variants). Every in-scope card gets an entry per the template with a link to its card as `read-papers/<filename>`. Put weakly relevant cards under References (Low Relevance). Every claim names its paper.)
+
+===== FILE: executive-summary.md =====
+(Executive Summary File Template. Key Questions = Q1 and Q2 verbatim from README.md. Main Findings must open with a direct ≤200-word answer to Q1 and a direct ≤200-word answer to Q2. The Q2 answer MUST include an explicit TRUE / PARTIAL / NOT table covering every Q2-tagged card (G4–G11, G13–G27 at minimum), using the D3 rubric. Most Fundamental Methods = top 5 from method-tracker.md. Approach Comparison table. Recommendations = a phased plan (v1 / v2 / v3) to replace last-touch for per-swipe N7 credit mapped onto swipe / match / conversation touchpoints: for each phase give sources, the exact credit formula or estimator for ONE swipe (and how match and conversation enter), the selection-bias device, handling of the daily recurring binary outcome, the validation anchor, cost (low / medium / high), and main risk; then "Against the 2026-06-13 plan" (keep / change, with reasons); then "Why not keep last-touch" with the strongest evidence from the cards; then an evaluation protocol without per-interaction ground truth. Cite every paper by full name as `"Author et al., full paper title, venue year"`. Length 2–3 pages.)
+
+Word budget across the three files: at most 7000 words. Write in plain, active-voice sentences. No preamble before the proof-of-reading section and no closing recap after the last file. End with one line: `FILES READ: <n> of 16`.

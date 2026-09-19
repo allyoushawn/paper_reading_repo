@@ -1,0 +1,156 @@
+{
+  "value": {
+    "answer": "Based on an analysis of the papers in your notebook, here is how each relevant study models user retention or days-active, whether it assigns per-interaction credit, and its classification regarding **attribution of retention to specific individual actions, matches, or exposures**:\n\n---\n\n### 1. *Beyond Match Maximization and Fairness: Retention-Optimized Two-Sided Matching* (Kishimoto et al., ICLR 2026 / arXiv:2602.15752) [1, 2]\n\n* **How Retention is Modeled:** This paper formally defines the problem of maximizing user retention on two-sided matching platforms (such as online dating and recruiting) [3]. It introduces **Matching for Retention (MRet)**, a dynamic learning-to-rank (LTR) algorithm that learns personalized **retention curves** for each user based on their profile and interaction history [3]. MRet dynamically adapts recommendation lists by evaluating the marginal **retention gains** (expected increase in days-active or retention probability) for both the user receiving the recommendation and the candidates being recommended [3].\n* **Per-Interaction Credit:** **YES.** MRet explicitly calculates the per-candidate/per-interaction marginal retention gain for every potential match or profile exposure [3].\n* **MRet Callout:** **PRESENT.** This paper is the primary work that introduces and evaluates **MRet** [3].\n* **Classification:** **TRUE attribution** of retention to specific individual actions/matches/exposures [3].\n\n---\n\n### 2. *The Dating Heuristic: A Provably Strong Matching Algorithm for Dating Platforms* (Rios & Torrico, 2023/2025 / arXiv:2308.02584) [4, 5]\n\n* **How Retention is Modeled:** The authors study dynamic profile display policies (e.g., the Integral Dating Heuristic, `DH-int`) [6]. They model history-dependent user behavior where past experiences—such as the number of recent matches or time on the app—alter future liking probabilities [7, 8]. Specifically, they evaluate a **Disengagement** specification (\\\\(\\gamma(\\sigma) = \\gamma t\\\\)) where users naturally disengage/churn as time elapses, and a **Linear Match/Threshold** specification (\\\\(\\gamma(\\sigma) = \\gamma |M|\\\\)) where accumulating too few or too many matches alters liking rates due to frustration or app fatigue [8, 9].\n* **Per-Interaction Credit:** **NO.** While it models how macro-level user state (e.g., total matches or time elapsed) alters future liking and disengagement probabilities, it does **not** decompose overall retention into per-interaction credit assignment for individual profile exposures [7, 8].\n* **MRet Callout:** **NOT PRESENT.**\n* **Classification:** **PARTIAL attribution** (it models history-dependent disengagement/retention dynamics at the user-state level over time, but does not assign credit to individual actions) [7, 8].\n\n---\n\n### 3. *Creator-Side Recommender System: Challenges, Designs, and Applications* (DualRec, 2025 / arXiv:2502.20497) [10]\n\n* **How Retention is Modeled:** Designed for two-sided short-video platforms (e.g., Kuaishou), DualRec optimizes creator-side retention measured as **Daily Active Creators (DAC)** [11]. Because DAC changes slowly over time, the system uses a surrogate metric called **ExpoReach-E** (the number of new items reaching \\\\(E\\\\) exposures, e.g., 1K/10K) [11]. It shows empirically that a \\\\(1\\%\\\\) increase in ExpoReach corresponds to a \\\\(0.13\\%\\\\) increase in DAC [12].\n* **Per-Interaction Credit:** **NO.** User daily activity state (\\\\(a_u \\in \\{0, 1\\}\\\\)) is predicted at the daily level via XGBoost, and aggregate exposure thresholds are linked to long-term DAC, but individual interactions/exposures are not assigned per-interaction retention credit [12, 13].\n* **MRet Callout:** **NOT PRESENT.**\n* **Classification:** **PARTIAL attribution** (correlates aggregate exposure thresholds to creator retention/DAC via proxy metrics, but does not perform per-interaction credit assignment) [11, 12].\n\n---\n\n### 4. *Integrating Predictive Models into Two-Sided Recommendations: A Matching-Theoretic Approach* (Sekiya et al., 2026 / arXiv:2602.11331) [14]\n\n* **How Retention is Modeled:** In evaluating Exposure-Constrained Deferred Acceptance (ECDA) on the Japanese dating platform *CoupLink*, the authors identify **Dating Probability** (the probability a user gets at least one date) as a critical platform KPI because securing at least one date strongly influences user satisfaction and platform retention [15].\n* **Per-Interaction Credit:** **NO.** Dating probability is used as an intermediate welfare proxy for retention; retention itself is not decomposed into per-action credit assignment [15].\n* **MRet Callout:** **NOT PRESENT.**\n* **Classification:** **NOT attribution** (uses dating probability as a static proxy metric for retention rather than attributing retention directly to individual actions) [15].\n\n---\n\n### 5. *Policy Design for Two-sided Platforms with Participation Dynamics* (2023 / Mladenov et al., 2020) [16, 17]\n\n* **How Retention is Modeled:** Models macro population dynamics on two-sided platforms where viewers/providers depart or churn if their received utility or exposure falls below specific thresholds [17].\n* **Per-Interaction Credit:** **NO.** Uses differential/difference equations for macro population shifts rather than per-interaction action attribution [17, 18].\n* **MRet Callout:** **NOT PRESENT.**\n* **Classification:** **NOT attribution** (models aggregate population departure thresholds rather than individual interaction-level retention attribution) [17, 18].\n\n---\n\n### Summary Matrix\n\n| Paper | Model / Method | Per-Interaction Credit? | MRet Present? | Classification |\n| :--- | :--- | :--- | :--- | :--- |\n| **Kishimoto et al. (ICLR 2026)** [1, 2] | **MRet** (Matching for Retention) [3] | **YES** [3] | **YES** [3] | **TRUE Attribution** [3] |\n| **Rios & Torrico (2023/2025)** [4, 5] | `DH-int` / History-dependent disengagement [6, 8] | **NO** [8] | **NO** | **PARTIAL Attribution** [8] |\n| **DualRec (2025)** [10] | DualRec / ExpoReach to DAC proxy [11] | **NO** [11] | **NO** | **PARTIAL Attribution** [11] |\n| **Sekiya et al. (2026)** [14] | ECDA / Dating Probability proxy [15, 19] | **NO** [15] | **NO** | **NOT Attribution** [15] |\n| **Policy Design Dynamics (2023)** [16] | Macro population departure thresholds [17] | **NO** [17] | **NO** | **NOT Attribution** [17] |\n\n***\n\n💡 *Would you like to explore the mathematical formulation of MRet's personalized retention curves and how its objective function differs from traditional Nash Social Welfare (NSW) or Transferable Utility (TU) matching?*",
+    "conversation_id": "7cb33220-bcf4-4b3f-b884-6c8e5295210a",
+    "sources_used": [
+      "ac33368a-b91f-4d5d-bb04-416786e45ee0",
+      "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+      "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+      "dc9b9201-8782-4615-8aaa-61a69421d536",
+      "e0ef0297-acaa-4d43-80e5-1f8fdb9da14e"
+    ],
+    "citations": {
+      "1": "ac33368a-b91f-4d5d-bb04-416786e45ee0",
+      "2": "ac33368a-b91f-4d5d-bb04-416786e45ee0",
+      "3": "ac33368a-b91f-4d5d-bb04-416786e45ee0",
+      "4": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+      "5": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+      "6": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+      "7": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+      "8": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+      "9": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+      "10": "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+      "11": "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+      "12": "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+      "13": "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+      "14": "dc9b9201-8782-4615-8aaa-61a69421d536",
+      "15": "dc9b9201-8782-4615-8aaa-61a69421d536",
+      "16": "e0ef0297-acaa-4d43-80e5-1f8fdb9da14e",
+      "17": "e0ef0297-acaa-4d43-80e5-1f8fdb9da14e",
+      "18": "e0ef0297-acaa-4d43-80e5-1f8fdb9da14e",
+      "19": "dc9b9201-8782-4615-8aaa-61a69421d536"
+    },
+    "references": [
+      {
+        "source_id": "ac33368a-b91f-4d5d-bb04-416786e45ee0",
+        "citation_number": 1,
+        "cited_text": "[2602.15752] Beyond Match Maximization and Fairness: Retention-Optimized Two-Sided Matching Skip to main content Search Submit Donate Log in Search arXiv Press Enter to search · Advanced search Computer Science > Machine Learning arXiv:2602.15752 (cs) [Submitted on 17 Feb 2026 ( v1 ), last revised 19 May 2026 (this version, v3)] Title: Beyond Match Maximization and Fairness: Retention-Optimized Two-Sided Matching Authors: Ren Kishimoto , Rikiya Takehi , Koichi Tanaka , Masahiro Nomura , Riku Togashi , Yoji Tomita , Yuta Saito"
+      },
+      {
+        "source_id": "ac33368a-b91f-4d5d-bb04-416786e45ee0",
+        "citation_number": 2,
+        "cited_text": "<cited_table> Submission history From: Ren Kishimoto [ view email ] [v1] Tue, 17 Feb 2026 17:30:53 UTC (8,389 KB) [v2] Mon, 27 Apr 2026 08:40:13 UTC (8,389 KB) [v3] Tue, 19 May 2026 05:54:23 UTC (4,277 KB) Full-text links: Access Paper: View a PDF of the paper titled Beyond Match Maximization and Fairness: Retention-Optimized Two-Sided Matching, by Ren Kishimoto and 6 other authors",
+        "cited_table": {
+          "num_columns": 2,
+          "rows": [
+            [
+              "Comments:",
+              "Published as a conference paper at ICLR 2026"
+            ],
+            [
+              "Subjects:",
+              "Machine Learning (cs.LG)"
+            ],
+            [
+              "Cite as:",
+              "arXiv:2602.15752"
+            ],
+            [
+              "",
+              "(or"
+            ],
+            [
+              "",
+              "https://doi.org/10.48550/arXiv.2602.15752"
+            ]
+          ]
+        }
+      },
+      {
+        "source_id": "ac33368a-b91f-4d5d-bb04-416786e45ee0",
+        "citation_number": 3,
+        "cited_text": "In this work, instead of maximizing matches or axiomatically defining fairness, we formally define the new problem setting of maximizing user retention in two-sided matching platforms. To this end, we introduce a dynamic learning-to-rank (LTR) algorithm called Matching for Retention (MRet). Unlike conventional algorithms for two-sided matching, our approach models user retention by learning personalized retention curves from each user's profile and interaction history. Based on these curves, MRet dynamically adapts recommendations by jointly considering the retention gains of both the user receiving recommendations and those who are being recommended, so that limited matching opportunities can be allocated where they most improve overall retention. Naturally but importantly, empirical evaluations on synthetic and real-world datasets from a major online dating platform show that MRet achieves higher user retention, since conventional methods optimize matches or fairness rather than retention."
+      },
+      {
+        "source_id": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+        "citation_number": 4,
+        "cited_text": "U.S.-based dating app, confirms that DH-int consistently outperforms other benchmarks such as Greedy, Perfect Matching and DH, and approaches the theoretical upper bound across multiple platform designs and variants of the history effect. The superior performance of DH-int is driven primarily by its careful balancing of initial and follow-up interactions, which accounts for the two-sided nature of the market. Keywords: Dating, Platform Design, Matching Markets, Submodular Optimization. ∗School of Management, University of Texas at Dallas. Email: ignacio.riosuribe@utdallas.edu. †Daniel J. Epstein Department of Industrial and Systems Engineering, University of Southern California. Email:"
+      },
+      {
+        "source_id": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+        "citation_number": 5,
+        "cited_text": "The Dating Heuristic: A Provably Strong Matching Algorithm for Dating Platforms Ignacio Rios∗ Alfredo Torrico† Abstract Motivated by online dating platforms, we study the problem of selecting which subset of profiles to display to each user in each period. Users observe the profiles set by the platform, decide which of them to like, and a match occurs if and only if two users mutually like each other, potentially across different periods. The platform aims to maximize the expected number of matches produced over the entire time horizon, and users’ behavior—captured by their like"
+      },
+      {
+        "source_id": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+        "citation_number": 6,
+        "cited_text": "probabilities—may depend on their history. We develop a general theoretical model that captures the dynamic, two-sided nature of the problem and the influence of users’ past experiences on their future behavior. We focus on one-lookahead policies and propose the Integral Dating Heuristic (DH-int), providing formal performance guarantees: DH-int achieves a uniform 1−1/e guarantee across all platform designs under reasonable assumptions. Our empirical analysis, using proprietary data from a major"
+      },
+      {
+        "source_id": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+        "citation_number": 7,
+        "cited_text": "matches. A match occurs only when both users like each other, potentially across different periods, and users’ past experiences can influence their future behavior. To capture this, we model like probabilities as a function of users’ histories, which include the profiles they have liked or disliked, the matches they have obtained, and any pending likes in their backlogs. The platform observes the state of the system—fully characterized by users’ histories and their sets of potentials, i.e., the"
+      },
+      {
+        "source_id": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+        "citation_number": 8,
+        "cited_text": "provide the signal of being part of the backlog, (although some do not belong to it); and for disengage, we assume γ = 0. 23 - Linear: γ(σ) = γ|M |. - Disengagement: γ(σ) = γt - Signaling: γ(σ) = −γ 1{ℓ′ ∈ Bt ℓ} - Threshold: γ(σ) = −∞ |M | > γ, γ ∈ Z+ 0 otherwise The first approach assumes no history effect on users’ decisions. The second and third approaches, in contrast, allow the number of matches in the recent past to influence liking behavior. The second approach decreases indirect utilities linearly based on past matches (as in Rios et al. (2023)),"
+      },
+      {
+        "source_id": "2c123934-0fa8-42e1-b0f1-6af4fc0ead28",
+        "citation_number": 9,
+        "cited_text": "whereas the third assumes that users automatically dislike all profiles once they exceed a certain threshold of matches, capturing potential time constraints in app usage. The fourth approach models potential disengagement as users spend more time on the app. Finally, the fifth approach accounts for the possibility that users are more likely to like a profile if they know it is already in their backlog, which could lead to an immediate match—a phenomenon analogous to the signaling effect observed in other speed dating settings (Lee and Niederle, 2014). For implementation, we"
+      },
+      {
+        "source_id": "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+        "citation_number": 10,
+        "cited_text": "Formally, we define some notations: • The user activity state a u ∈ { 0 , 1 } a_{u}\\in{0,1} : a u = 1 a_{u}=1 means the user will visit the platform within an acceptable period, and vice versa. • The user matching set 𝒟 u \\mathcal{D} {u} : the set of items which have been matched to the user u u . Formally we have: (11) 𝒟 u = { i : u ∈ 𝒰 i } \\mathcal{D} {u}=\\left{i:u\\in\\mathcal{U}_{i}\\right} Then, the available user set 𝒰 ~ \\widetilde{\\mathcal{U}} can be defined as: (12) 𝒰 ~ = { u ∈ 𝒰 : a u = 1 , | 𝒟 u | < Q } \\widetilde{\\mathcal{U}}=\\left{u\\in\\mathcal{U}:a_{u}=1,\\left|\\mathcal{D}_{u}\\right|<Q\\right}"
+      },
+      {
+        "source_id": "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+        "citation_number": 11,
+        "cited_text": "For the creator-side metrics, the core metric is the total Daily Active Creator (DAC), i.e. the number of creators who upload at least one item in one day. However, The increase in DAC is difficult to observe in a single experiment because it usually takes a considerable amount of time for the creators' activity levels to rise gradually. Therefore, we also consider a more sensitive metric positively related to the DAC, i.e. the number of the creators' new items reaching E E exposures, denoted by ExpoReach- E E , where E E is set to different values, namely 1K/5K/10K, where the “K” means “kilo”. Note that DualRec only dispatches 200 users to each item, which is much smaller than E E ; therefore, an increase of ExpoReach- E E means that the user-side recommender system also discovers these items better than the baselines because of the initial exposure provided by DualRec. In other words, ExpoReach can measure the exploration effect. An improvement in the ExpoReach metric means that the creators' new items receive more exposure and feedback, which improves the creator's satisfaction. We measure the improvement of ExpoReach in each single experiment and measure the improvement of DAC in a long-term integrated experiment."
+      },
+      {
+        "source_id": "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+        "citation_number": 12,
+        "cited_text": "5.2. Performance of DualRec (Q2) Table 2. Performance of DualRec on ExpoReach. | Method | ExpoReach | ExpoReach | | ^^ | -1K | -10K | | --- | --- | --- | | DualRec-v1 v.s. Base | +11.7% | +8.4% | | DualRec-v2 v.s. DualRec-v1 | +4.9% | +5.4% | | DualRec-v3 v.s. DualRec-v2 | +3.2% | +4.8% | | DualRec-v4 v.s. DualRec-v3 | +0.59% | +0.78% | | DualRec-v5 v.s. DualRec-v4 | +3.7% | +3.5% | We conduct each experiment for 7 days. Table 2 displays the performance gain of each experiment compared to the previous baseline, with a confidence level greater than 0.95, indicating an improvement in each version. Additionally, we carry out a 21-day experiment to demonstrate the performance gain of the final DualRec algorithm over the baseline, as measured by DAC, as shown in Figure 7 . The DAC gradually improves, reaching a 2.9% increase by the end of the experimental period. It is shown that every 1% increase in ExpoReach corresponds to a 0.13% increase in DAC, indicating that ExpoReach serves as a good proxy metric."
+      },
+      {
+        "source_id": "e2743fe8-7433-4eac-87f4-6f54d2c8e1b9",
+        "citation_number": 13,
+        "cited_text": "4.2. Detailed Implementation 4.2.1. User Activity Prediction We train an XGBoost model ( Chen and Guestrin 2016 ) to estimate each user's daily activity according to the user's previous activity. The input features include the user's previous activity in the last 30 days, the day of the week, the user's accumulated interaction with the platform, and the output score is the probability that the user will visit the platform on the next day. We run the user activity prediction module daily, which traverses all the users u ∈ 𝒰 u\\in\\mathcal{U} , and predicts the users' activity a u a_{u} in the next day."
+      },
+      {
+        "source_id": "dc9b9201-8782-4615-8aaa-61a69421d536",
+        "citation_number": 14,
+        "cited_text": "Integrating Predictive Models into Two-Sided Recommendations: A Matching-Theoretic Approach∗ Kazuki Sekiya† Suguru Otani‡ Yuki Komatsu§ Sachio Ohkawa¶ Shunya Noda‖ February 24, 2026 Abstract Two-sided platforms must recommend users to users, where matches (termed dates in this paper) require mutual interest and activity on both sides. Naive ranking by predicted dating probabilities concentrates exposure on a small subset of highly responsive users, generating congestion and overstating efficiency. We model"
+      },
+      {
+        "source_id": "dc9b9201-8782-4615-8aaa-61a69421d536",
+        "citation_number": 15,
+        "cited_text": "in µj and captures the reduction in match quality due to receiver-side congestion. We then evaluate a recommendation matrix M by the average effective dates per proposer, 1 I ∑ i∈[I] ∑ j∈[J ] δ∗ijMij. Dating Probability CoupLink regards the dating probability, i.e., the probability that a user has a date, as one of the most important performance indicators because whether a user has the opportunity to experience at least one date has a significant impact on user satisfaction and retention. Formally, dating probability per proposer and receiver are defined as follows."
+      },
+      {
+        "source_id": "e0ef0297-acaa-4d43-80e5-1f8fdb9da14e",
+        "citation_number": 16,
+        "cited_text": "1. Introduction Two-sided platforms, where some individuals view content or information provided by other individuals, are ubiquitous in real-world decisions, e.g., video streaming, job matching, and online ads (Boutilier et al., 2023). In such applications, viewers and providers may co-evolve and mutually influence each other: providers increase their content production if they receive more attention from viewers (i.e., exposure), and the platform gains more viewers if viewers receive highquality and favored content (i.e., satisfaction). These effects are mediated by the platform’s recommendation algorithm."
+      },
+      {
+        "source_id": "e0ef0297-acaa-4d43-80e5-1f8fdb9da14e",
+        "citation_number": 17,
+        "cited_text": "Together with the synthetic experiment results, we observe that the proposed look-ahead policy adaptively behaves (near-)optimally in terms of total welfare, while also guaranteeing a high provider population through provider-fair exposure allocation. This minimizes the effort to tune the hyperparam β as the look-ahead policy (β = 1.0) works reasonably well in practical situations. 8. Related work Population shifts. The most relevant existing works to ours are Mladenov et al. (2020) and Huttenlocher et al. (2023), which consider the population dynamics by modeling the departure of viewers and providers. Specifically, Mladenov et al. (2020) assume that a provider will leave the platform if the provider cannot receive adequate exposure (i.e., exposure is below some given threshold). Then, Mladenov et al. (2020) solve the constrained optimization problem as a linear integer program and demonstrate that provider fairness is crucial to maintain a high viewer welfare. To extend, Huttenlocher et al. (2023) additionally consider the departure of viewers who receive less utility than given thresholds. Huttenlocher et al. (2023) also formulate a matching problem to determine which viewers and providers to keep in the platform to achieve high long-term social welfare. However, both works ignore the possible growth of the platform, and how a policy design affects the “growing-the-pie” behavior has remained underexplored (also, these existing works are not directly applicable to our problem setting). Our work complements these works by finding that provider fairness is important to ensure high “population effects” in a generalized setting."
+      },
+      {
+        "source_id": "e0ef0297-acaa-4d43-80e5-1f8fdb9da14e",
+        "citation_number": 18,
+        "cited_text": "Viewer: λt+1,k = (1− ηk)λt,k + ηkλ̄k(st,k), (4) Content: λt+1,l = (1− ηl)λt,l + ηlλ̄l(et,l), (5) where η ∈ [0, 1] are the reactiveness hyperparams, determining how fast the population changes. Note that similar models are widely adopted in performative predictions (Per-domo et al., 2020; Brown et al., 2022). We thus have that the viewer satisfaction sk depends on the provider population via “population effects” fk,l, while the provider exposure directly depends on the viewer population. The two-sided platform has complex dynamics between viewers and providers. Our goal will be to consider long-term objectives under such co-evolving and two-sided dynamics."
+      },
+      {
+        "source_id": "dc9b9201-8782-4615-8aaa-61a69421d536",
+        "citation_number": 19,
+        "cited_text": "can be improved by adopting integrators that mitigate receiver-side congestion, such as deferred acceptance (DA) with an appropriate parameter setting, we show that further improvements are achieved by a new method we term exposure-constrained deferred ac- ceptance (ECDA), in which receiver capacity is defined based on the expected number of likes or dates. ECDA is computationally fast and is practical for large-scale dating platforms such as CoupLink. Fourth, we implement on CoupLink the ECDA with the"
+      }
+    ]
+  }
+}

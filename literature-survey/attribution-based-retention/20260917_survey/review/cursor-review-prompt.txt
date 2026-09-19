@@ -1,0 +1,32 @@
+You are an independent reviewer of a literature-survey report. This is a DESIGN + FACT review over files on disk. Do not modify any file. Do not explore the repository. Read ONLY the files listed below, ONE FILE PER TOOL CALL, in this order, and read each in full:
+
+1. literature-survey/attribution-based-retention/20260917_survey/executive-summary.md  (the report under review — answers and recommendation)
+2. literature-survey/attribution-based-retention/20260917_survey/literature-review.md  (the report under review — full review)
+13. literature-survey/attribution-based-retention/20260917_survey/method-tracker.md  (the report under review — method ranking)
+14. literature-survey/attribution-based-retention/20260917_survey/README.md  (questions and project context)
+3. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-1.md
+4. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-2.md
+5. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-3.md
+6. literature-survey/attribution-based-retention/20260917_survey/review/context/relevance-index-4.md
+7. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-1.md
+8. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-2.md
+9. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-3.md
+10. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-4.md
+11. literature-survey/attribution-based-retention/20260917_survey/review/context/cards-summaries-5.md
+12. literature-survey/attribution-based-retention/20260917_survey/discovery/D3.md
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file above, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not review a file you could not read; do not infer its contents from the filename.
+
+CONTEXT. A dating platform attributes next-7-day retention (N7) to a user's most recent swipes with last-touch attribution and trains a ranking model on those labels. The report answers Q1 (latest industry attribution approach, 2025–2026) and Q2 (has anyone published attribution of retention / engagement / days-active to individual in-app interactions?) and recommends a replacement for last-touch. The cards (relevance-index and cards-summaries files) are the ground truth extracted from the papers; the report must not claim more than the cards support.
+
+REVIEW TASKS. Report findings under these headings, most severe first, each with the report section and the card that contradicts or fails to support it:
+A. FACT CHECK — every number, company affiliation, venue, and deployment claim in the report that is not supported by, or conflicts with, a card. Quote the card line.
+B. OVERCLAIMS — places where the report states "deployed", "direct", "significant", or "industry" when the card says offline-only, simulation, not significant, or academic.
+C. ANSWER QUALITY — does the Q1 answer name the shared design pattern correctly? Does the Q2 answer correctly separate "direct per-interaction retention credit" from "retention-aware ranking objectives"? Does it state the negative evidence (no dating-company publication) with the right scope?
+D. RECOMMENDATION — is the phased plan buildable from the cited sources? Is the per-swipe credit formula for each phase well-defined (inputs, estimator, output range)? Does it handle selection bias with a device that a cited paper actually used? Is the validation anchor realistic without an existing randomized holdout? Name any missing risk. State whether you would ship v1 as written, and if not, what to change.
+E. IS THE MEASUREMENT RIGGED — the report proposes an evaluation protocol; say whether any proposed offline metric can be gamed by the label design itself, and which fixture (holdout, negative control, placebo touch) is missing.
+F. OMISSIONS — cards in the index that the report ignores but should cite, and why.
+
+G. CONSISTENCY ACROSS THE THREE FILES — does the executive summary's "Most Fundamental Methods" match the method-tracker ranking; does every paper in the executive summary appear in the literature review with a card link; are transfer ratings consistent between the review and the cards?
+
+End with: VERDICT: PASS / PASS WITH FIXES / FAIL, a numbered list of required fixes (≤12, each one sentence, naming the file and section), and one line `FILES READ: <n> of 14`. Under 1600 words after the proof-of-reading section.

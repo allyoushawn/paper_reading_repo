@@ -1,0 +1,27 @@
+# Not All Matches Are Equally Valuable: An Online Experiment of Retention-Focused Recommendation in a Job-Matching Platform
+
+**Source:** https://arxiv.org/pdf/2609.01652.pdf | **NLM source id:** 5779d9c7-d97d-4158-a00a-ef4c64268482 | **Year / venue:** 2026, RecSys in HR workshop (arXiv 2609.01652) | **Affiliation:** Wantedly, Inc. (Tokyo) and Hanjuku-kaso Co., Ltd. | **Analyzed:** 2026-09-17 (NotebookLM, 2 queries)
+
+## 1. Summary
+Studies a reciprocal job-matching platform (Wantedly Visit) where recruiters view ranked candidates. The production baseline ranks candidates by predicted match probability p_match = p_scout · p_reply, maximizing total matches. The authors find empirically that users with very few recent matches face much higher churn risk, while additional matches for already-successful users yield diminishing retention value (non-linear relationship, with a churn-risk threshold τ). They reformulate the objective as minimizing the count of users below τ rather than maximizing aggregate matches, and implement a lightweight post-processing reranker: candidate users with fewer than 3 recent scouts get a score boost s'(u,c) = clip(s(u,c) + β/(γ·n(u)), −1, 1), decayed by how often the user already appears in top positions (n(u)), applied only when baseline score exceeds a safety cutoff. **Unit of credit:** none — this is not an attribution method; it is a heuristic reranking boost per (user, company) candidate pair. **Outcome:** binary user churn (active at least once in a 28-day pre-period vs. not active during the 4-week test period). **Bias handling:** not causal attribution — treatment effect estimated via randomized online A/B test with a covariate-adjusted logistic regression (14 pre-treatment covariates) to improve precision and address cross-arm contamination, not to attribute credit to individual actions.
+
+## 2. Evidence
+Online A/B experiment on Wantedly Visit, Nov 10–Dec 8, 2025, randomized at recruiter level (~3,000 recruiters/group; ~20.9k control-exposed vs ~20.4k treatment-exposed users; robustness subsample of mutually-exclusive users ~6.6k vs ~6.0k). Baseline: production match-maximization ranking. Results: primary churn odds ratio 0.957 (p=0.128, overlap-allowed sample) and 0.948 (p=0.223, mutually-exclusive sample) — directionally lower churn but not statistically significant at p<0.05. Subgroup ORs by prior scouts: 0.956 (0 scouts), 0.948 (1–2 scouts), 1.015 (3+ scouts) — consistent with intended targeting but underpowered. Total match volume +5.4% (not significant). Company-side churn guardrail showed no deterioration (+0.006 actual churn diff, p=0.77; −0.007 model-based churn score diff, p=0.34).
+
+## 3. Limitations
+Primary churn result not statistically significant (p=0.128); single platform, 4-week window; recruiter-level randomization caused user-level cross-arm exposure contamination; subgroup analyses exploratory/underpowered; no verification of causal mediation path (whether boosted exposure caused scouts/matches/logins); churn-risk threshold and boost parameters (β, γ, cutoff of 3 scouts) chosen heuristically from offline analysis, not a formal breakpoint test or joint optimization; no head-to-head comparison against other congestion-aware or fairness-aware allocation methods (e.g. FairRec, FEIR); fairness/transparency trade-offs of reallocating exposure away from high-match users not evaluated.
+
+## 4. Prior works named
+- Kishimoto et al. (2026) — *Beyond match maximization and fairness: Retention-optimized two-sided matching* (ICLR 2026) — non-linear marginal retention value of matches, on an online dating platform
+- Wu et al. (2017) — *Returning is believing: Optimizing long-term user engagement in recommender systems* (CIKM 2017)
+- Wang et al. (2022) — *Surrogate for long-term user experience in recommender systems* (KDD 2022)
+- Patro et al. (2020) — *FairRec: Two-sided fairness for personalized recommendations in two-sided platforms* (WWW 2020)
+- Pizzato et al. (2010) — *Reciprocal recommender system for online dating* (RecSys 2010)
+
+## 5. Project Relevance
+- **Answers:** Q2 (partly — see below); not Q1 (not an industry-attribution-approach survey piece)
+- **Attributes retention to individual interactions?** no — it reranks exposure toward churn-risk candidates via a heuristic boost; it does not attribute retention outcomes to specific past swipes/matches or produce fractional credit labels.
+- **Transferable components:** the empirical non-linear retention-value curve (diminishing marginal value of matches beyond a threshold) as a shape prior for a reward/credit function; the exposure-decay term n(u) as a pattern for avoiding over-crediting/over-exposing already-satisfied users; the covariate-adjusted online A/B evaluation design for validating any resulting policy.
+- **Required changes:** replace heuristic score-boosting with true sequence/credit attribution (e.g., sequence models or Shapley-style credit) over heterogeneous touch types (swipe, match, message); move from a static 4-week binary churn flag to a recurring daily N7 metric with time-aware modeling; adapt from one-sided candidate exposure credit to two-sided per-swipe credit for the initiating user.
+- **On last-touch:** not discussed at all — the paper's baseline comparison is match-maximization ranking, not last-touch attribution.
+- **Transfer rating:** adaptable — no attribution method to reuse, but the non-linear retention-value finding and exposure-decay mechanic are directly reusable design inputs for a per-swipe credit model.

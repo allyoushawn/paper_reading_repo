@@ -1,4 +1,4 @@
-Date: 2026-04-11 (revised Run 2: 2026-04-12)
+Date: 2026-04-11 (revised Run 2: 2026-04-12; Run 3 follow-up added 2026-09-17 — see § Run 3)
 Topic: Multi-touch attribution and incrementality estimation for user retention
 
 # Attribution-Based Retention - Survey Requirements
@@ -172,6 +172,48 @@ B11. `site:stripe.com/blog/engineering attribution`
 - Industry papers from dating/social/engagement platforms are especially relevant even if not top-venue
 
 **Alignment note (Run 2):** Large parts of the classical **CATE / uplift** literature are demoted to **background** because their default outputs are **not** per-touchpoint credit scores. They remain in the notebook for context and for papers that explicitly connect to MTA or calibration.
+
+## Run 3 (2026-09-17) — Follow-up questions
+
+Two independent runs answer the same questions. Claude-owned outputs: `./20260917_survey/`. **Grok-owned outputs (this run's owner for the Cursor Grok survey): `./20260917_survey_grok/`.** Do not merge the two folders. Project Context for the Grok run is in `./20260917_survey_grok/README.md`.
+
+### Run 3 Grok extras (authoritative for `./20260917_survey_grok/`)
+
+- NotebookLM: reuse the existing parent notebook `6a3b8a8e-6f2f-4efe-99eb-283983fc95d9` for queries, deep research, and new sources. Do not create a second topic notebook.
+- Also query related notebooks `unified-ltv-ranking-dating` and `two-sided-market-balancing-dating` for Q2-adjacent retention work (RLUR, GFN4Retention, AURO, SEC, OCARM, MRet). These are retention-optimization papers; the Grok survey must say whether they produce per-interaction credit.
+- Recommendation must beat last-touch N7 → latest swipes, with an explicit mapping to swipe / match / conversation touchpoints.
+
+Outputs for the Claude-owned parallel run still go to `./20260917_survey/`. Project Context for that run is in `./20260917_survey/README.md`.
+
+### Questions
+
+- **Q1.** What is the latest attribution-based approach in the industry? Scope: industry-authored or production attribution work dated 2025-01 to 2026-09, plus the newest output from the teams and authors behind the classic papers in `read-papers/`.
+- **Q2.** Has anyone in industry published attribution-based retention — attributing user retention, engagement, or days-active to individual in-app interactions? No date limit. Academic work counts when it uses a production dataset or reports a deployment.
+- **Deliverable.** A recommendation that replaces the current production approach: last-touch attribution of the N7 retention label to the user's most recent swipes.
+
+### Search strategy
+
+1. **Author and team following (mandatory).** For every row of the follow list in `./20260917_survey/README.md`, search OpenAlex, arXiv, and the web for 2025–2026 output. Log every check, including "nothing new found".
+2. **Topic queries (2025–2026).** multi-touch attribution; data-driven attribution; causal attribution; conversion attribution; incrementality measurement; attribution calibration; attention-based attribution; Shapley attribution advertising; privacy-preserving attribution.
+3. **Q2 topic queries (no date limit).** retention attribution; engagement attribution; credit assignment for long-term user retention; reinforcement learning for user retention; incremental value of a recommendation or notification on retention; dating app match or like effect on retention; days-active causal effect of in-app action; survival attribution of app events.
+4. **Engineering blogs and industry venues, 2025–2026.** The B1–B11 list above plus Amazon Science, Alibaba/Alimama, Snap, Spotify Research, Pinterest, Uber, Airbnb, DoorDash, Lyft, Booking, Match Group / Tinder / Hinge / Bumble tech blogs, Kuaishou, Tencent, ByteDance; venues KDD, WWW, CIKM, RecSys, WSDM, SIGIR, ADKDD 2025–2026.
+5. **NotebookLM deep research** on the notebook `6a3b8a8e-6f2f-4efe-99eb-283983fc95d9` with one Q1 query and one Q2 query.
+
+### Scope and constraints
+
+- Target: 40–70 new items processed into `./20260917_survey/read-papers/`. Do not re-process papers already in `read-papers/` of the parent survey.
+- Priority order: (a) Q2 hits from any platform; (b) 2025–2026 industry attribution systems; (c) 2025–2026 output from the follow list; (d) 2025–2026 academic MTA.
+- Exclude: pure CTR/CVR prediction with no attribution or causal component; MMM-only work unless it introduces user-level credit; LLM text attribution.
+- Per-paper extraction runs through NotebookLM (`notebook_query` scoped by `source_ids`), three queries per paper, as in `literature-survey-nlm`.
+- Synthesis: NotebookLM cross-source queries, Codex draft, Cursor independent review. Raw reviewer outputs are kept in `./20260917_survey/review/`.
+
+### Run 3 result summary (2026-09-17)
+
+- **Processed:** 50 items into `./20260917_survey/read-papers/` (49 substantive cards, 1 stub) — 21 from 2026, 11 from 2025; discovery via author/topic harvest (OpenAlex + arXiv, 817 matches → 99 shortlist → 30 triage → 16 queued), two web-search agents (D3, D4), and four NotebookLM deep-research runs. NotebookLM notebook grew from 72 to ~120 sources (shared with a parallel Cursor Grok run in `../20260917_survey_grok/`).
+- **Q1 answer:** the 2025–26 industry pattern is "observational attribution scores are not the objective; decisions are trained or calibrated on incremental outcomes with an experiment or identification anchor" — Amazon Ads MTA and LinkedIn LiDDA (2025) as anchors; TikTok ETDC+HCA (ADKDD 2026), LinkedIn causal targeting (2026, +7.20% LTV), Kuaishou ALM-MTA (ICLR 2026, front-door per-touch deletion credit at 400M DAU), Alibaba CanniUplift (KDD 2026), Snap HTE (2025). Last-touch survives only as a label to be corrected or as an auxiliary view.
+- **Q2 answer:** yes, in part. Direct per-interaction retention credit with production evidence: WeChat/Tencent IURO (RecSys 2023), Kuaishou GFN4Retention (KDD 2024), Instagram notification uplift (Meta 2022). Partial: Pinterest Downstream Rewards (RecSys 2026), Meta Retentive Relevance (2025), Spotify Impatient Bandits (KDD 2023). Reciprocal-market retention ranking (not attribution): MRet (ICLR 2026, dating data), Wantedly (RecSys in HR 2026, online, not significant). No named dating, gaming, or Snap/LinkedIn/TikTok company publication found.
+- **Recommendation:** three phases replacing last-touch — v1 predictive deletion residual with prevalence normalization, conservation, and an exposure holdout; v2 experiment-calibrated causal sequence attribution (propensity heads, survival hazard); v3 front-door / flow credit. Confirms the 2026-06-13 plan's direction; revises v1 identification claims and adds a holdout as a precondition. Details in `./20260917_survey/executive-summary.md`.
+- **Outputs:** `./20260917_survey/{method-tracker.md, literature-review.md, executive-summary.md}` (Codex-drafted via `literature-survey-nlm` Phase 3.5 / 4-B / 5, Cursor-reviewed PASS WITH FIXES, lead-finalized), `queue.md`, `log.md`, `discovery/`, `review/`.
 
 ## Summary of Actual Search Results
 

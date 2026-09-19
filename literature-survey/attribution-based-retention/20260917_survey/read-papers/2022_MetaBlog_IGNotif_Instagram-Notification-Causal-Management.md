@@ -1,0 +1,27 @@
+# Improving Instagram notification management with machine learning and causal inference
+
+**Source:** https://engineering.fb.com/2022/10/31/ml-applications/instagram-notification-management-machine-learning/ | **NLM source id:** e535b463-dc13-4f2f-af1b-a4654264ce7d | **Year / venue:** 2022, Meta engineering blog | **Affiliation:** Meta, Instagram Notifications Systems Team (author: Nailong Zhang) | **Analyzed:** 2026-09-17 (NotebookLM, 2 queries)
+
+## 1. Summary
+Standard CTR models decide whether to send a daily-digest push notification based on predicted click probability, but this over-sends to already-highly-active users who would view the content organically anyway (selection bias) — wasting compute and risking spam fatigue. Contribution: replace CTR-based filtering with a **causal uplift model** and budget-allocation framework that predicts the *incremental* value of sending vs. not sending a notification. **Unit of credit:** per notification instance (a binary send/drop decision per candidate notification), not a swipe/action sequence. **Outcome attributed/optimized:** user activeness/incremental engagement, defined precisely as u_i = Pr_i(active | do(send)) − Pr_i(active | do(drop)) — an explicit causal (do-calculus) uplift, not a correlational click probability. **Bias/confounding handling:** the core method IS the bias fix — a 50/50 randomized send/drop experiment generates unconfounded counterfactual training data for a neural-network uplift model, directly addressing the selection-bias problem (active users click/engage more regardless of treatment) named in the project brief. An online order-preserving quantile transformation normalizes non-stationary uplift scores to U(0,1) so a fixed sending rate can be maintained despite score drift over time.
+
+## 2. Evidence
+Deployed in Instagram production notification pipeline. No public dataset details or numeric lift figures are given beyond qualitative claims: substantially reduced notification sending volume compared to the CTR baseline, with no observed decline in overall user engagement/activeness; framed as improving both user experience and reducing infrastructure/compute cost. Baseline compared against: traditional CTR-based filtering (drop notification if predicted click probability below threshold).
+
+## 3. Limitations
+Fundamental counterfactual unobservability — for any single notification instance, both send and drop outcomes can never be observed simultaneously, which is why randomized exploration (50/50 split) is required rather than pure observational estimation. Raw ML uplift scores drift/shift over time, causing sending-rate instability unless corrected via the online quantile transformation. Risk that if the wrong user cohorts are targeted for reduction, engagement could actually decline (i.e., mis-targeting the uplift model has a real downside, not just an efficiency loss).
+
+## 4. Prior works named
+- Gutierrez & Gérardy (2017) — *Causal Inference and Uplift Modelling: A Review of the Literature*
+- Athey & Wager (2018) — *Estimating treatment effects with causal forests* (PNAS)
+- Standard industrial CTR modeling literature (as the baseline paradigm being replaced)
+- Randomized controlled trial / A/B testing methodology (as the experimental protocol underpinning the uplift model's training data)
+- Online quantile computation / streaming rank transformation techniques (for score calibration)
+
+## 5. Project Relevance
+- **Answers:** Q2 direct (as an attribution-adjacent, causal-uplift precedent) and Q1-adjacent (an industry causal/uplift approach, though notification-specific rather than a general attribution framework).
+- **Attributes retention to individual interactions?** no — it attributes an activeness outcome to a single binary notification decision (send vs. drop), not to a sequence of heterogeneous in-app interactions; there is no fractional credit-splitting across multiple past actions.
+- **Transferable components:** the core causal-uplift reframing — replace "probability of action" (swipe-analogous to CTR) with "incremental probability of N7 retention caused by showing this candidate" — is directly the mental model the project needs; the 50/50 randomized holdout for generating unconfounded training labels is a direct, actionable recipe for addressing the stated selection-bias weakness; the online quantile-calibration trick is a reusable serving-time technique for stabilizing a score-based decision threshold.
+- **Required changes:** extend from a single independent binary decision (send/drop one notification) to fractional credit assignment across a multi-touch, multi-day sequence of heterogeneous events (swipe → match → message); the uplift here is a single-shot instantaneous treatment effect, whereas the dating platform needs credit distributed across many earlier touches contributing to one later N7 outcome.
+- **On last-touch:** not discussed by name, but the paper's critique of CTR models directly parallels the project's critique of last-touch: both over-credit actions taken by users who were already going to be active/engage regardless of the specific action, i.e., both fail to net out the "would have happened anyway" counterfactual.
+- **Transfer rating:** adaptable — the causal-uplift framing and randomized-holdout debiasing recipe are directly reusable design principles, but the method itself operates on a single independent binary decision, not a multi-touch fractional-credit sequence.
