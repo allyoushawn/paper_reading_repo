@@ -35,3 +35,12 @@
 - Phase 4-A: four scoped synthesis queries (mechanisms retried after timeout). Related notebooks queried; GFN/MRet over-classified TRUE there, NOT on cards.
 - Phase 3.7 skipped (user: Codex 3.5-lite / 4-B / 5 only). No `survey.md`; three standard files instead.
 - Independent review applied: keep binary N7; ALM-MTA cited as arXiv 2026 (ICLR not on card); FID restored to PARTIAL per D3; section titles neutralized; dating-vertical negative added; Netflix holdback row unscored. Number-stripping of 100× / millions of users / 2% boost / three years / Deep Twin rejected — those claims are on the cards.
+
+## 2026-09-24 — RecSys 2026 addendum
+
+- Official RecSys 2026 program was not in original discovery. Ingested 11 PDFs + cascade GitHub PDF + Amazon Science landing-page text (GPBM, TSMOO) into shared notebook `6a3b8a8e…`.
+- Cards G28–G40 written from scoped NLM queries; G41 Zhang/Gao Causal Transformer MTA stub (`nlm:failed:paywall`). G23 Downstream Rewards not re-extracted (RecSys 2026 venue noted).
+- Q2: all new cards NOT. Recommendation unchanged except v3 adds spillover-contained cluster tests (Min et al. G34). Residual Dominance (G29) added to last-touch critique.
+- NLM source count after ingest: 163. Accidental notebook `ff0bf9af-…` still unused.
+- Did not delete Airbnb duplicate NLM sources.
+- Independent review of addendum: Codex `gpt-5.6-sol` `review/v2-recsys-addendum-codex-raw.txt` PASS WITH FIXES. Truncated review surface omitted STEPS/Spillover/Cascade numbers; those numbers were re-verified on G30/G34/G40 cards and a numbers ledger was appended to `review/recsys-addendum-surface.md`. Zhang/Gao not overclaimed. 2026-06-13 plan unchanged except v3 interference note.

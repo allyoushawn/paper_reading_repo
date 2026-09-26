@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "attribution-based-retention/queue.md",
+                "file": "attribution-based-retention/executive-summary.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "queue"
+              "title": "executive-summary"
             }
           }
         ]
@@ -83,7 +83,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "1a5507a4ca474c2f",
@@ -190,41 +191,41 @@
   },
   "active": "a39e3711df5feabd",
   "lastOpenFiles": [
-    "attribution-based-retention/20260917_survey_grok/review/v1-claude-review-raw.txt",
-    "attribution-based-retention/20260917_survey_grok/review/claude-review-prompt.txt",
+    "attribution-based-retention/20260917_survey_grok/review/v2-recsys-addendum-codex-raw.txt",
+    "attribution-based-retention/20260917_survey_grok/review/v2-recsys-addendum-codex-prompt.txt",
+    "attribution-based-retention/20260917_survey_grok/review/recsys-addendum-surface.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_CascadeReward_Preranking-Alignment-Accuracy.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_TSMOO_Multi-Objective-Constrained-Thompson-Sampling.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_GPBM_Generalized-Position-Based-Model.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_NA_Live-Streaming-Multi-Objective-Ranking.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_DeltaGate_Zero-Observation-User-Reactivation.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_NA_Convergent-Validity-Offline-Evaluation.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_ControlFunction_Mitigating-Position-Bias-LTR.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_MODE_Mutual-Optimality-Direct-Effects.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_UniShare_Joint-Video-Receiver-Recommendation.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_STEPS_Self-Triggered-Agentic-Push.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_ResidualDominance_Last-Item-Reliance-Causal-Attention.md",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G40_CascadeReward.json",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G33_ControlFunction.json",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G39_TSMOO.json",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G32_MODE.json",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G38_GPBM.json",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G37_LiveStreamMOR.json",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G31_UniShare.json",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G30_STEPS.json",
+    "attribution-based-retention/20260917_survey_grok/nlm-raw/G36_DeltaGate.json",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_NA_Spillover-Contained-Social-AB-Testing.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_PROMISE_Process-Reward-Generative-Recommendations.md",
+    "attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_CausalTransformer_Multi-Touch-Attribution.md",
+    "attribution-based-retention/queue.md",
     "attribution-based-retention/20260917_survey_grok/executive-summary.md",
     "attribution-based-retention/20260917_survey_grok/literature-review.md",
     "attribution-based-retention/20260917_survey_grok/method-tracker.md",
-    "attribution-based-retention/20260917_survey_grok/review/v1-codex-proof-of-reading.txt",
-    "attribution-based-retention/20260917_survey_grok/review/v1-codex-draft-raw.txt",
     "attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q4-bias-eval.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q4-bias-eval.json",
     "attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q3-last-touch-replacement.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q3-last-touch-replacement.json",
     "attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q2-industry-sota.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q2-industry-sota.json",
     "attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q1-mechanisms.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/nlm-synthesis-q1-mechanisms.json",
-    "attribution-based-retention/20260917_survey_grok/review/codex-draft-prompt.txt",
     "attribution-based-retention/20260917_survey_grok/review/context/nlm-phase4-queries.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/related-notebooks-q2.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/compact-summaries-2.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/compact-summaries-1.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/compact-relevance-2.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/compact-relevance-1.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/q2-class-index.md",
-    "attribution-based-retention/20260917_survey_grok/review/build_compact_surface.py",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-12.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-11.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-10.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-9.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-8.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-7.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-6.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-5.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-4.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-3.md",
-    "attribution-based-retention/20260917_survey_grok/review/context/cards-summaries-2.md",
-    "attribution-based-retention/20260917_survey_grok/nlm-raw/G9_AURO.json"
+    "attribution-based-retention/20260917_survey_grok/review/context/related-notebooks-q2.md"
   ]
 }

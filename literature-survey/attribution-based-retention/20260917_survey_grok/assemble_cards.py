@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Assemble compact read-papers cards from nlm-raw JSON dumps."""
-import json, os, re, glob
+import json, os, re, glob, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(HERE, "nlm-raw")
@@ -59,6 +59,35 @@ FILES = {
             "https://arxiv.org/html/2608.25635", "d18bf088-6fb0-4082-952c-2a13f61ffc2e"),
     "G25": ("2020_KDD_RDSA_Sleeping-Recovering-Bandit-Notifications.md",
             "https://research.duolingo.com/papers/yancey.kdd20.pdf", "3f40b05f-169b-4e36-b317-fdadf7a86bc1"),
+    "G28": ("2026_RecSys_PROMISE_Process-Reward-Generative-Recommendations.md",
+            "https://arxiv.org/pdf/2601.04674.pdf", "df98b8e9-3fd2-465d-8f1b-23d0c51a8048"),
+    "G29": ("2026_RecSys_ResidualDominance_Last-Item-Reliance-Causal-Attention.md",
+            "https://arxiv.org/pdf/2608.14021.pdf", "9dc30dae-7a13-4032-9339-5cf10dc1bc6a"),
+    "G30": ("2026_RecSys_STEPS_Self-Triggered-Agentic-Push.md",
+            "https://arxiv.org/pdf/2608.01949.pdf", "9419d0b9-b40e-4e9c-8b49-5f24c45408ec"),
+    "G31": ("2026_RecSys_UniShare_Joint-Video-Receiver-Recommendation.md",
+            "https://arxiv.org/pdf/2602.09618.pdf", "4824001b-1aa6-4c8e-9ff8-b77d45e029b4"),
+    "G32": ("2026_RecSys_MODE_Mutual-Optimality-Direct-Effects.md",
+            "https://arxiv.org/pdf/2608.01731.pdf", "204da68c-fb51-4df5-bd81-c2cb797e35a9"),
+    "G33": ("2026_RecSys_ControlFunction_Mitigating-Position-Bias-LTR.md",
+            "https://arxiv.org/pdf/2506.06989.pdf", "7915e99c-f464-494a-9ea5-dfb873b4d91f"),
+    "G34": ("2026_RecSys_NA_Spillover-Contained-Social-AB-Testing.md",
+            "https://arxiv.org/pdf/2602.08569.pdf", "65d84922-448a-4dd1-950f-148e5c690bc9"),
+    "G35": ("2026_RecSys_NA_Convergent-Validity-Offline-Evaluation.md",
+            "https://arxiv.org/pdf/2607.25097.pdf", "7fedeced-8eec-409c-adc9-cff816b1f314"),
+    "G36": ("2026_RecSys_DeltaGate_Zero-Observation-User-Reactivation.md",
+            "https://arxiv.org/pdf/2607.19802.pdf", "5e293de3-47dc-4334-97d6-e9bd99c3bfed"),
+    "G37": ("2026_RecSys_NA_Live-Streaming-Multi-Objective-Ranking.md",
+            "https://arxiv.org/pdf/2608.04455.pdf", "f678e8c0-439b-4d8b-892f-d9df02becb0a"),
+    "G38": ("2026_RecSys_GPBM_Generalized-Position-Based-Model.md",
+            "https://www.amazon.science/publications/generalized-position-based-model-rethinking-position-weights-in-ranking-off-policy-evaluation",
+            "9473661a-49fd-4ede-9ff0-ba2c686cf56f"),
+    "G39": ("2026_RecSys_TSMOO_Multi-Objective-Constrained-Thompson-Sampling.md",
+            "https://www.amazon.science/publications/tsmoo-solving-multi-objective-experimentation-with-constrained-thompson-sampling",
+            "8119ba67-ed0b-427c-9ffe-03ccc1da6d87"),
+    "G40": ("2026_RecSys_CascadeReward_Preranking-Alignment-Accuracy.md",
+            "https://raw.githubusercontent.com/pellera9/cascade-reward-preranking/main/main.pdf",
+            "62a7348a-4f29-4478-9fd8-8e8ae72cffc9"),
 }
 
 def parse_answer(stdout):
@@ -105,7 +134,7 @@ def assemble(gid, path):
     body = f"""# {title}
 
 **Source:** {url}  
-**Date analyzed:** 2026-09-18  
+**Date analyzed:** 2026-09-24  
 **NLM source id:** `{sid}`  
 **Queue id:** {gid}  
 **Q2 class:** {cls}
@@ -168,8 +197,18 @@ No significant community discussion searched at card-write time; extraction is N
 
 def main():
     n = 0
+    only = set(sys.argv[1:]) if len(sys.argv) > 1 else None
     for p in sorted(glob.glob(os.path.join(RAW, "G*_*.json"))):
         gid = os.path.basename(p).split("_")[0]
+        if only and gid not in only:
+            continue
+        if not only:
+            try:
+                n_id = int(gid[1:])
+            except ValueError:
+                n_id = 0
+            if n_id < 28:
+                continue
         out = assemble(gid, p)
         if out:
             print("wrote", out)

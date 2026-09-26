@@ -8,7 +8,7 @@ Do not re-process titles already in `../read-papers/`. Shared notebook: `6a3b8a8
 
 ## To Process
 
-(empty — G1–G15 processed; expansion G16–G25 processed; G26–G27 stub cards after NLM/jina/WebFetch failure)
+(empty — G1–G27 original; RecSys 2026 addendum G28–G40 extracted 2026-09-24; G41 paywall stub)
 # duplicate NLM sources of G15 (delete if approved): html 140fe6f7-31c0-4003-aed0-cb964b46adaa ; abs 5c876e0b-eb45-4009-a864-dc44357f7427
 
 ## Already in parent notebook — do not re-ingest
@@ -31,6 +31,10 @@ Do not re-process titles already in `../read-papers/`. Shared notebook: `6a3b8a8
 - Match Group / Tinder / Hinge / Bumble engineering | **no results** (D3+D4)
 - D2 author teams with nothing new: JD/Nair MTA, eBay DeepMTA, SJTU DARNN, ICT CausalMTA, DCRMTA, CAMTA, Athey/Wager/Nie marketing-attribution, Provost/Dalessandro/Perlich, listed names Yixuan An / Zihe Wang
 - Wrong arXiv ingest (not extracted): 2208.07022 text-to-image; 2003.07302 Dash hashing; 2002.05792 shrinkage — Surrogate ACM is `cb0d9351…`; Duolingo is `3f40b05f…`
+- TRACE / Targeted Ranking-Aware Counterfactual | RecSys 2026 | no public PDF
+- Uncertainty-Aware Reward Modeling (video case study) | RecSys 2026 | no public PDF
+- From M Passes to One | RecSys 2026 | no public PDF
+- MoR / Value-Aligned Model Cascades and other RecSys 2026 no-PDF remainder | skipped this addendum
 
 ## Done
 
@@ -56,11 +60,25 @@ G19 | 2024 | Learned Ranking Function (LRF) — YouTube | RecSys / Google | http
 G20 | 2022 | Long-run User Value Optimization | arXiv / Meta | https://arxiv.org/pdf/2204.11421.pdf | Q2 | 4 | nlm:d017d9e2-9833-4411-b351-5d5a4fe920cc | done | `read-papers/2022_arXiv_NA_Long-run-User-Value-Optimization-Meta.md`
 G21 | 2022 | Surrogate for Long-Term User Experience | KDD / Google | https://dl.acm.org/doi/pdf/10.1145/3534678.3539073 | Q2 | 4 | nlm:cb0d9351-5064-4c9b-b669-e5f25fe0203f | done | `read-papers/2022_KDD_NA_Surrogate-Long-Term-User-Experience.md`
 G22 | 2024 | Sequential Recommendation: Immediate Feedback and Long-term Retention | arXiv | https://arxiv.org/html/2404.03637 | Q2 | 4 | nlm:305cd94b-33e0-46f8-961a-2228a9d46046 | done | `read-papers/2024_arXiv_NA_Sequential-Rec-Immediate-Feedback-Long-term-Retention.md`
-G23 | 2026 | Model-agnostic Downstream Rewards for Long-Term Engagement | arXiv | https://arxiv.org/html/2607.14192 | Q2 | 4 | nlm:1a74145c-f8bc-438b-a5ea-965b29abab16 | done | `read-papers/2026_arXiv_DownstreamRewards_Long-Term-Engagement-Optimization.md`
+G23 | 2026 | Model-agnostic Downstream Rewards for Long-Term Engagement | arXiv / RecSys 2026 (same paper; not re-extracted) | https://arxiv.org/html/2607.14192 | Q2 | 4 | nlm:1a74145c-f8bc-438b-a5ea-965b29abab16 | done | `read-papers/2026_arXiv_DownstreamRewards_Long-Term-Engagement-Optimization.md`
 G24 | 2026 | Direct Causal Effect Optimization (DCEO) | arXiv | https://arxiv.org/html/2608.25635 | Q2 | 3 | nlm:d18bf088-6fb0-4082-952c-2a13f61ffc2e | done | `read-papers/2026_arXiv_DCEO_Direct-Causal-Effect-Optimization.md`
 G25 | 2020 | Sleeping / Recovering Bandits for Notifications (RDSA) | KDD / Duolingo | https://research.duolingo.com/papers/yancey.kdd20.pdf | Q2 | 4 | nlm:3f40b05f-169b-4e36-b317-fdadf7a86bc1 | done | `read-papers/2020_KDD_RDSA_Sleeping-Recovering-Bandit-Notifications.md`
 G26 | 2023 | Incrementality-Focused Messaging Measurement | Netflix blog | https://medium.com/notificationsblog/incrementality-focused-messaging-measurement-all-the-time-everywhere-94ef0c229368 | Q2 | 1 | nlm:failed:url-and-jina-and-webfetch | done-stub | `read-papers/2023_NetflixBlog_NA_Incrementality-Focused-Messaging-Measurement.md`
 G27 | 2026 | A Human-Augmenting Agentic Workflow for Causal Inference (oci-agent) | Netflix techblog | https://netflixtechblog.com/a-human-augmenting-agentic-workflow-for-causal-inference-4623f0a9c5af | Q2 | 3 | nlm:failed:url-and-jina-and-webfetch | done-stub | `read-papers/2026_NetflixBlog_oci-agent_Causal-Inference-Workflow.md`
+G28 | 2026 | PROMISE: Process Reward Models Unlock Test-Time Scaling Laws in Generative Recommendations | RecSys 2026 / Kuaishou | https://arxiv.org/pdf/2601.04674 | Q2 | 4 | nlm:df98b8e9-3fd2-465d-8f1b-23d0c51a8048 | done | `read-papers/2026_RecSys_PROMISE_Process-Reward-Generative-Recommendations.md`
+G29 | 2026 | Residual Dominance as a Structural Account of Last-Item Reliance | RecSys 2026 | https://arxiv.org/pdf/2608.14021 | Q2 | 2 | nlm:9dc30dae-7a13-4032-9339-5cf10dc1bc6a | done | `read-papers/2026_RecSys_ResidualDominance_Last-Item-Reliance-Causal-Attention.md`
+G30 | 2026 | STEPS: A Self-Triggered Agentic Push Recommendation System | RecSys 2026 / ByteDance | https://arxiv.org/pdf/2608.01949 | Q2 | 4 | nlm:9419d0b9-b40e-4e9c-8b49-5f24c45408ec | done | `read-papers/2026_RecSys_STEPS_Self-Triggered-Agentic-Push.md`
+G31 | 2026 | UniShare: Joint Video and Receiver Recommendation | RecSys 2026 / Kuaishou | https://arxiv.org/pdf/2602.09618 | Q2 | 4 | nlm:4824001b-1aa6-4c8e-9ff8-b77d45e029b4 | done | `read-papers/2026_RecSys_UniShare_Joint-Video-Receiver-Recommendation.md`
+G32 | 2026 | MODE: Mutual Optimality in Direct Effects | RecSys 2026 / CyberAgent | https://arxiv.org/pdf/2608.01731 | Q2 | 1 | nlm:204da68c-fb51-4df5-bd81-c2cb797e35a9 | done | `read-papers/2026_RecSys_MODE_Mutual-Optimality-Direct-Effects.md`
+G33 | 2026 | A Control Function Framework for Mitigating Position Bias | RecSys 2026 | https://arxiv.org/pdf/2506.06989 | Q2 | 3 | nlm:7915e99c-f464-494a-9ea5-dfb873b4d91f | done | `read-papers/2026_RecSys_ControlFunction_Mitigating-Position-Bias-LTR.md`
+G34 | 2026 | Towards Reliable Social A/B Testing (spillover-contained clustering) | RecSys 2026 / Kuaishou | https://arxiv.org/pdf/2602.08569 | Q2 | 2 | nlm:65d84922-448a-4dd1-950f-148e5c690bc9 | done | `read-papers/2026_RecSys_NA_Spillover-Contained-Social-AB-Testing.md`
+G35 | 2026 | On the Convergent Validity of Offline Evaluation Designs | RecSys 2026 | https://arxiv.org/pdf/2607.25097 | Q2 | 4 | nlm:7fedeced-8eec-409c-adc9-cff816b1f314 | done | `read-papers/2026_RecSys_NA_Convergent-Validity-Offline-Evaluation.md`
+G36 | 2026 | DeltaGate: Zero-Observation User Reactivation | RecSys 2026 / Huawei | https://arxiv.org/pdf/2607.19802 | Q2 | 4 | nlm:5e293de3-47dc-4334-97d6-e9bd99c3bfed | done | `read-papers/2026_RecSys_DeltaGate_Zero-Observation-User-Reactivation.md`
+G37 | 2026 | Multi-Objective Ranking for Live-Streaming | RecSys 2026 / Twitch | https://arxiv.org/pdf/2608.04455 | Q2 | 4 | nlm:f678e8c0-439b-4d8b-892f-d9df02becb0a | done | `read-papers/2026_RecSys_NA_Live-Streaming-Multi-Objective-Ranking.md`
+G38 | 2026 | Generalized Position-Based Model (GPBM) | RecSys 2026 / Amazon Science | https://www.amazon.science/publications/generalized-position-based-model-rethinking-position-weights-in-ranking-off-policy-evaluation | Q2 | 3 | nlm:9473661a-49fd-4ede-9ff0-ba2c686cf56f | done | `read-papers/2026_RecSys_GPBM_Generalized-Position-Based-Model.md`
+G39 | 2026 | TSMOO: Multi-Objective Constrained Thompson Sampling | RecSys 2026 / Amazon Science | https://www.amazon.science/publications/tsmoo-solving-multi-objective-experimentation-with-constrained-thompson-sampling | Q2 | 3 | nlm:8119ba67-ed0b-427c-9ffe-03ccc1da6d87 | done | `read-papers/2026_RecSys_TSMOO_Multi-Objective-Constrained-Thompson-Sampling.md`
+G40 | 2026 | Cascade Reward Representation for Preranking | RecSys 2026 / Pinterest | https://raw.githubusercontent.com/pellera9/cascade-reward-preranking/main/main.pdf | Q2 | 4 | nlm:62a7348a-4f29-4478-9fd8-8e8ae72cffc9 | done | `read-papers/2026_RecSys_CascadeReward_Preranking-Alignment-Accuracy.md`
+G41 | 2026 | A Causal Transformer Multi-Touch Attribution with Dual Debiasing | RecSys 2026 short | ACM paywall; no public PDF | Q1 | 1 | nlm:failed:paywall | done-stub | `read-papers/2026_RecSys_CausalTransformer_Multi-Touch-Attribution.md`
 
 ## Author-follow log
 

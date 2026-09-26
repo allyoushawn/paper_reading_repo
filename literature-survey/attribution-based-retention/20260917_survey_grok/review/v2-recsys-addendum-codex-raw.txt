@@ -1,0 +1,28 @@
+# PROOF OF READING
+
+- `recsys-addendum-surface.md` — “Q2 class on every G28–G41 card header: NOT.” (approximately line 6)
+- `executive-summary.md` — “Re-ingest Zhang and Gao RecSys 2026 Causal Transformer MTA when a PDF appears; do not treat the program blurb as a mechanism.” (approximately line 143)
+- `literature-review.md` — “Do not cite mechanism details beyond the stub.” (approximately line 181)
+- `method-tracker.md` — “None of G28–G41 outranks ALM-MTA, LinkedIn DDA, RevisitMTL, or IURO+ on the composite.” (approximately line 65)
+- `2026_RecSys_CausalTransformer_Multi-Touch-Attribution.md` — “Cannot verify architecture, identification assumptions, datasets, numbers, or whether ‘dual debiasing’ is position-bias, selection-bias, or both — those claims are from the program listing, not the paper body.” (approximately line 15)
+- `requirements.md` — “No TRUE per-touch retention MTA after RecSys 2026 addendum (G28–G41 all NOT).” (approximately line 49)
+
+1. **A — Yes.** The executive summary explicitly classifies every G28–G41 entry as NOT. The literature review and requirements give the same aggregate conclusion, and their individual paper discussions are consistent with it. The method tracker contains no contradictory classification.
+
+2. **B — No.** Of the four numerical claims, only residual mixing **0.72–0.96 down to 0.11–0.39** appears in the staged surface (approximately line 27). The staged surface and G41 stub do **not** contain:
+   - CBR LT-7 **+0.133% vs UBR +0.049%**
+   - STEPS UAD **+0.2843%**
+   - Cascade Homefeed save **+1.43%**
+
+   Those three numbers therefore lack support in the permitted review surface, even though they appear in the synthesis files.
+
+3. **C — No.** Zhang/Gao is consistently described as a paywalled stub. The synthesis labels dual debiasing and conversion-credit claims as program-language or unverified, avoids asserting architecture details, and explicitly says it does not displace ALM-MTA.
+
+4. **D — No.** The addendum preserves the stated plan: binary N7; v1 called a removal score rather than incremental lift; and v2 as calibrated deep DDA. Adding v3 randomized holdbacks is an extension, not a reversal of those decisions.
+
+5. **E — No substantive author mismatch, but several titles are not exact matches.** Authors are correctly associated with their papers. Exact-title cleanup is needed for abbreviated citations, especially:
+   - Xia et al. omits “The” from *The Cascade Reward Representation for Preranking* in the literature review.
+   - The method tracker shortens the Gu, Knyazev, and Kozaki titles by dropping their subtitles or final clauses.
+   - The Zhang/Gao tracker row uses “RecSys 2026 advertising MTA” instead of the surface’s full title.
+
+6. **Verdict — PASS WITH FIXES.** Stage or remove the three unsupported numerical results, and normalize abbreviated titles if exact surface matching is required.

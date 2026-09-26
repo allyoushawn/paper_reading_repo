@@ -15,7 +15,7 @@
 * **Title:** *Long-term User Engagement Optimization through Model-agnostic Downstream Rewards Learning* [1, 2]
 * **Authors:** **Dingsu Wang**, **Filip Ryzner**, **Kelly He**, **Armando Ordorica**, **David Woo**\* (*Corresponding author*), **Aditya Mantha**, **Liyao Lu**, **Usha Amrutha Nookala**, **Haoran Guo**, **Jiacong He**, **Olafur Gudmundsson**, **Matt Chun**, **Krystal Benitez**, **Haibin Xie**, **Alekhya Pyla**, **Sameer Jain**, **Zhongjian Jiang**, **Shruthi Hariharan**, **Dhruvil Deven Badani**, and **Yijie Dylan Wang** (*All authors contributed equally*) [2].
 * **Affiliation:** **Pinterest**, San Francisco, CA, USA [2].
-* **Year & Venue:** Published in **August 2026** as an arXiv pre-print (`arXiv:2607.14192v3 [cs.LG]`, 21 Aug 2026) [2].
+* **Year & Venue:** Published in **August 2026** as an arXiv pre-print (`arXiv:2607.14192v3 [cs.LG]`, 21 Aug 2026) [2]. RecSys 2026 industry-track listing uses the same paper; this card is the earlier arXiv ingest (G23) and was **not** re-extracted.
 
 ---
 

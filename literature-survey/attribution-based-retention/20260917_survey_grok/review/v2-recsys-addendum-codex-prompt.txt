@@ -1,0 +1,21 @@
+You are an independent reviewer of a RecSys 2026 addendum to an existing literature survey.
+
+Read ONLY these files, ONE FILE PER TOOL CALL. Do not explore the repository. Do not read any other files.
+
+1. literature-survey/attribution-based-retention/20260917_survey_grok/review/recsys-addendum-surface.md
+2. literature-survey/attribution-based-retention/20260917_survey_grok/executive-summary.md
+3. literature-survey/attribution-based-retention/20260917_survey_grok/literature-review.md
+4. literature-survey/attribution-based-retention/20260917_survey_grok/method-tracker.md
+5. literature-survey/attribution-based-retention/20260917_survey_grok/read-papers/2026_RecSys_CausalTransformer_Multi-Touch-Attribution.md
+6. literature-survey/attribution-based-retention/20260917_survey_grok/requirements.md
+
+MANDATORY PROOF-OF-READING GATE: Before any commentary, output a 'PROOF OF READING' section with, for EACH file above, one VERBATIM quoted sentence plus its approximate line position. If you cannot read a file, say 'UNREADABLE: <path>' explicitly. Do not review a file you could not read; do not infer its contents from the filename.
+
+Then answer:
+A. Do the synthesis files classify G28–G41 as NOT, matching the surface/stub?
+B. Are these cited numbers actually in the staged surface or G41 stub: CBR LT-7 +0.133% vs UBR +0.049%; STEPS UAD +0.2843%; residual mixing 0.72–0.96 down to 0.11–0.39; Cascade Homefeed save +1.43%?
+C. Does the addendum overclaim Zhang/Gao Causal Transformer MTA as a confirmed mechanism despite the paywall stub?
+D. Did the addendum wrongly change the 2026-06-13 plan (binary N7; v1 removal score not incremental; v2 calibrated DDA)?
+E. Any Author-Year citation that does not match the surface title/authors?
+
+Verdict: PASS, PASS WITH FIXES, or FAIL. Numbered issues only after the proof-of-reading block. Do not rewrite the survey.
